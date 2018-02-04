@@ -58,12 +58,18 @@ typedef struct		s_sphere
 	double	ray;
 }					t_sphere;
 
+typedef struct		s_luz
+{
+	t_point	p;
+	double	power;
+}					t_luz;
+
 typedef struct		s_control
 {
 	t_coef		*coef;
 	t_ray		*r;
 	t_sphere	*s;
-	t_point		*p;
+	t_luz		*l;
 }					t_control;
 
 
@@ -79,14 +85,16 @@ int					ft_keyhook(int key, t_control *e);
 int					quit(void);
 
 void				rt(t_control *l);
-t_point				*ope_add(t_point *p, t_point *b);
-t_point				*ope_sus(t_point *p, t_point *b);
-t_point				*ope_mulv2(double a, t_point *b);
-t_point				*ope_mulv1(t_point *b, double a);
-t_point				*ope_div(t_point *p, double a);
-double				dot(t_point *p, t_point *b);
-double				getnorm2(t_point *p);
-void				normalize(t_point *p);
-int					intersec(t_control *l);
+t_point				ope_add(t_point p, t_point b);
+t_point				ope_sus(t_point p, t_point b);
+t_point				ope_mulv2(double a, t_point b);
+t_point				ope_mulv1(t_point b, double a);
+t_point				ope_div(t_point p, double a);
+double				dot(t_point p, t_point b);
+double				getnorm2(t_point p);
+t_point				normalize(t_point p);
+int					intersec(t_control *l, t_point *pos, t_point *norm);
+
+t_point				init_point(double x, double y, double z);
 
 #endif

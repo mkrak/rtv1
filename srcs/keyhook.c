@@ -20,8 +20,9 @@ int					ft_keyhook(int key, t_control *e)
 		free(e->coef);
 		free(e->r);
 		free(e->s);
-		free(e->p);
+		free(e->l);
 		exit(EXIT_SUCCESS);
+
 	}
 	else
 		return (0);
