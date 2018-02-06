@@ -14,18 +14,17 @@
 
 void				init_w(t_control *l)
 {	
+	t_obj tmp[2];
 	// l->s = init_sphere(l->s);
+	
 
-//	init_point();
+	tmp[0].s = init_sphere(init_point(0, 0, -55) , 20, init_point(1, 0, 0));
+	tmp[1].s = init_sphere(init_point(0, -2020, 0) , 2000, init_point(0, 1, 0));
 
-	l->s->p.posx = 0;
-	l->s->p.posy = 0;
-	l->s->p.posz = -55;
-	l->s->ray = 20;
+	l->obj[0].s = tmp[0].s;
+	l->obj[1].s = tmp[1].s; 
 
-	l->l->p.posx = 15;
-	l->l->p.posy = 70;
-	l->l->p.posz = -30;
+	l->l->p  = init_point(15, 70, -30);
 	l->l->power = 80000;
 	rt(l);
 }
@@ -43,15 +42,18 @@ t_point		init_point(double x, double y, double z)
 }
 
 
-// t_sphere		init_sphere(t_sphere s)
-// {
-// 	s->p.posx = 0;
-// 	s->p.posy = 0;
-// 	s->p.posz = -55;
-// 	s->ray = 20;
+t_sphere		init_sphere(t_point p, double ray, t_point color)
+{
+	t_sphere tmp;
 
-// 	return (s);
-// }
+	tmp.p.posx = p.posx;
+	tmp.p.posy = p.posy;
+	tmp.p.posz = p.posz;
+	tmp.ray = ray;
+	tmp.color = color;
+
+	return (tmp);
+}
 
 void		rt(t_control *l)
 {
@@ -75,15 +77,10 @@ void		rt(t_control *l)
 			t_point *norm = (t_point*)malloc(sizeof(t_point));
 	   		t_point *pos = (t_point*)malloc(sizeof(t_point));
 
-			double power = 0;
+			t_point power;
 			if(intersec(l, pos, norm))
-			{
-				//printf("1normx = %f, normy = %f, normz = %f,\n", get_norm(ope_sus(l->l->p, *pos)).posx, get_norm(ope_sus(l->l->p, *pos)).posy, get_norm(ope_sus(l->l->p, *pos)).posz);
-				//printf("1normx = %f, normy = %f, normz = %f,\n", norm->posx, norm->posy, norm->posz);
-				
-				power = l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, *pos)), *norm)) / getnorm2(ope_sus(l->l->p, *pos));
-			//	if (power!=0)
-			//	printf("%f\n", power);
+			{	
+				power = ope_mulv1(l->obj->s.color, l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, *pos)), *norm)) / getnorm2(ope_sus(l->l->p, *pos)));
 				put_pixel(l->coef, px, py, power);
 			}
 			py++;
@@ -98,9 +95,10 @@ void		rt(t_control *l)
 
 int		intersec(t_control *l, t_point *pos, t_point *norm)
 {
+	int i = 0;
 	double a = 1;
-	double b = 2 * dot(l->r->d, ope_sus(l->r->o, l->s->p));
-	double c = getnorm2(ope_sus(l->r->o, l->s->p)) - (l->s->ray * l->s->ray);
+	double b = 2 * dot(l->r->d, ope_sus(l->r->o, l->obj[i].s.p));
+	double c = getnorm2(ope_sus(l->r->o, l->obj[i].s.p)) - (l->obj[i].s.ray * l->obj[i].s.ray);
 	double delta = (b * b) - (4 * a * c);
 
 
@@ -118,8 +116,8 @@ int		intersec(t_control *l, t_point *pos, t_point *norm)
 	else
 		t = t2;
 
-	*pos = ope_add(l->r->o, ope_mulv2(t, l->r->d));  
-	*norm = ope_sus(*pos, l->s->p);
+	*pos = ope_add(l->r->o, ope_mulv1(l->r->d, t));  
+	*norm = ope_sus(*pos, l->obj[i].s.p);
 //	printf("5      norm = %f  norm = %f norm = %f\n", norm->posx, norm->posy, norm->posz);
 //	printf("6      norm = %f  norm = %f norm = %f\n", pos->posx, pos->posy, pos->posz);
 	return (1);
@@ -171,13 +169,13 @@ t_point		ope_add(t_point p, t_point b)
 
 
 
-t_point		ope_mulv2(double a, t_point b)
+t_point		ope_mulv2(t_point a, t_point b)
 {
 	t_point tmp;
 
-	tmp.posx = a * b.posx;
-	tmp.posy = a * b.posy;
-	tmp.posz = a * b.posz;
+	tmp.posx = a.posx * b.posx;
+	tmp.posy = a.posx * b.posy;
+	tmp.posz = a.posx * b.posz;
 
 	return (tmp);
 }

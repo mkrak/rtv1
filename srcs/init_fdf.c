@@ -27,7 +27,7 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				put_pixel(t_coef *s, int x, int y, int color)
+void				put_pixel(t_coef *s, int x, int y, t_point color)
 {
 	int	i = 0;
  //	int c = 255;
@@ -35,11 +35,13 @@ void				put_pixel(t_coef *s, int x, int y, int color)
 		return ;
 //	 i = x * 4 + y * s->sl;
 	i = ((H - x - 1) * W + y) * 4; 	
-	color = fmin(255, fmax(0, color));
+	color.posx = fmin(255, fmax(0, color.posx));
+	color.posy = fmin(255, fmax(0, color.posy));
+	color.posz = fmin(255, fmax(0, color.posz));
 	
-	s->data[i] =  color;
-	s->data[++i] = color;
-	s->data[++i] = color;
+	s->data[i] =  color.posz;
+	s->data[++i] = color.posy;
+	s->data[++i] = color.posx;
 
 	// s->data[i] =  (color & 0xff);
 	// s->data[++i] = ((color >> 8) & 0xff);
@@ -63,8 +65,9 @@ int					main(int ac, char **av)
 	}
 	lll.r = (t_ray*)malloc(sizeof(t_ray));
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.s = (t_sphere*)malloc(sizeof(t_sphere));
+//	lll.s = (t_sphere*)malloc(sizeof(t_sphere));
 	lll.l = (t_luz*)malloc(sizeof(t_luz));
+	lll.obj = (t_obj*)malloc(sizeof(t_obj) * 2);
 	init_struct(lll.coef);
 	new_image(lll.coef);
 	////////////////////////

@@ -19,7 +19,7 @@ int					ft_keyhook(int key, t_control *e)
 		mlx_destroy_image(e->coef->mlx, e->coef->img);
 		free(e->coef);
 		free(e->r);
-		free(e->s);
+		free(e->obj);
 		free(e->l);
 		exit(EXIT_SUCCESS);
 
