@@ -70,6 +70,14 @@ typedef struct		s_obj
 	t_sphere s;
 }					t_obj;
 
+typedef struct		s_inter
+{
+	t_point pos;
+	t_point norm;
+	int id;
+	double t;
+}					t_inter;
+
 typedef struct		s_control
 {
 	t_coef		*coef;
@@ -99,7 +107,7 @@ t_point				ope_div(t_point p, double a);
 double				dot(t_point p, t_point b);
 double				getnorm2(t_point p);
 t_point				normalize(t_point p);
-int					intersec(t_control *l, t_point *pos, t_point *norm);
+t_inter				intersec(t_control *l, int i);
 
 t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color);

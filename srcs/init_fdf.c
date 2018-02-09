@@ -67,7 +67,7 @@ int					main(int ac, char **av)
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
 //	lll.s = (t_sphere*)malloc(sizeof(t_sphere));
 	lll.l = (t_luz*)malloc(sizeof(t_luz));
-	lll.obj = (t_obj*)malloc(sizeof(t_obj) * 2);
+	lll.obj = (t_obj*)malloc(sizeof(t_obj) * 6);
 	init_struct(lll.coef);
 	new_image(lll.coef);
 	////////////////////////
