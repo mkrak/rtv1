@@ -14,16 +14,16 @@
 
 void				init_w(t_control *l)
 {	
-	t_obj tmp[6];
+	t_obj tmp[7];
 
-	tmp[0].s = init_sphere(init_point(0, 0, -55) , 10, init_point(1, 0, 0));
-//	tmp[1].s = init_sphere(init_point(4, 5, -20) , 2, init_point(0, 1, 0));
+	tmp[0].s = init_sphere(init_point(13, 10, -75) , 11, init_point(1, 0, 0));
 //	tmp[2].s = init_sphere(init_point(0, 0, -175) , 120, init_point(0, 0, 1));
-	tmp[1].s = init_sphere(init_point(0, -2020, 0) , 2000, init_point(0.9, 1, 1));
-	tmp[2].s = init_sphere(init_point(0, 2100, 0) , 2000, init_point(1, 1, 0.9));
-	tmp[3].s = init_sphere(init_point(-2050, 0, 0) , 2000, init_point(0, 1, 0));
-	tmp[4].s = init_sphere(init_point(2050, 0, 0) , 2000, init_point(0, 1, 1));
-	tmp[5].s = init_sphere(init_point(0, 0, -2300) , 2000, init_point(1, 1, 0));
+	tmp[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1));
+	tmp[2].s = init_sphere(init_point(0, 5100, 0) , 5000, init_point(0.5, 0, 0));
+	tmp[3].s = init_sphere(init_point(-5050, 0, 0) , 5000, init_point(0, 1, 0));
+	tmp[4].s = init_sphere(init_point(5050, 0, 0) , 5000, init_point(0, 1, 1));
+	tmp[5].s = init_sphere(init_point(0, 0, -5300) , 5000, init_point(1, 1, 0));
+	tmp[6].s = init_sphere(init_point(-13, 10, -75) , 11, init_point(0, 1, 0));
 
 	l->obj[0].s = tmp[0].s;
 	l->obj[1].s = tmp[1].s;
@@ -31,9 +31,10 @@ void				init_w(t_control *l)
 	l->obj[3].s = tmp[3].s;
 	l->obj[4].s = tmp[4].s;
 	l->obj[5].s = tmp[5].s;
+	l->obj[6].s = tmp[6].s;
 
-	l->l->p  = init_point(15, 15, -0);
-	l->l->power = 80000;
+	l->l->p  = init_point(0, 10, -40);
+	l->l->power = 35000;
 	rt(l);
 }
 
@@ -65,29 +66,25 @@ t_sphere		init_sphere(t_point p, double ray, t_point color)
 
 void		rt(t_control *l)
 {
-	t_point power;
+	t_point power = init_point(0, 0, 0);
 	t_inter inter;
 	t_inter t;
 	double fov = 60 * PI / 180;
 	int px = 0;
 	int py = 0;
+	int i = 0;
 
 	while(px < H)
 	{
 		while(py < W)
 		{
-			l->r->d.posx = py - W / 2;
-			l->r->d.posy = px - H / 2;
-			l->r->d.posz = -W / (2 * tan(fov / 2));
+			l->r->d = init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2)));
 			l->r->d = normalize(l->r->d);
+			l->r->o = init_point(0, 0, 0);
 
-			l->r->o.posx = 0;
-			l->r->o.posy = 0;
-			l->r->o.posz = 0;
-
-			int i = 0;
+			i = 0;
 			t.t = 0;
-			while (i < 6)
+			while (i < 7)
 			{
 				inter = intersec(l, i);
 
@@ -99,10 +96,28 @@ void		rt(t_control *l)
 			}
 			if(t.t !=0)
 			{	
-				power = ope_mulv1(l->obj[t.id].s.color, l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, t.pos)), t.norm)) / getnorm2(ope_sus(l->l->p, t.pos)));
+				l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.01));
+				l->r->d = normalize(ope_sus(l->l->p, t.pos));
+
+				i = 0;
+				t_inter ombre;
+				ombre.t = 0;
+				while (i < 7)
+				{
+					inter = intersec(l, i);
+					if (ombre.t == 0 && inter.t != 0)
+						ombre = inter;
+					else if (inter.t < ombre.t && inter.t != 0)
+						ombre = inter;
+					i++;
+				}
+				double dist_l2 = getnorm2(ope_sus(l->l->p, t.pos));
+				if(ombre.t !=0 && ombre.t * ombre.t < dist_l2)
+					power = init_point(0, 0, 0);
+				else
+					power = ope_mulv1(l->obj[t.id].s.color, l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, t.pos)), t.norm)) / dist_l2);
 				put_pixel(l->coef, px, py, power);
 			}
-			
 			py++;
 		}
 		px++;
