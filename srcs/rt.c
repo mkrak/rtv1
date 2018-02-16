@@ -17,12 +17,11 @@ void				init_w(t_control *l)
 	t_obj tmp[7];
 
 	tmp[0].s = init_sphere(init_point(13, 10, -75) , 11, init_point(1, 0, 0));
-//	tmp[2].s = init_sphere(init_point(0, 0, -175) , 120, init_point(0, 0, 1));
-	tmp[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1));
-	tmp[2].s = init_sphere(init_point(0, 5100, 0) , 5000, init_point(0.5, 0, 0));
-	tmp[3].s = init_sphere(init_point(-5050, 0, 0) , 5000, init_point(0, 1, 0));
-	tmp[4].s = init_sphere(init_point(5050, 0, 0) , 5000, init_point(0, 1, 1));
-	tmp[5].s = init_sphere(init_point(0, 0, -5300) , 5000, init_point(1, 1, 0));
+	tmp[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1)); // bas
+	tmp[2].s = init_sphere(init_point(0, 5050, 0) , 5000, init_point(0.5, 0, 0)); //haut
+	tmp[3].s = init_sphere(init_point(-5050, 0, 0) , 5000, init_point(0, 1, 0)); // gaucche
+	tmp[4].s = init_sphere(init_point(5050, 0, 0) , 5000, init_point(0, 1, 1));  // droite
+	tmp[5].s = init_sphere(init_point(0, 0, -5100) , 5000, init_point(1, 1, 0)); //fond
 	tmp[6].s = init_sphere(init_point(-13, 10, -75) , 11, init_point(0, 1, 0));
 
 	l->obj[0].s = tmp[0].s;
@@ -33,8 +32,8 @@ void				init_w(t_control *l)
 	l->obj[5].s = tmp[5].s;
 	l->obj[6].s = tmp[6].s;
 
-	l->l->p  = init_point(0, 10, -40);
-	l->l->power = 35000;
+	l->l->p  = init_point(15, 49, -99);
+	l->l->power = 6666000;
 	rt(l);
 }
 
@@ -55,9 +54,7 @@ t_sphere		init_sphere(t_point p, double ray, t_point color)
 {
 	t_sphere tmp;
 
-	tmp.p.posx = p.posx;
-	tmp.p.posy = p.posy;
-	tmp.p.posz = p.posz;
+	tmp.p = init_point(p.posx, p.posy, p.posz);
 	tmp.ray = ray;
 	tmp.color = color;
 
@@ -69,7 +66,7 @@ void		rt(t_control *l)
 	t_point power = init_point(0, 0, 0);
 	t_inter inter;
 	t_inter t;
-	double fov = 60 * PI / 180;
+	double fov = 60 * M_PI / 180;
 	int px = 0;
 	int py = 0;
 	int i = 0;
@@ -80,11 +77,11 @@ void		rt(t_control *l)
 		{
 			l->r->d = init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2)));
 			l->r->d = normalize(l->r->d);
-			l->r->o = init_point(0, 0, 0);
+			l->r->o = init_point(0, 0, 60);
 
 			i = 0;
 			t.t = 0;
-			while (i < 7)
+			while (i < l->av)
 			{
 				inter = intersec(l, i);
 
@@ -96,7 +93,7 @@ void		rt(t_control *l)
 			}
 			if(t.t !=0)
 			{	
-				l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.01));
+				l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.000001));
 				l->r->d = normalize(ope_sus(l->l->p, t.pos));
 
 				i = 0;
@@ -163,89 +160,39 @@ t_inter		intersec(t_control *l, int i)
 
 double		getnorm2(t_point p)
 {
-	double tmp;
-
-	tmp = p.posx * p.posx + p.posy * p.posy + p.posz * p.posz;
-
-	return (tmp);
+	return (p.posx * p.posx + p.posy * p.posy + p.posz * p.posz);
 }
-
 
 t_point		normalize(t_point p)
 {
 	double norm;
 
 	norm = sqrt(getnorm2(p));
-	p.posx /= norm;
-	p.posy /= norm;
-	p.posz /= norm;
-
-	return (p);
+	return (init_point(p.posx / norm, p.posy / norm, p.posz / norm));
 }
 
 t_point		ope_sus(t_point p, t_point b)
 {
-	t_point tmp;
-
-	tmp.posx = p.posx - b.posx;
-	tmp.posy = p.posy - b.posy;
-	tmp.posz = p.posz - b.posz;
-
-	return (tmp);
+	return (init_point(p.posx - b.posx, p.posy - b.posy, p.posz - b.posz));
 }
 
 t_point		ope_add(t_point p, t_point b)
 {
-	t_point tmp;
-
-	tmp.posx = p.posx + b.posx;
-	tmp.posy = p.posy + b.posy;
-	tmp.posz = p.posz + b.posz;
-
-	return (tmp);
-}
-
-
-
-t_point		ope_mulv2(t_point a, t_point b)
-{
-	t_point tmp;
-
-	tmp.posx = a.posx * b.posx;
-	tmp.posy = a.posx * b.posy;
-	tmp.posz = a.posx * b.posz;
-
-	return (tmp);
+	return (init_point(p.posx + b.posx, p.posy + b.posy, p.posz + b.posz));
 }
 
 t_point		ope_mulv1(t_point b, double a)
 {
-	t_point tmp;
-
-	tmp.posx = a * b.posx;
-	tmp.posy = a * b.posy;
-	tmp.posz = a * b.posz;
-
-	return (tmp);
+	return (init_point(a * b.posx, a * b.posy, a * b.posz));
 }
 
 t_point		ope_div(t_point p, double a)
 {
-	t_point tmp;
-
-	tmp.posx = p.posx / a;
-	tmp.posy = p.posy / a;
-	tmp.posz = p.posz / a;
-
-	return (tmp);
+	return (init_point(p.posx / a, p.posy / a, p.posz / a));
 }
 
 double		dot(t_point p, t_point b)
 {
-	double dot;
-
-	dot = p.posx * b.posx + p.posy * b.posy + p.posz * b.posz;
-
-	return (dot);
+	return (p.posx * b.posx + p.posy * b.posy + p.posz * b.posz);
 }
 

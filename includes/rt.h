@@ -14,7 +14,6 @@
 # define RT_H
 # define H 1024
 # define W 1024
-# define PI 3.1415926535897932
 
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
@@ -84,11 +83,9 @@ typedef struct		s_control
 	t_ray		*r;
 	t_luz		*l;
 	t_obj		*obj;
+	int 		av;
 }					t_control;
 
-
-
- 
 
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
