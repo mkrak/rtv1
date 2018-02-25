@@ -56,6 +56,7 @@ typedef struct		s_sphere
 	t_point	p;
 	double	ray;
 	t_point color;
+	int type;
 }					t_sphere;
 
 typedef struct		s_luz
@@ -107,6 +108,7 @@ t_point				normalize(t_point p);
 t_inter				intersec(t_control *l, int i);
 
 t_point				init_point(double x, double y, double z);
-t_sphere			init_sphere(t_point p, double ray, t_point color);
+t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
+t_point				get_color(t_control *l, t_point power, int nb_ite);
 
 #endif
