@@ -16,14 +16,14 @@ void				init_w(t_control *l)
 {	
 	t_obj tmp[l->av];
 
-	tmp[0].s = init_sphere(init_point(20, 10, -55) , 10, init_point(1, 0, 0), 1);
+	tmp[0].s = init_sphere(init_point(25, 10, -55) , 10, init_point(1, 0, 0), 0);
 	tmp[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1), 0); // bas
 	tmp[2].s = init_sphere(init_point(0, 5050, 0) , 5000, init_point(0.5, 0, 0), 0); //haut
 	tmp[3].s = init_sphere(init_point(-5050, 0, 0) , 5000, init_point(0, 1, 0), 0); // gauche
 	tmp[4].s = init_sphere(init_point(5050, 0, 0) , 5000, init_point(0, 1, 1), 0);  // droite
-	tmp[5].s = init_sphere(init_point(0, 0, -5100) , 5000, init_point(1, 1, 0), 0); //fond
-	tmp[6].s = init_sphere(init_point(0, 0, 5100) , 5000, init_point(1, 0, 1), 0);
-	tmp[7].s = init_sphere(init_point(-20, 10, -55) , 10, init_point(0, 1, 0), 1);
+	tmp[5].s = init_sphere(init_point(0, 0, -5100) , 5000, init_point(1, 1, 0), 1); //fond
+	tmp[6].s = init_sphere(init_point(0, 0, 5100) , 5000, init_point(1, 0, 1), 1);  //derriere
+	tmp[7].s = init_sphere(init_point(-25, 10, -55) , 10, init_point(0, 1, 0), 2);
 
 	l->obj[0].s = tmp[0].s;
 	l->obj[1].s = tmp[1].s;
@@ -34,8 +34,8 @@ void				init_w(t_control *l)
 	l->obj[6].s = tmp[6].s;
 	l->obj[7].s = tmp[7].s;
 
-	l->l->p  = init_point(0, 20, -10);
-	l->l->power = 66666;
+	l->l->p  = init_point(0, 40, -55);
+	l->l->power = 96666000;
 	rt(l);
 }
 
@@ -58,10 +58,8 @@ t_sphere		init_sphere(t_point p, double ray, t_point color, int type)
 	tmp.p = init_point(p.posx, p.posy, p.posz);
 	tmp.ray = ray;
 	tmp.color = color;
-	if (type == 1)
-		tmp.type = 1;
-	else
-		tmp.type = 0;
+	tmp.type = type;
+	
 	return (tmp);
 }
 
@@ -77,8 +75,8 @@ void		rt(t_control *l)
 		while(py < W)
 		{
 			l->r->d = normalize(init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2))));
-			l->r->o = init_point(0, 0, 30);
-			power = get_color(l, power, 5);
+			l->r->o = init_point(0, 0, 80);
+			power = get_color(l, power, 15);
 			put_pixel(l->coef, px, py, power);
 			py++;
 		}
@@ -110,17 +108,35 @@ t_point		get_color(t_control *l, t_point power, int nb_ite)
 	}
 	if(t.t !=0)
 	{	
-		// if (l->obj[t.id].s.type)
-		// {	
-		// 	t_point direction = ope_sus(l->r->d, ope_mulv1(ope_mulv1(t.norm, dot(t.norm, l->r->d)), 2));
-		// 	l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.00000001));
-		// 	l->r->d = direction;
-		// 	power = get_color(l, power, nb_ite - 1);
-		// }
+		if (l->obj[t.id].s.type == 1)
+		{	
+			l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
+			 l->r->d = normalize(ope_sus(l->r->d, ope_mulv1(t.norm, dot(t.norm, l->r->d) * 2)));
+				//l->r->d = ope_sus(l->r->d, ope_mulv1(t.norm, dot(t.norm, l->r->d) * 2));
+			power = get_color(l, power, nb_ite - 1);
+		}
+		else if (l->obj[t.id].s.type == 2)
+		{
+			double n1 = 1;
+			double n2 = 1.3;
+			if (dot(l->r->d, t.norm) > 0)
+			{
+				n1 = 1.3;
+				n2 = 1;
+				t.norm = ope_mulv1(t.norm, -1);
+			}
+			double radical = 1 - sqrt(n1 / n2) * (1 - sqrt(dot(t.norm, l->r->d)));
+			if (radical > 0)
+			{
+				l->r->o = ope_sus(t.pos, ope_mulv1(t.norm, 0.001));
+				l->r->d = ope_mulv1(ope_sus(l->r->d, ope_mulv1(t.norm, dot(l->r->d, t.norm))), (n1 / n2));
+				power = get_color(l, power, nb_ite - 1);
+			}
+		}
 
-		// else
-		// {
-			l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.00000001));
+		else
+		{
+			l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
 			l->r->d = normalize(ope_sus(l->l->p, t.pos));
 			i = 0;
 			t_inter ombre;
@@ -138,8 +154,8 @@ t_point		get_color(t_control *l, t_point power, int nb_ite)
 			if(ombre.t !=0 && ombre.t * ombre.t < dist_l2)
 				power = init_point(0, 0, 0);
 			else
-				power = ope_mulv1(l->obj[t.id].s.color, l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, t.pos)), t.norm)) / dist_l2);
-	//	}
+			power = ope_mulv1(l->obj[t.id].s.color, l->l->power * fmax(0, dot(normalize(ope_sus(l->l->p, t.pos)), t.norm)) / dist_l2);
+		}
 	}
 	return (power);
 }
@@ -171,6 +187,7 @@ t_inter		intersec(t_control *l, int i)
 		ret.t = t2;
 	ret.pos = ope_add(l->r->o, ope_mulv1(l->r->d, ret.t));  
 	ret.norm = ope_sus(ret.pos, l->obj[i].s.p);
+	ret.norm = normalize(ret.norm);
 	return (ret);
 }
 

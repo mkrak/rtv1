@@ -35,12 +35,12 @@ void				put_pixel(t_coef *s, int x, int y, t_point color)
 		return ;
 
 	i = ((H - x - 1) * W + y) * 4; 	
-	// color.posx = fmin(255, fmax(0, pow(color.posx, 1 / 2.2)));
-	// color.posy = fmin(255, fmax(0, pow(color.posy, 1 / 2.2)));
-	// color.posz = fmin(255, fmax(0, pow(color.posz, 1 / 2.2)));
-	color.posx = fmin(255, fmax(0, color.posx));
-	color.posy = fmin(255, fmax(0, color.posy));
-	color.posz = fmin(255, fmax(0, color.posz));
+	color.posx = fmin(255, fmax(0, pow(color.posx, 1 / 2.2)));
+	color.posy = fmin(255, fmax(0, pow(color.posy, 1 / 2.2)));
+	color.posz = fmin(255, fmax(0, pow(color.posz, 1 / 2.2)));
+	// color.posx = fmin(255, fmax(0, color.posx));
+	// color.posy = fmin(255, fmax(0, color.posy));
+	// color.posz = fmin(255, fmax(0, color.posz));
 
 	s->data[i] =  color.posz;
 	s->data[++i] = color.posy;
