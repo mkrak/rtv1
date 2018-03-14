@@ -75,8 +75,9 @@ void		rt(t_control *l)
 		while(py < W)
 		{
 			l->r->d = normalize(init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2))));
-			l->r->o = init_point(0, 0, 80);
-			power = get_color(l, power, 15);
+			l->r->d = rotate_cam(l->r->d);
+			l->r->o = init_point(0, 0, 0);
+			power = get_color(l, power, 5);
 			put_pixel(l->coef, px, py, power);
 			py++;
 		}
@@ -84,6 +85,29 @@ void		rt(t_control *l)
 		py = 0;
 	}
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, l->coef->img, 0, 0);
+}
+
+t_point		rotate_cam(t_point d)
+{
+	t_point tmp;
+	double n;
+
+	n =  20 * M_PI / 180;
+	// tmp.posx = d.posx;
+	// tmp.posy = cos(n) * d.posy - sin(n) * d.posz;
+	// tmp.posz = sin(n) * d.posy + cos(n) * d.posz;
+
+
+	tmp.posx = cos(n) * d.posx + sin(n) * d.posz;
+	tmp.posy = d.posy;
+	tmp.posz = -sin(n) * d.posx + cos(n) * d.posz;
+
+	tmp.posx = cos(n) * d.posx - sin(n) * d.posy;
+	tmp.posy = sin(n) * d.posx + cos(n) * d.posy;
+	tmp.posz = d.posz;
+
+	return (tmp);
+
 }
 
 t_point		get_color(t_control *l, t_point power, int nb_ite)
@@ -115,25 +139,6 @@ t_point		get_color(t_control *l, t_point power, int nb_ite)
 				//l->r->d = ope_sus(l->r->d, ope_mulv1(t.norm, dot(t.norm, l->r->d) * 2));
 			power = get_color(l, power, nb_ite - 1);
 		}
-		else if (l->obj[t.id].s.type == 2)
-		{
-			double n1 = 1;
-			double n2 = 1.3;
-			if (dot(l->r->d, t.norm) > 0)
-			{
-				n1 = 1.3;
-				n2 = 1;
-				t.norm = ope_mulv1(t.norm, -1);
-			}
-			double radical = 1 - sqrt(n1 / n2) * (1 - sqrt(dot(t.norm, l->r->d)));
-			if (radical > 0)
-			{
-				l->r->o = ope_sus(t.pos, ope_mulv1(t.norm, 0.001));
-				l->r->d = ope_mulv1(ope_sus(l->r->d, ope_mulv1(t.norm, dot(l->r->d, t.norm))), (n1 / n2));
-				power = get_color(l, power, nb_ite - 1);
-			}
-		}
-
 		else
 		{
 			l->r->o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));

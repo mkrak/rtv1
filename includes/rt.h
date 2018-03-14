@@ -106,6 +106,7 @@ double				dot(t_point p, t_point b);
 double				getnorm2(t_point p);
 t_point				normalize(t_point p);
 t_inter				intersec(t_control *l, int i);
+t_point				rotate_cam(t_point d);
 
 t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
