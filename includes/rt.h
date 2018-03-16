@@ -14,7 +14,8 @@
 # define RT_H
 # define H 1024
 # define W 1024
-# define RAY l->r
+# define OBJ l->obj[t.id]
+# define OBJ_I l->obj[i]
 
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
@@ -84,35 +85,48 @@ typedef struct		s_control
 	t_coef		*coef;
 	t_ray		*r;
 	t_luz		*l;
+	int 		nb_luz;
 	t_obj		*obj;
-	int 		av;
+	int 		nb_obj;
+	int 		obj_i;
 }					t_control;
 
-
+//main
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
 void				put_pixel(t_coef *scoef, int x, int y, t_point color);
-void				init_w(t_control *l);
-
-int					ft_keyhook(int key, t_control *e);
 int					quit(void);
 
-void				rt(t_control *l);
-t_point				ope_add(t_point p, t_point b);
-t_point				ope_sus(t_point p, t_point b);
-t_point				ope_mulv2(t_point a, t_point b);
-t_point				ope_mulv1(t_point b, double a);
-t_point				ope_div(t_point p, double a);
-double				dot(t_point p, t_point b);
-double				getnorm2(t_point p);
-t_point				normalize(t_point p);
-t_inter				intersec(t_control *l, int i);
-t_point				rotate_cam(t_point d);
+//keyhook
+int					ft_keyhook(int key, t_control *e);
 
+//init
+void				init_w(t_control *l);
 t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
-t_point				get_color(t_control *l, int nb_ite, int j);
-t_point				ope_mult2v(t_point p, t_point b);
-t_point				ope_div2v(t_point p, t_point b);
+
+//rt
+void				rt(t_control *l);
+t_point				get_color(t_control *l, int nb_ite, t_ray ray);
+t_inter				intersec(t_control *l, int i, t_ray ray);
+t_point				ombre(t_ray ray, t_control *l, t_inter t);
+
+//ope_vec
+double				getnorm2(t_point p);
+t_point				normalize(t_point p);
+t_point				ope_sus(t_point p, t_point b);
+t_point				ope_add(t_point p, t_point b);
+t_point				ope_mulv1(t_point b, double a);
+
+//ope_vec2
+t_point				rotate_cam(t_point d, double angle);
+double				dot(t_point p, t_point b);
+
+
+
+
+
+
+
 
 #endif

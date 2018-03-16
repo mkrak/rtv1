@@ -14,11 +14,10 @@
 
 int					ft_keyhook(int key, t_control *e)
 {
-	if (key == 53)
+	if (key == 65307)
 	{
 		mlx_destroy_image(e->coef->mlx, e->coef->img);
 		free(e->coef);
-		free(e->r);
 		free(e->obj);
 		free(e->l);
 		exit(EXIT_SUCCESS);

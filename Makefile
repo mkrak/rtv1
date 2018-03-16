@@ -8,8 +8,11 @@ LIBFT_DIR	=	libft/
 MLX_DIR		=	minilibx_macos/
 SRCS_DIR	=	srcs/
 SRCS_LIST	=	rt.c \
+				init.c \
+				ope_vec.c \
+				ope_vec2.c \
 				keyhook.c \
-				init_fdf.c
+				main.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))

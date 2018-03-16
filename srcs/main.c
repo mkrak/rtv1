@@ -54,14 +54,14 @@ int					main(int ac, char **av)
 
 	if (ac != 2 && av)
 	{
-		ft_putendl("Usage : ../wolf3d [map valide]");
+		ft_putendl("Usage : ../rt [Scene valide]");
 		return (-1);
 	}
-	lll.av = ft_atoi(av[1]);
-	lll.r = (t_ray*)malloc(sizeof(t_ray));
+	lll.nb_obj = ft_atoi(av[1]);
+	lll.nb_luz = 3; 
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.l = (t_luz*)malloc(sizeof(t_luz) * 2);
-	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.av);
+	lll.l = (t_luz*)malloc(sizeof(t_luz) * 3);
+	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.nb_obj);
 	init_struct(lll.coef);
 	new_image(lll.coef);
 	init_w(&lll);
