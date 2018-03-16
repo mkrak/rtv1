@@ -60,11 +60,10 @@ int					main(int ac, char **av)
 	lll.av = ft_atoi(av[1]);
 	lll.r = (t_ray*)malloc(sizeof(t_ray));
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.l = (t_luz*)malloc(sizeof(t_luz));
+	lll.l = (t_luz*)malloc(sizeof(t_luz) * 2);
 	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.av);
 	init_struct(lll.coef);
 	new_image(lll.coef);
-
 	init_w(&lll);
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 17, 0L, &quit, lll.coef);

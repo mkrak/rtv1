@@ -14,6 +14,7 @@
 # define RT_H
 # define H 1024
 # define W 1024
+# define RAY l->r
 
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
@@ -110,6 +111,8 @@ t_point				rotate_cam(t_point d);
 
 t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
-t_point				get_color(t_control *l, t_point power, int nb_ite);
+t_point				get_color(t_control *l, int nb_ite, int j);
+t_point				ope_mult2v(t_point p, t_point b);
+t_point				ope_div2v(t_point p, t_point b);
 
 #endif
