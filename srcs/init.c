@@ -14,8 +14,8 @@
 
 void				init_w(t_control *l)
 {
-	l->obj[0].s = init_sphere(init_point(15, 10, -55) , 12, init_point(1, 0, 0), 0);
-	l->obj[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1), 0); // bas
+	l->obj[0].s = init_sphere(init_point(15, 10, -55) , 12, init_point(1, 0, 0), 1);
+	l->obj[1].s = init_sphere(init_point(0, -5020, 0) , 5000, init_point(1, 1, 1), 2); // bas
 	l->obj[2].s = init_sphere(init_point(0, 5050, 0) , 5000, init_point(0.5, 0.5, 0), 0); //haut
 	l->obj[3].s = init_sphere(init_point(-5050, 0, 0) , 5000, init_point(0, 1, 0), 0); // gauche
 	l->obj[4].s = init_sphere(init_point(5050, 0, 0) , 5000, init_point(0, 1, 1), 0);  // droite

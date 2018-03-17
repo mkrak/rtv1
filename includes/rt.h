@@ -14,6 +14,7 @@
 # define RT_H
 # define H 1024
 # define W 1024
+# define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
 
@@ -91,6 +92,17 @@ typedef struct		s_control
 	int 		obj_i;
 }					t_control;
 
+
+typedef struct		s_damier
+{
+	int				x1;
+	int				y1;
+	int				z1;
+	double			px;
+	double			py;
+	double			pz;
+} 					t_damier;
+
 //main
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
@@ -125,7 +137,7 @@ double				dot(t_point p, t_point b);
 
 
 
-
+t_point			damier(t_control *l, t_inter inter);
 
 
 
