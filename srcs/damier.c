@@ -37,7 +37,7 @@ t_point			damier(t_control *l, t_inter inter)
         {
             color.posx = 255;
             color.posy = 255;
-            color.posz = 255;
+            color.posz = 0;
         }
     }
     else
@@ -46,7 +46,7 @@ t_point			damier(t_control *l, t_inter inter)
 		{
 		    color.posx = 255;
             color.posy = 255;
-            color.posz = 255;
+            color.posz = 0;
 		}
 		else
 		{

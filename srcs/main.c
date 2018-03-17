@@ -16,6 +16,7 @@ void				init_struct(t_coef *scoef)
 {
 	scoef->mlx = mlx_init();
 	scoef->win = mlx_new_window(scoef->mlx, W, H, "mlx 42");
+	scoef->load = malloc(sizeof(t_img));
 }
 
 void				new_image(t_coef *scoef)
@@ -51,6 +52,7 @@ int					quit(void)
 int					main(int ac, char **av)
 {
 	t_control	lll;
+	void		*menu_win;
 
 	if (ac != 2 && av)
 	{
@@ -63,8 +65,19 @@ int					main(int ac, char **av)
 	lll.l = (t_luz*)malloc(sizeof(t_luz) * 3);
 	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.nb_obj);
 	init_struct(lll.coef);
+	lll.coef->cur = 8;
+	lll.coef->total = 8;
+	menu_win = mlx_new_window(lll.coef->mlx, 250, 500, "Menu");
+	fill_menu(lll.coef, menu_win);
+	ft_logo(lll.coef);
+
 	new_image(lll.coef);
 	init_w(&lll);
+
+	mlx_mouse_hook(menu_win, mouse_hook, &lll);
+	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
+	mlx_key_hook(menu_win, ft_keyhook, &lll);
+
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 17, 0L, &quit, lll.coef);
 	mlx_loop(lll.coef->mlx);

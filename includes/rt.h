@@ -12,8 +12,8 @@
 
 #ifndef RT_H
 # define RT_H
-# define H 1024
-# define W 1024
+# define H 800
+# define W 800
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -30,16 +30,14 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
-
-
-typedef struct		s_coef
+typedef struct		s_img
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	char		*data;
-	int			sl;
-}					t_coef;
+	void			*img;
+	char			*data;
+	int				bpp;
+	int				sl;
+	int				end;
+}					t_img;
 
 typedef struct		s_point
 { 
@@ -48,12 +46,6 @@ typedef struct		s_point
 	double		posz;
 }					t_point;
 
-typedef struct		s_ray
-{
-	t_point	o;
-	t_point d;
-}					t_ray;
-
 typedef struct		s_sphere
 {
 	t_point	p;
@@ -61,6 +53,37 @@ typedef struct		s_sphere
 	t_point color;
 	int type;
 }					t_sphere;
+
+typedef struct		s_coef
+{
+	t_sphere	swap;
+	t_img		*load;
+	char		*name;
+	void		*win_rename;
+	void		*win_add;
+	int			sl;
+	int			posx;
+	int			posy;
+	int			posz;
+	int			rad;
+	int			r;
+	int			g;
+	int			b;
+	int			type;
+	int			cur;
+	int			total;
+
+	void		*mlx;
+	void		*win;
+	void		*img;
+	char		*data;
+}					t_coef;
+
+typedef struct		s_ray
+{
+	t_point	o;
+	t_point d;
+}					t_ray;
 
 typedef struct		s_luz
 {
@@ -83,6 +106,7 @@ typedef struct		s_inter
 
 typedef struct		s_control
 {
+	int			av;
 	t_coef		*coef;
 	t_ray		*r;
 	t_luz		*l;
@@ -135,7 +159,15 @@ t_point				rotate_cam(t_point d, double angle);
 double				dot(t_point p, t_point b);
 
 
-
+void	export_file(t_control *t);
+int		rt_search(int x, int y, t_control *l);
+int		hook_rename(int k, t_control *l);
+void	rename_win(t_control *l);
+void	fill_menu(t_coef *t, void *win);
+void	ft_logo(t_coef *t);
+int		mouse_hook(int k, int x, int y, t_control *l);
+int		main_mouse_hook(int k, int x, int y, t_control *l);
+void	ft_loadbar(t_coef *t, int n);
 
 t_point			damier(t_control *l, t_inter inter);
 

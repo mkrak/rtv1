@@ -13,7 +13,10 @@ SRCS_LIST	=	rt.c \
 				ope_vec.c \
 				ope_vec2.c \
 				keyhook.c \
-				main.c
+				main.c \
+				bordel.c \
+				export.c \
+				loadbar.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))

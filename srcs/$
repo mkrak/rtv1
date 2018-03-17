@@ -40,11 +40,7 @@ void		rt(t_control *l)
 			py++;
 		}
 		n++;
-		if (n == 100)
-		{
-			n = 0;
-			ft_loadbar(l->coef, px);
-		}
+		ft_loadbar(l->coef, px);
 		px++;
 		py = 0;
 	}
