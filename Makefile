@@ -9,6 +9,7 @@ MLX_DIR		=	minilibx_macos/
 SRCS_DIR	=	srcs/
 SRCS_LIST	=	rt.c \
 				init.c \
+				damier.c \
 				ope_vec.c \
 				ope_vec2.c \
 				keyhook.c \

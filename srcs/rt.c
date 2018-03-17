@@ -80,51 +80,6 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 	return (power);
 }
 
-t_point			damier(t_control *l, t_inter inter)
-{
-    t_damier	a;
-    t_point color = init_point(0, 0, 0);
-
-    a.px = inter.pos.posx - l->obj[inter.id].s.p.posx;
-    a.py = inter.pos.posy - l->obj[inter.id].s.p.posy;
-    a.pz = inter.pos.posz - l->obj[inter.id].s.p.posz;
-	a.x1 = (int)(floor((a.px / LENGHT_PROCED)));
-	a.y1 = (int)(floor((a.py / LENGHT_PROCED)));
-	a.z1 = (int)(floor((a.pz / LENGHT_PROCED)));
-
-    if (a.x1 % 2 == 0)
-    {
-        if(((a.y1 % 2 == 0) && (a.z1 % 2 == 0)) || (((a.y1 % 2 != 0) && (a.z1 % 2 != 0))))
-        {
-            color.posx = 0;
-            color.posy = 0;
-            color.posz = 0;
-        }
-        else
-        {
-            color.posx = 255;
-            color.posy = 255;
-            color.posz = 255;
-        }
-    }
-    else
-    {
-		if (((a.y1 % 2 == 0) && (a.z1 % 2 == 0)) || (((a.y1 % 2 != 0) && (a.z1 % 2 != 0))))
-		{
-		    color.posx = 255;
-            color.posy = 255;
-            color.posz = 255;
-		}
-		else
-		{
-            color.posx = 0;
-            color.posy = 0;
-            color.posz = 0;
-		}
-    }
-    return (color);
-}
-
 t_inter		intersec(t_control *l, int i, t_ray ray)
 {
 	double a = 1;
