@@ -157,6 +157,7 @@ t_point				ope_mulv1(t_point b, double a);
 //ope_vec2
 t_point				rotate_cam(t_point d, double angle);
 double				dot(t_point p, t_point b);
+t_point				moy_point(t_point *moy);
 
 
 void	export_file(t_control *t);
