@@ -16,140 +16,26 @@ void		rt(t_control *l)
 {
 	t_point power;
 	t_point *moy;
-	double fov = 60 * M_PI / 180;
 	int px = 0;
 	int py = 0;
 	int n = 0;
 	t_ray ray;
-	int aliasing = 1;
-	double x = 0;
-	double y = 0;
 	int i = 0;
 
-	moy = (t_point*)malloc(sizeof(t_point) * 4);
+	moy = (t_point*)malloc(sizeof(t_point) * l->antial);
 
 	while(px < H)
 	{
 		while(py < W)
 		{
-			while(i < 4)
+			while(i < l->antial)
 			{	
-			//ray.d = normalize(init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2))));
-				if (i == 0)
-				{
-					x = 0.2;
-					y = 0.2;
-				}
-				if (i == 1)
-				{
-					x = 0.8;
-					y = 0.8;
-				}
-				if (i == 2)
-				{
-					x = 0.2;
-					y = 0.8;
-				}
-				if (i == 3)
-				{
-					x = 0.8;
-					y = 0.2;
-				}
-				ray.d = normalize(init_point(py - W / 2 + x, px - H / 2 + y, -W / (2 * tan(fov / 2))));
-				ray.d = rotate_cam(ray.d, 0);
-				ray.o = init_point(0, 0, 0);
-				
-				if ((py % (int)fmax(aliasing, 1) == 0))
-				{
-
-					power = init_point(0, 0, 0);
-					l->obj_i = 0;
-					while (l->obj_i < l->nb_luz)
-					{
-						power = ope_add(power, get_color(l, 5, ray));
-						moy[i] = power;
-						l->obj_i++;
-					}
-				}
-			i++;
+				ray = anti_alias(px, py, ray, i);	
+				moy[i] = aliasing(py, l, ray);
+				i++;
 			}
 			i = 0;
-			put_pixel(l->coef, px, py, moy_point(moy));
-			py++;
-		}
-		n++;
-		if (n == 100)
-		{
-			n = 0;
-			ft_loadbar(l->coef, px);
-		}
-		px++;
-		py = 0;
-	}
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win, l->coef->img, 0, 0);
-}
-/*
-void		rt(t_control *l)
-{
-	t_point power;
-	// t_point *moy;
-	double fov = 60 * M_PI / 180;
-	int px = 0;
-	int py = 0;
-	int n = 0;
-	t_ray ray;
-	int aliasing = 1;
-	double x = 0;
-	double y = 0;
-	int i = 0;
-
-	//moy = (t_point*)malloc(sizeof(t_point) * 4);
-
-	while(px < H)
-	{
-		while(py < W)
-		{
-			// while(i < 4)
-			// {	
-			// ray.d = normalize(init_point(py - W / 2, px - H / 2, -W / (2 * tan(fov / 2))));
-				if (i == 0)
-				{
-					x = 0.2;
-					y = 0.2;
-				}
-				if (i == 1)
-				{
-					x = 0.8;
-					y = 0.8;
-				}
-				if (i == 2)
-				{
-					x = 0.2;
-					y = 0.8;
-				}
-				if (i == 3)
-				{
-					x = 0.8;
-					y = 0.2;
-				}
-				ray.d = normalize(init_point(py - W / 2 + x, px - H / 2 + y, -W / (2 * tan(fov / 2))));
-				ray.d = rotate_cam(ray.d, 0);
-				ray.o = init_point(0, 0, 0);
-				
-				if ((py % (int)fmax(aliasing, 1) == 0))
-				{
-
-					power = init_point(0, 0, 0);
-					l->obj_i = 0;
-					while (l->obj_i < l->nb_luz)
-					{
-						power = ope_add(power, get_color(l, 5, ray));
-						// moy[i] = power;
-						l->obj_i++;
-					}
-				}
-			// 	i++;
-			// }
+			power = moy_point(moy, l->antial);
 			put_pixel(l->coef, px, py, power);
 			py++;
 		}
@@ -163,18 +49,6 @@ void		rt(t_control *l)
 		py = 0;
 	}
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, l->coef->img, 0, 0);
-} */
-
-t_point		moy_point(t_point *moy)
-{
-	t_point ret;
-
-	ret.posx = (moy[0].posx + moy[1].posx + moy[2].posx + moy[3].posx) / 4;
-	ret.posy = (moy[0].posy + moy[1].posy + moy[2].posy + moy[3].posy) / 4;
-	ret.posz = (moy[0].posz + moy[1].posz + moy[2].posz + moy[3].posz) / 4;
-
-	return (ret); 
-
 }
 
 t_point		get_color(t_control *l, int nb_ite, t_ray ray)

@@ -106,6 +106,8 @@ typedef struct		s_inter
 
 typedef struct		s_control
 {
+	int 		aliasing;
+	int 		antial;
 	int			av;
 	t_coef		*coef;
 	t_ray		*r;
@@ -127,37 +129,41 @@ typedef struct		s_damier
 	double			pz;
 } 					t_damier;
 
-//main
+//main.c
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
 void				put_pixel(t_coef *scoef, int x, int y, t_point color);
 int					quit(void);
 
-//keyhook
+//keyhook.c
 int					ft_keyhook(int key, t_control *e);
 
-//init
+//init.c
 void				init_w(t_control *l);
 t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
 
-//rt
+//rt.c
 void				rt(t_control *l);
 t_point				get_color(t_control *l, int nb_ite, t_ray ray);
 t_inter				intersec(t_control *l, int i, t_ray ray);
 t_point				ombre(t_ray ray, t_control *l, t_inter t);
 
-//ope_vec
+//ope_vec.c
 double				getnorm2(t_point p);
 t_point				normalize(t_point p);
 t_point				ope_sus(t_point p, t_point b);
 t_point				ope_add(t_point p, t_point b);
 t_point				ope_mulv1(t_point b, double a);
 
-//ope_vec2
+//ope_vec2.c
 t_point				rotate_cam(t_point d, double angle);
 double				dot(t_point p, t_point b);
-t_point				moy_point(t_point *moy);
+t_point				moy_point(t_point *moy, int antial);
+
+//aliasing.c
+t_point				aliasing(int py, t_control *l, t_ray ray);
+t_ray				anti_alias(int px, int py, t_ray ray, int i);
 
 
 void	export_file(t_control *t);

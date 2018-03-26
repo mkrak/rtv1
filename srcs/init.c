@@ -29,6 +29,10 @@ void				init_w(t_control *l)
 	l->l[1].power = 96666000;
 	l->l[2].p  = init_point(0, -19, 0);
 	l->l[2].power = 96666000;
+
+	l->aliasing = 1; //pas de max, min 1, si inferieur utilise 1
+	l->antial = 1; // 1 pour non 4 pour oui bug sinon
+
 	rt(l);
 }
 

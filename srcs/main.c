@@ -39,9 +39,45 @@ void				put_pixel(t_coef *s, int x, int y, t_point color)
 	color.posx = fmin(255, fmax(0, pow(color.posx, 1 / 2.2)));
 	color.posy = fmin(255, fmax(0, pow(color.posy, 1 / 2.2)));
 	color.posz = fmin(255, fmax(0, pow(color.posz, 1 / 2.2)));
+	// if (color.posz > 0 && color.posz < 50)
+	// 	color.posz = 25;
+	// else if (color.posz >= 50 && color.posz < 100)
+	// 	color.posz = 75;
+	// else if (color.posz >= 100 && color.posz < 150)
+	// 	color.posz = 125;
+	// else if (color.posz >= 150 && color.posz < 200)
+	// 	color.posz = 175;
+	// else if (color.posz >= 200 && color.posz <= 255)
+	// 	color.posz = 225;
+
+	// if (color.posy > 0 && color.posy < 50)
+	// 	color.posy = 25;
+	// else if (color.posy >= 50 && color.posy < 100)
+	// 	color.posy = 75;
+	// else if (color.posy >= 100 && color.posy < 150)
+	// 	color.posy = 125;
+	// else if (color.posy >= 150 && color.posy < 200)
+	// 	color.posy = 175;
+	// else if (color.posy >= 200 && color.posy <= 255)
+	// 	color.posy = 225;
+
+	// if (color.posx > 0 && color.posx < 50)
+	// 	color.posx = 25;
+	// else if (color.posx >= 50 && color.posx < 100)
+	// 	color.posx = 75;
+	// else if (color.posx >= 100 && color.posx < 150)
+	// 	color.posx = 125;
+	// else if (color.posx >= 150 && color.posx < 200)
+	// 	color.posx = 175;
+	// else if (color.posx >= 200 && color.posx <= 255)
+	// 	color.posx = 225;
 	s->data[i] =  color.posz;
 	s->data[++i] = color.posy;
 	s->data[++i] = color.posx;
+
+	// s->data[i] =  color.posz;
+	// s->data[++i] = color.posy;
+	// s->data[++i] = color.posx;
 }
 
 int					quit(void)
