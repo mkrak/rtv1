@@ -2,7 +2,7 @@ NAME		=	rtv1
 SHEL		=	/bin/bash
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -g
+CFLAGS		=	-Wall -Wextra -g
 
 LIBFT_DIR	=	libft/
 MLX_DIR		=	minilibx_macos/
@@ -24,7 +24,7 @@ OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_LIST))
 HEADERS		=	-I./libft -I./includes
 #LIBS		=	-framework OpenGl -framework AppKit -lmlx -L./libft -L./minilibx_macos libft/libft.a minilibx_macos/libmlx.a
-LIBS		=	-lmlx -lXext -lX11  -L./libft -lft -lm
+LIBS		=	-lmlx -lXext -lX11 -lbsd -L./libft -lft -lm
 
 
 .PHONY : all clean
@@ -33,7 +33,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@make --no-print-directory -C $(LIBFT_DIR)
-#	@make --no-print-directory -C $(MLX_DIR)
+	#@make --no-print-directory -C $(MLX_DIR)
 	@echo "\033[37mLinking...\033[0m"
 	@$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"

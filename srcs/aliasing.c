@@ -6,13 +6,13 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/01/22 19:57:54 by mkrakows         ###   ########.fr       */
+/*   Updated: 2018/03/30 17:59:03 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-t_ray				anti_alias(int px, int py, t_ray ray, int i)
+t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 {
 	double x = 0;
 	double y = 0;
@@ -38,9 +38,9 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i)
 		x = 0.75;
 		y = 0.25;
 	}
-	ray.d = normalize(init_point(py - W / 2 + x, px - H / 2 + y, -W / (2 * tan(fov / 2))));
-	ray.d = rotate_cam(ray.d, 0);
-	ray.o = init_point(0, 0, 0);
+	ray.d = normalize(init_point(py - W / 2 + x + t->rot_x, px - H / 2 + y + t->rot_y, -W / (2 * tan(fov / 2))));
+	ray.d = rotate_cam(ray.d, t->rot_z);
+	ray.o = init_point(t->pos_y, t->pos_z, t->pos_x);
 
 return (ray);
 }
@@ -49,9 +49,9 @@ t_point				aliasing(int py, t_control *l, t_ray ray)
 {
 	t_point power;
 
+	power = init_point(0, 0, 0);
 	if ((py % (int)fmax(l->aliasing, 1) == 0))
 	{
-		power = init_point(0, 0, 0);
 		l->obj_i = 0;
 		while (l->obj_i < l->nb_luz)
 		{

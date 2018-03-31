@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2017/04/13 22:00:46 by mkrakows         ###   ########.fr       */
+/*   Updated: 2018/03/30 17:53:58 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,12 @@ typedef struct		s_coef
 	int			type;
 	int			cur;
 	int			total;
+	int			rot_x;
+	int			rot_y;
+	int			rot_z;
+	int			pos_x;
+	int			pos_y;
+	int			pos_z;
 
 	void		*mlx;
 	void		*win;
@@ -163,7 +169,7 @@ t_point				moy_point(t_point *moy, int antial);
 
 //aliasing.c
 t_point				aliasing(int py, t_control *l, t_ray ray);
-t_ray				anti_alias(int px, int py, t_ray ray, int i);
+t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 
 
 void	export_file(t_control *t);

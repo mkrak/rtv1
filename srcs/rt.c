@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/01/22 19:57:54 by mkrakows         ###   ########.fr       */
+/*   Updated: 2018/03/30 17:45:38 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		rt(t_control *l)
 		{
 			while(i < l->antial)
 			{	
-				ray = anti_alias(px, py, ray, i);	
+				ray = anti_alias(px, py, ray, i, l->coef);
 				moy[i] = aliasing(py, l, ray);
 				i++;
 			}
