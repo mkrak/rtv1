@@ -75,7 +75,7 @@ int					ft_keyhook(int key, t_control *e)
 //	if (key == 124) //droite
 	if (key == 65363) //droite
 		e->coef->pos_y += 10;
-	multithread(*e);
+	multithread(e);
 //	else
 //		init_w(e);
 //		return (0);

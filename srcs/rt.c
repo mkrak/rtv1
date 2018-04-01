@@ -40,11 +40,11 @@ void		rt(t_thread *l)
 			py++;
 		}
 		n++;
-/*		if (n == 100)
+		if (n == 10 && l->n == 0)
 		{
 			n = 0;
-			ft_loadbar(l->l.coef, px);
-		}*/
+			ft_loadbar(l->l.coef, px * 8);
+		}
 		px++;
 		py = 0;
 	}

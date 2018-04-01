@@ -180,7 +180,7 @@ t_point				aliasing(int py, t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 
 //multithread.c
-void				multithread(t_control l);
+void				multithread(t_control *l);
 
 void	export_file(t_control *t);
 int		rt_search(int x, int y, t_control *l);
