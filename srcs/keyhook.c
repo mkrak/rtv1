@@ -23,8 +23,8 @@ int					ft_keyhook(int key, t_control *e)
 		exit(EXIT_SUCCESS);
 
 	}
-//	if (key == 14 || key == 101)
-//		rename_win(e);
+	if (key == 119)
+		rename_win(e);
 ///	if (key == 2) //droite
 	if (key == 111) //antial (O)
 	{
@@ -75,7 +75,7 @@ int					ft_keyhook(int key, t_control *e)
 //	if (key == 124) //droite
 	if (key == 65363) //droite
 		e->coef->pos_y += 10;
-	rt(e);
+	multithread(*e);
 //	else
 //		init_w(e);
 //		return (0);

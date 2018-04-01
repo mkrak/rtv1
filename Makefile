@@ -17,14 +17,15 @@ SRCS_LIST	=	rt.c \
 				aliasing.c \
 				bordel.c \
 				export.c \
-				loadbar.c
+				loadbar.c \
+				multithread.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
 OBJS		=	$(addprefix $(OBJS_DIR), $(OBJS_LIST))
 HEADERS		=	-I./libft -I./includes
 #LIBS		=	-framework OpenGl -framework AppKit -lmlx -L./libft -L./minilibx_macos libft/libft.a minilibx_macos/libmlx.a
-LIBS		=	-lmlx -lXext -lX11 -lbsd -L./libft -lft -lm
+LIBS		=	-lmlx -lXext -lX11 -lbsd -L./libft -lft -lm -lpthread
 
 
 .PHONY : all clean

@@ -28,14 +28,14 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				put_pixel(t_coef *s, int x, int y, t_point color)
+void				put_pixel(t_img s, int x, int y, t_point color)
 {
 	int	i = 0;
 
-	if (x >= H || x < 0 || y >= W || y < 0)
+	if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
 
-	i = ((H - x - 1) * W + y) * 4; 	
+	i = ((H / 8 - x - 1) * W + y) * 4; 	
 	color.posx = fmin(255, fmax(0, pow(color.posx, 1 / 2.2)));
 	color.posy = fmin(255, fmax(0, pow(color.posy, 1 / 2.2)));
 	color.posz = fmin(255, fmax(0, pow(color.posz, 1 / 2.2)));
@@ -71,9 +71,9 @@ void				put_pixel(t_coef *s, int x, int y, t_point color)
 	// 	color.posx = 175;
 	// else if (color.posx >= 200 && color.posx <= 255)
 	// 	color.posx = 225;
-	s->data[i] =  color.posz;
-	s->data[++i] = color.posy;
-	s->data[++i] = color.posx;
+	s.data[i] =  color.posz;
+	s.data[++i] = color.posy;
+	s.data[++i] = color.posx;
 
 	// s->data[i] =  color.posz;
 	// s->data[++i] = color.posy;

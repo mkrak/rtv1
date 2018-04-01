@@ -12,43 +12,43 @@
 
 #include "../includes/rt.h"
 
-void		rt(t_control *l)
+void		rt(t_thread *l)
 {
 	t_point power;
 	t_point *moy;
-	int px = 0;
+	int px = l->n * (H / 8);
 	int py = 0;
 	int n = 0;
 	t_ray ray;
 	int i = 0;
 
-	moy = (t_point*)malloc(sizeof(t_point) * l->antial);
+	moy = (t_point*)malloc(sizeof(t_point) * l->l.antial);
 
-	while(px < H)
+	while(px < (l->n + 1) * (H / 8))
 	{
 		while(py < W)
 		{
-			while(i < l->antial)
+			while(i < l->l.antial)
 			{	
-				ray = anti_alias(px, py, ray, i, l->coef);
-				moy[i] = aliasing(py, l, ray);
+				ray = anti_alias(px, py, ray, i, l->l.coef);
+				moy[i] = aliasing(py, &l->l, ray);
 				i++;
 			}
 			i = 0;
-			power = moy_point(moy, l->antial);
-			put_pixel(l->coef, px, py, power);
+			power = moy_point(moy, l->l.antial);
+			put_pixel(l->i, px - (l->n * (H / 8)), py, power);
 			py++;
 		}
 		n++;
-		if (n == 100)
+/*		if (n == 100)
 		{
 			n = 0;
-			ft_loadbar(l->coef, px);
-		}
+			ft_loadbar(l->l.coef, px);
+		}*/
 		px++;
 		py = 0;
 	}
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win, l->coef->img, 0, 0);
+//	mlx_put_image_to_window(l->l.coef->mlx, l->l.coef->win, l->l.coef->img, 0, 0);
 }
 
 t_point		get_color(t_control *l, int nb_ite, t_ray ray)

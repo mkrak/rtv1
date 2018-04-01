@@ -20,6 +20,7 @@
 
 # include "../minilibx_macos/mlx.h"
 # include <stdio.h>
+# include <pthread.h>
 # include <math.h>
 # include <fcntl.h>
 # include <sys/types.h>
@@ -124,6 +125,13 @@ typedef struct		s_control
 	int 		obj_i;
 }					t_control;
 
+typedef struct		s_thread
+{
+	t_control		l;
+	t_img			i;
+	pthread_t		t;
+	int				n;
+}					t_thread;
 
 typedef struct		s_damier
 {
@@ -138,7 +146,7 @@ typedef struct		s_damier
 //main.c
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
-void				put_pixel(t_coef *scoef, int x, int y, t_point color);
+void				put_pixel(t_img s, int x, int y, t_point color);
 int					quit(void);
 
 //keyhook.c
@@ -150,7 +158,7 @@ t_point				init_point(double x, double y, double z);
 t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
 
 //rt.c
-void				rt(t_control *l);
+void				rt(t_thread *l);
 t_point				get_color(t_control *l, int nb_ite, t_ray ray);
 t_inter				intersec(t_control *l, int i, t_ray ray);
 t_point				ombre(t_ray ray, t_control *l, t_inter t);
@@ -171,6 +179,8 @@ t_point				moy_point(t_point *moy, int antial);
 t_point				aliasing(int py, t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 
+//multithread.c
+void				multithread(t_control l);
 
 void	export_file(t_control *t);
 int		rt_search(int x, int y, t_control *l);

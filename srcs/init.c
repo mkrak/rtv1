@@ -40,7 +40,8 @@ void				init_w(t_control *l)
 	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
 	l->antial = 1; // 1 pour non 4 pour oui bug sinon
 
-	rt(l);
+	multithread(*l);
+//	rt(l);
 }
 
 
