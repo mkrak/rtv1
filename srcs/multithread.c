@@ -25,7 +25,9 @@ void	multithread(t_control l)
 	while (i > -1)
 	{
 		mlx_put_image_to_window(l.coef->mlx, l.coef->win, thread[i].i.img, 0, j * (H / 8));
+		mlx_destroy_image(l.coef->mlx, thread[i].i.img);
 		i--;
 		j++;
 	}
+	free(thread);
 }
