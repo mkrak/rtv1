@@ -14,72 +14,82 @@
 
 int					ft_keyhook(int key, t_control *e)
 {
-	if (key == 65307)
+	if (key == K_ESC)
 	{
 		mlx_destroy_image(e->coef->mlx, e->coef->img);
 		free(e->coef);
 		free(e->obj);
 		free(e->l);
 		exit(EXIT_SUCCESS);
-
 	}
-	if (key == 119)
+	if (key == K_W)
 		rename_win(e);
-///	if (key == 2) //droite
-	if (key == 111) //antial (O)
+	if (ft_key_aa(key, e))
+		multithread(e);
+	if (ft_key_camtrans(key, e))
+		multithread(e);
+	if (ft_key_camrot(key, e))
+		multithread(e);
+	ft_putnbr(key);
+	ft_putendl("");
+	return (0);
+}
+
+int		ft_key_aa(int key, t_control *e)
+{
+	if (key == K_O)
 	{
 		if (e->aliasing == 1)
 			e->aliasing = 4;
 		else
 			e->aliasing = 1;
 	}
-	if (key == 112) //alisaing (P)
+	else if (key == K_P)
 	{
 		if (e->antial == 1)
 			e->antial = 4;
 		else
 			e->antial = 1;
 	}
-	if (key == 97) //droite
+	else
+		return (0);
+	return (1);
+}
+
+int		ft_key_camrot(int key, t_control *e)
+{
+	if (key == K_A)
 		e->coef->rot_z += 5;
-//	if (key == 0) //gauche
-	if (key == 101) //gauche
+	else if (key == K_E)
 		e->coef->rot_z -= 5;
-//	if (key == 2) //droite
-	if (key == 100) //droite
+	else if (key == K_D)
 		e->coef->rot_x += 50;
-//	if (key == 0) //gauche
-	if (key == 113) //gauche
+	else if (key == K_Q)
 		e->coef->rot_x -= 50;
-//	if (key == 13) //haut
-	if (key == 122) //haut
+	else if (key == K_Z)
 		e->coef->rot_y += 50;
-//	if (key == 1) //bas
-	if (key == 115) //bas
+	else if (key == K_S)
 		e->coef->rot_y -= 50;
-//	if (key == 126) //avant
-	if (key == 65362) //avant
+	else
+		return (0);
+	return (1);
+}
+
+int		ft_key_camtrans(int key, t_control *e)
+{
+	if (key == K_AU)
 		e->coef->pos_x -= 10;
-//	if (key == 125) //arriere
-	if (key == 65364) //arriere
+	else if (key == K_AD)
 		e->coef->pos_x += 10;
-///	if (key == 123) //gauche
-	if (key == 65508) //monter
+	else if (key == K_RSHIF)
 		e->coef->pos_z -= 10;
-//	if (key == 124) //droite
-	if (key == 65506) //descendre
+	else if (key == K_RCTRL)
 		e->coef->pos_z += 10;
-//	if (key == 123) //gauche
-	if (key == 65361) //gauche
+	else if (key == K_AL)
 		e->coef->pos_y -= 10;
-//	if (key == 124) //droite
-	if (key == 65363) //droite
+	else if (key == K_AR)
 		e->coef->pos_y += 10;
-	multithread(e);
-//	else
-//		init_w(e);
-//		return (0);
-	ft_putnbr(key);
-	ft_putendl("");
-	return (0);
+	else
+		return (0);
+	return (1);
 }

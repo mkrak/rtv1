@@ -30,10 +30,10 @@ int		hook_rename(int k, t_control *l)
 		expand_name(l, k);
 	if (k == 65293)
 	{
-		ft_putendl(l->coef->name);
 		l->coef->name = ft_strjoin(l->coef->name, ".bmp");
 		ft_putendl(l->coef->name);
 		export_file(l);
+		ft_strdel(&l->coef->name);
 		mlx_destroy_window(l->coef->mlx, l->coef->win_rename);
 	}
 	return (k);

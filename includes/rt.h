@@ -12,6 +12,13 @@
 
 #ifndef RT_H
 # define RT_H
+
+# if defined(__linux__)
+#  include "keys_linux.h"
+# else
+#  include "keys_mac.h"
+# endif
+
 # define H 800
 # define W 800
 # define LENGHT_PROCED 10
@@ -151,6 +158,9 @@ int					quit(void);
 
 //keyhook.c
 int					ft_keyhook(int key, t_control *e);
+int					ft_key_camtrans(int key, t_control *e);
+int					ft_key_camrot(int key, t_control *e);
+int					ft_key_aa(int key, t_control *e);
 
 //init.c
 void				init_w(t_control *l);
