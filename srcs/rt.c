@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/03/30 17:45:38 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 16:08:57 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void		rt(t_thread *l)
 	{
 		while(py < W)
 		{
-			while(i < l->l.antial)
-			{	
+			while(i < l->l.antial && (py % (int)fmax(l->l.aliasing, 1) == 0))
+			{
 				ray = anti_alias(px, py, ray, i, l->l.coef);
 				moy[i] = aliasing(py, &l->l, ray);
 				i++;
 			}
 			i = 0;
 			power = moy_point(moy, l->l.antial);
-			put_pixel(l->i, px - (l->n * (H / 8)), py, power);
+			put_pixel(l->i, px - (l->n * (H / 8)), py, power, l->l.coef);
 			py++;
 		}
 		n++;

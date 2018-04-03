@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 14:17:36 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 16:09:16 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 500
-# define W 500
+# define H 800
+# define W 800
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -88,6 +88,8 @@ typedef struct		s_coef
 	int			pos_x;
 	int			pos_y;
 	int			pos_z;
+	int			cartoon;
+	int			wtf;
 
 	void		*mlx;
 	void		*win;
@@ -155,7 +157,7 @@ typedef struct		s_damier
 //main.c
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
-void				put_pixel(t_img s, int x, int y, t_point color);
+void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c);
 int					quit(void);
 
 //keyhook.c
@@ -194,6 +196,9 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 //multithread.c
 void				multithread(t_control *l);
 
+//menu_hook.c
+int					add_mouse_hook(int k, int x, int y, t_control *l);
+
 void	export_file(t_control *t);
 void	hook_mac_rename(t_control *l, int k);
 void	hook_mac_rename2(t_control *l, int k);
@@ -206,6 +211,7 @@ void	ft_logo(t_coef *t);
 int		mouse_hook(int k, int x, int y, t_control *l);
 int		main_mouse_hook(int k, int x, int y, t_control *l);
 void	ft_loadbar(t_coef *t, int n);
+void	menu_add(t_control *l, char *str, int status);
 
 t_point			damier(t_control *l, t_inter inter);
 

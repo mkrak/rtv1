@@ -101,6 +101,7 @@ int		hook_rename(int k, t_control *l)
 	if (k == K_ENTER)
 	{
 		l->coef->name = ft_strjoin(l->coef->name, ".bmp");
+		l->coef->name = ft_strjoin("export/", l->coef->name);
 		ft_putendl(l->coef->name);
 		export_file(l);
 		ft_strdel(&l->coef->name);

@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/03/30 17:54:45 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 16:11:52 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void				init_w(t_control *l)
 	l->coef->pos_x = 0;
 	l->coef->pos_y = 0;
 	l->coef->pos_z = 0;
+	l->coef->cartoon = 0;
+	l->coef->wtf = 0;
 
 	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
 	l->antial = 1; // 1 pour non 4 pour oui bug sinon

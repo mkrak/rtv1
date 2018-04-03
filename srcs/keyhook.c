@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 14:03:24 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 16:10:27 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,39 @@ int					ft_keyhook(int key, t_control *e)
 		multithread(e);
 	if (ft_key_camrot(key, e))
 		multithread(e);
-	ft_putnbr(key);
-	ft_putendl("");
+	if (key == K_C)
+	{
+		if (e->coef->cartoon == 0)
+			e->coef->cartoon = 1;
+		else
+			e->coef->cartoon = 0;
+		multithread(e);
+	}
+	if (key == K_X)
+	{
+		if (e->coef->wtf == 0)
+			e->coef->wtf = 1;
+		else
+			e->coef->wtf = 0;
+		multithread(e);
+	}
 	return (0);
 }
 
 int		ft_key_aa(int key, t_control *e)
 {
-	if (key == K_O)
+	if (key == KP_SUB)
 	{
-		if (e->aliasing == 1)
-			e->aliasing = 4;
+		if (e->aliasing > 1)
+			e->aliasing -= 1;
 		else
+		{
 			e->aliasing = 1;
+			return (0);
+		}
 	}
+	else if (key == KP_ADD)
+		e->aliasing += 1;
 	else if (key == K_P)
 	{
 		if (e->antial == 1)

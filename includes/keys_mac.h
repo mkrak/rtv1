@@ -35,5 +35,7 @@
 # define K_RCTRL	269
 # define K_RSHIF	258
 # define K_ENTER	36
+# define KP_ADD		69
+# define KP_SUB		78
 
 #endif

@@ -20,7 +20,8 @@ SRCS_LIST	=	rt.c \
 				bordel.c \
 				export.c \
 				loadbar.c \
-				multithread.c
+				multithread.c \
+				menu_hook.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
