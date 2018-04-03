@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/03/30 17:53:58 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 14:17:36 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 # if defined(__linux__)
 #  include "keys_linux.h"
+#  define OS 0
 # else
 #  include "keys_mac.h"
+#  define OS 1
 # endif
 
-# define H 800
-# define W 800
+# define H 500
+# define W 500
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -193,6 +195,9 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 void				multithread(t_control *l);
 
 void	export_file(t_control *t);
+void	hook_mac_rename(t_control *l, int k);
+void	hook_mac_rename2(t_control *l, int k);
+void	hook_mac_rename3(t_control *l, int k);
 int		rt_search(int x, int y, t_control *l);
 int		hook_rename(int k, t_control *l);
 void	rename_win(t_control *l);

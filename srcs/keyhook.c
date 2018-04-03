@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/03/30 17:59:30 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/03 14:03:24 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int					ft_keyhook(int key, t_control *e)
 		free(e->l);
 		exit(EXIT_SUCCESS);
 	}
-	if (key == K_W)
+	if ((!OS && key == K_W) || (OS && key == K_Z))
 		rename_win(e);
 	if (ft_key_aa(key, e))
 		multithread(e);
@@ -58,15 +58,15 @@ int		ft_key_aa(int key, t_control *e)
 
 int		ft_key_camrot(int key, t_control *e)
 {
-	if (key == K_A)
+	if ((!OS && key == K_A) || (OS && key == K_Q))
 		e->coef->rot_z += 5;
 	else if (key == K_E)
 		e->coef->rot_z -= 5;
 	else if (key == K_D)
 		e->coef->rot_x += 50;
-	else if (key == K_Q)
+	else if ((!OS && key == K_Q) || (OS && key == K_A))
 		e->coef->rot_x -= 50;
-	else if (key == K_Z)
+	else if ((!OS && key == K_Z) || (OS && key == K_W))
 		e->coef->rot_y += 50;
 	else if (key == K_S)
 		e->coef->rot_y -= 50;
@@ -81,9 +81,9 @@ int		ft_key_camtrans(int key, t_control *e)
 		e->coef->pos_x -= 10;
 	else if (key == K_AD)
 		e->coef->pos_x += 10;
-	else if (key == K_RSHIF)
-		e->coef->pos_z -= 10;
 	else if (key == K_RCTRL)
+		e->coef->pos_z -= 10;
+	else if (key == K_RSHIF)
 		e->coef->pos_z += 10;
 	else if (key == K_AL)
 		e->coef->pos_y -= 10;
