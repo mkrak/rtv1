@@ -2,6 +2,7 @@
 
 void	multithread(t_control *l)
 {
+	struct timeval	tv;
 	t_thread	*thread;
 	int			i;
 	int			j;
@@ -11,6 +12,8 @@ void	multithread(t_control *l)
 	i = 0;
 	k = 0;
 	m = 0;
+	gettimeofday(&tv, NULL);
+	l->coef->prev_time = tv.tv_sec * 1000000 + tv.tv_usec;
 	thread = malloc(sizeof(t_thread) * 8);
 	while (i < 8)
 	{
@@ -41,4 +44,6 @@ void	multithread(t_control *l)
 		j++;
 	}
 	free(thread);
+	gettimeofday(&tv, NULL);
+	l->coef->time = tv.tv_sec * 1000000 + tv.tv_usec;
 }

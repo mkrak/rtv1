@@ -16,7 +16,22 @@ t_point		rotate_cam(t_point d, double angle)
 {
 	t_point tmp;
 
-	angle = angle * M_PI / 180;
+	angle *= M_PI / 180;
+//	t->rot_x *= M_PI / 180;
+//	t->rot_y *= M_PI / 180;
+//	t->rot_z *= M_PI / 180;
+/*	tmp.posx = d.posx;
+	tmp.posy = cos(t->rot_y * M_PI / 180) * d.posy - sin(t->rot_y * M_PI / 180) * d.posz;
+	tmp.posz = sin(t->rot_z * M_PI / 180) * d.posy + cos(t->rot_z * M_PI / 180) * d.posz;
+
+	tmp.posx = cos(t->rot_x * M_PI / 180) * d.posx + sin(t->rot_x * M_PI / 180) * d.posz;
+	tmp.posy = d.posy;
+	tmp.posz = -sin(t->rot_z * M_PI / 180) * d.posx + cos(t->rot_z * M_PI / 180) * d.posz;
+
+	tmp.posx = cos(t->rot_x * M_PI / 180) * d.posx - sin(t->rot_x * M_PI / 180) * d.posy;
+	tmp.posy = sin(t->rot_y * M_PI / 180) * d.posx + cos(t->rot_y * M_PI / 180) * d.posy;
+	tmp.posz = d.posz;
+*/
 	tmp.posx = d.posx;
 	tmp.posy = cos(angle) * d.posy - sin(angle) * d.posz;
 	tmp.posz = sin(angle) * d.posy + cos(angle) * d.posz;

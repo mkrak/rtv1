@@ -12,24 +12,54 @@
 
 #include "../includes/rt.h"
 
+void				trace_info(t_control *c)
+{
+	t_img	img;
+	float	f;
+	char	s[255];
+	int		h;
+	int		col;
+
+	h = 0;
+	col = 0x00ffffff;
+	f = (float)(c->coef->time - c->coef->prev_time) / 1000000;
+	ftoa(f, s, 4);
+	img.img = mlx_new_image(c->coef->mlx, 250, H);
+	mlx_put_image_to_window(c->coef->mlx, c->coef->win, img.img, W, 0);
+	mlx_destroy_image(c->coef->mlx, img.img);
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 10, col, "    Scene");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Anti-aliasing  (P): ", ft_itoa(c->antial)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Cartoon        (C): ", ft_itoa(c->coef->cartoon)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("WTF            (X): ", ft_itoa(c->coef->wtf)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Time (in sec)     : ", s));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 25, col, "    Camera");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos X      (AU/AD): ", ft_itoa(c->coef->pos_x)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos Y      (AL/AR): ", ft_itoa(c->coef->pos_y)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos Z (CTRL/SHIFT): ", ft_itoa(c->coef->pos_z)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 20, col, ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z)));
+}
+
 int					ft_keyhook(int key, t_control *e)
 {
-	if (key == K_ESC)
-	{
-		mlx_destroy_image(e->coef->mlx, e->coef->img);
-		free(e->coef);
-		free(e->obj);
-		free(e->l);
-		exit(EXIT_SUCCESS);
-	}
-	if ((!OS && key == K_W) || (OS && key == K_Z))
-		rename_win(e);
-	if (ft_key_aa(key, e))
-		multithread(e);
-	if (ft_key_camtrans(key, e))
-		multithread(e);
-	if (ft_key_camrot(key, e))
-		multithread(e);
+//	if (key == K_ESC)
+//	{
+//		mlx_destroy_image(e->coef->mlx, e->coef->img);
+//		free(e->coef);
+//		free(e->obj);
+//		free(e->l);
+//		exit(EXIT_SUCCESS);
+//	}
+//	if ((!OS && key == K_W) || (OS && key == K_Z))
+//		rename_win(e);
+//	if (ft_key_aa(key, e))
+//		multithread(e);
+//	if (ft_key_camtrans(key, e))
+//		multithread(e);
+//	if (ft_key_camrot(key, e))
+//		multithread(e);
 	if (key == K_C)
 	{
 		if (e->coef->cartoon == 0)
@@ -46,12 +76,13 @@ int					ft_keyhook(int key, t_control *e)
 			e->coef->wtf = 0;
 		multithread(e);
 	}
+	trace_info(e);
 	return (0);
 }
 
-int		ft_key_aa(int key, t_control *e)
+int		ft_key_aa(t_control *e)
 {
-	if (key == KP_SUB)
+	if (e->kalisub)
 	{
 		if (e->aliasing > 1)
 			e->aliasing -= 1;
@@ -61,12 +92,12 @@ int		ft_key_aa(int key, t_control *e)
 			return (0);
 		}
 	}
-	else if (key == KP_ADD)
+	else if (e->kaliadd)
 		e->aliasing += 1;
-	else if (key == K_P)
+	else if (e->kaa)
 	{
 		if (e->antial == 1)
-			e->antial = 4;
+			e->antial *= 4;
 		else
 			e->antial = 1;
 	}
@@ -75,40 +106,40 @@ int		ft_key_aa(int key, t_control *e)
 	return (1);
 }
 
-int		ft_key_camrot(int key, t_control *e)
+int		ft_key_camrot(t_control *e)
 {
-	if ((!OS && key == K_A) || (OS && key == K_Q))
+	if (e->roll)
 		e->coef->rot_z += 5;
-	else if (key == K_E)
+	else if (e->rolr)
 		e->coef->rot_z -= 5;
-	else if (key == K_D)
+	else if (e->rotr)
 		e->coef->rot_x += 50;
-	else if ((!OS && key == K_Q) || (OS && key == K_A))
+	else if (e->rotl)
 		e->coef->rot_x -= 50;
-	else if ((!OS && key == K_Z) || (OS && key == K_W))
+	else if (e->rotu)
 		e->coef->rot_y += 50;
-	else if (key == K_S)
+	else if (e->rotd)
 		e->coef->rot_y -= 50;
 	else
 		return (0);
 	return (1);
 }
 
-int		ft_key_camtrans(int key, t_control *e)
+int		ft_key_camtrans(t_control *e)
 {
-	if (key == K_AU)
-		e->coef->pos_x -= 10;
-	else if (key == K_AD)
-		e->coef->pos_x += 10;
-	else if (key == K_RCTRL)
-		e->coef->pos_z -= 10;
-	else if (key == K_RSHIF)
-		e->coef->pos_z += 10;
-	else if (key == K_AL)
-		e->coef->pos_y -= 10;
-	else if (key == K_AR)
-		e->coef->pos_y += 10;
-	else
+	if (e->au)
+		e->coef->pos_x -= 1;
+	if (e->ad)
+		e->coef->pos_x += 1;
+	if (e->ctrl)
+		e->coef->pos_z -= 1;
+	if (e->shif)
+		e->coef->pos_z += 1;
+	if (e->al)
+		e->coef->pos_y -= 1;
+	if (e->ar)
+		e->coef->pos_y += 1;
+	if (!e->au && !e->ad && !e->ctrl && !e->shif && !e->al && !e->ar)
 		return (0);
 	return (1);
 }

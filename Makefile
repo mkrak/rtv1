@@ -21,6 +21,8 @@ SRCS_LIST	=	rt.c \
 				export.c \
 				loadbar.c \
 				multithread.c \
+				utils.c \
+				key_pr.c \
 				menu_hook.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
@@ -39,9 +41,8 @@ endif
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	echo $(OS)
 	@make --no-print-directory -C $(LIBFT_DIR)
-	@make --no-print-directory -C $(MLX_DIR)
+#	@make --no-print-directory -C $(MLX_DIR)
 	@echo "\033[37mLinking...\033[0m"
 	@$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 	@echo "\033[32mBinary \033[1;32m$(NAME)\033[1;0m\033[32m created.\033[0m"

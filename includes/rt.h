@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 800
-# define W 800
+# define H 500
+# define W 500
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -66,6 +66,8 @@ typedef struct		s_sphere
 
 typedef struct		s_coef
 {
+	int			time;
+	int			prev_time;
 	t_sphere	swap;
 	t_img		*load;
 	char		*name;
@@ -134,6 +136,21 @@ typedef struct		s_control
 	t_obj		*obj;
 	int 		nb_obj;
 	int 		obj_i;
+	int			au;
+	int			ad;
+	int			al;
+	int			ar;
+	int			ctrl;
+	int			shif;
+	int			roll;
+	int			rolr;
+	int			rotl;
+	int			rotr;
+	int			rotu;
+	int			rotd;
+	int			kaliadd;
+	int			kalisub;
+	int			kaa;
 }					t_control;
 
 typedef struct		s_thread
@@ -162,9 +179,9 @@ int					quit(void);
 
 //keyhook.c
 int					ft_keyhook(int key, t_control *e);
-int					ft_key_camtrans(int key, t_control *e);
-int					ft_key_camrot(int key, t_control *e);
-int					ft_key_aa(int key, t_control *e);
+int					ft_key_camtrans(t_control *e);
+int					ft_key_camrot(t_control *e);
+int					ft_key_aa(t_control *e);
 
 //init.c
 void				init_w(t_control *l);
@@ -199,6 +216,16 @@ void				multithread(t_control *l);
 //menu_hook.c
 int					add_mouse_hook(int k, int x, int y, t_control *l);
 
+//utils.c
+void				ft_putfloat(float d, double eps);
+void				ftoa(float n, char *res, int p);
+
+//key_pr.c
+int					main_loop(t_control *e);
+int					key_p(int k, t_control *e);
+int					key_r(int k, t_control *e);
+
+void	trace_info(t_control *e);
 void	export_file(t_control *t);
 void	hook_mac_rename(t_control *l, int k);
 void	hook_mac_rename2(t_control *l, int k);

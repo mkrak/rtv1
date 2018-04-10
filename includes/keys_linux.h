@@ -34,4 +34,7 @@
 # define K_AR		65363
 # define K_RCTRL	65506
 # define K_RSHIF	65508
+# define KP_SUB		65453
+# define KP_ADD		65451
+# define K_ENTER	65293
 #endif

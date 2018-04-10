@@ -15,7 +15,7 @@
 void				init_struct(t_coef *scoef)
 {
 	scoef->mlx = mlx_init();
-	scoef->win = mlx_new_window(scoef->mlx, W, H, "mlx 42");
+	scoef->win = mlx_new_window(scoef->mlx, W + 250, H, "mlx 42");
 	scoef->load = malloc(sizeof(t_img));
 }
 
@@ -76,7 +76,7 @@ void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 		else if (color.posx >= 200 && color.posx <= 255)
 			color.posx = 225;
 	}
-	s.data[i] =  color.posz;
+	s.data[i] = color.posz;
 	s.data[++i] = color.posy;
 	s.data[++i] = color.posx;
 }
@@ -115,8 +115,27 @@ int					main(int ac, char **av)
 	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
 	mlx_key_hook(menu_win, ft_keyhook, &lll);
 
+	lll.roll = 0;
+	lll.rolr = 0;
+	lll.rotl = 0;
+	lll.rotr = 0;
+	lll.rotu = 0;
+	lll.rotd = 0;
+	lll.au = 0;
+	lll.ad = 0;
+	lll.al = 0;
+	lll.ar = 0;
+	lll.ctrl = 0;
+	lll.shif = 0;
+	lll.kalisub = 0;
+	lll.kaliadd = 0;
+	lll.kaa = 0;
+
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
+	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);
+	mlx_hook(lll.coef->win, 3, (1L << 1), &key_r, &lll);
 	mlx_hook(lll.coef->win, 17, 0L, &quit, lll.coef);
+	mlx_loop_hook(lll.coef->mlx, main_loop, &lll);
 	mlx_loop(lll.coef->mlx);
 	return (0);
 }

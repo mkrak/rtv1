@@ -38,7 +38,7 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 		x = 0.75;
 		y = 0.25;
 	}
-	ray.d = normalize(init_point(py - W / 2 + x + t->rot_x, px - H / 2 + y + t->rot_y, -W / (2 * tan(fov / 2))));
+	ray.d = normalize(init_point((py - W / 2 + x) + t->rot_x, (px - H / 2 + y) + t->rot_y, -W / (2 * tan(fov / 2))));
 	ray.d = rotate_cam(ray.d, t->rot_z);
 	ray.o = init_point(t->pos_y, t->pos_z, t->pos_x);
 
@@ -49,6 +49,7 @@ t_point				aliasing(int py, t_control *l, t_ray ray)
 {
 	t_point power;
 
+	power = init_point(0, 0, 0);
 	l->obj_i = 0;
 	while (l->obj_i < l->nb_luz)
 	{
