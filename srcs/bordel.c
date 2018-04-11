@@ -215,11 +215,37 @@ int		rt_search(int x, int y, t_control *l)
 	return (-1);
 }
 
+int		main_mouse_hook_not(int x, int y, t_control *l)
+{
+	void	*img;
+	int		w;
+	int		h;
+
+	if (((x >= W + 45 && x <= W + 165) && (y >= 360 && y <= 380)) && l)
+	{
+		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_filter_hover.XPM", &w, &h);
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 360);
+		l->coef->is_on_button = 1;
+	}
+	else if (((x >= W + 45 && x <= W + 165) && (y >= 390 && y <= 410)) && l)
+	{
+		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_obj_hover.XPM", &w, &h);
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 390);
+		l->coef->is_on_button = 1;
+	}
+	else if (l->coef->is_on_button)
+	{
+		trace_info(l);
+		l->coef->is_on_button = 0;
+	}
+	return (1);
+}
+
 int		main_mouse_hook(int k, int x, int y, t_control *l)
 {
 	int		id;
 
-	if (k == 1 && (x && y) && l)
+	if (k == 1 && ((x >= 0 && x <= W) && y) && l)
 	{
 		id = rt_search(x, y, l);
 		l->coef->swap = l->obj[id].s;

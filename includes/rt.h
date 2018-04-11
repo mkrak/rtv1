@@ -62,6 +62,14 @@ typedef struct		s_point
 	double		posz;
 }					t_point;
 
+typedef struct		s_circle
+{
+	int				x;
+	int				y;
+	int				r;
+	t_col			c;
+}					t_circle;
+
 typedef struct		s_sphere
 {
 	t_point	p;
@@ -106,6 +114,8 @@ typedef struct		s_coef
 	void		*win;
 	void		*img;
 	char		*data;
+
+	int			is_on_button;
 }					t_coef;
 
 typedef struct		s_ray
@@ -161,6 +171,17 @@ typedef struct		s_control
 	int			kalisub;
 	int			kaa;
 }					t_control;
+
+typedef struct		s_rect
+{
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+	int				type;
+	int				border;
+	t_col			c;
+}					t_rect;
 
 typedef struct		s_thread
 {
@@ -234,6 +255,11 @@ int					main_loop(t_control *e);
 int					key_p(int k, t_control *e);
 int					key_r(int k, t_control *e);
 
+//mlx.c
+void				put_pixel_circle(t_img i, t_circle c, int x, int y);
+void				mlx_circle(int x, int y, int r, t_img *img, t_coef *coef);
+void				mlx_rect(t_rect rect, t_coef *coef);
+
 void	trace_info(t_control *e);
 void	export_file(t_control *t);
 void	hook_mac_rename(t_control *l, int k);
@@ -246,6 +272,7 @@ void	fill_menu(t_coef *t, void *win);
 void	ft_logo(t_coef *t);
 int		mouse_hook(int k, int x, int y, t_control *l);
 int		main_mouse_hook(int k, int x, int y, t_control *l);
+int		main_mouse_hook_not(int x, int y, t_control *l);
 void	ft_loadbar(t_coef *t, int n);
 void	menu_add(t_control *l, char *str, int status);
 

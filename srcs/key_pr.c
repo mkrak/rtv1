@@ -2,13 +2,14 @@
 
 int		main_loop(t_control *e)
 {
-	if(ft_key_camtrans(e))
+	int		test;
+
+	test = 0;
+	if (ft_key_camtrans(e) || ft_key_camrot(e) || ft_key_aa(e))
+	{
 		multithread(e);
-	if(ft_key_camrot(e))
-		multithread(e);
-	if (ft_key_aa(e))
-		multithread(e);
-	trace_info(e);
+		trace_info(e);
+	}
 	return (1);
 }
 

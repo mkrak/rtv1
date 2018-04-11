@@ -15,11 +15,23 @@
 void				trace_info(t_control *c)
 {
 	t_img	img;
+	t_rect	rect;
+	t_img	cercle;
 	float	f;
 	char	s[255];
 	int		h;
 	int		col;
+	void	*bouton;
+	int		width;
+	int		height;
 
+	rect.x = W + 45;
+	rect.y = 25;
+	rect.w = 165;
+	rect.h = 320;
+	rect.type = 0;
+	rect.border = 1;
+	rect.c.color = 0x0000b0b2;
 	h = 0;
 	col = 0x00ffffff;
 	f = (float)(c->coef->time - c->coef->prev_time) / 1000000;
@@ -27,7 +39,12 @@ void				trace_info(t_control *c)
 	img.img = mlx_new_image(c->coef->mlx, 250, H);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, img.img, W, 0);
 	mlx_destroy_image(c->coef->mlx, img.img);
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 50, col, "    Scene");
+	mlx_rect(rect, c->coef);
+	bouton = mlx_xpm_file_to_image(c->coef->mlx, "ressources/img/add_filter_norm.XPM", &width, &height);
+	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 360);
+	bouton = mlx_xpm_file_to_image(c->coef->mlx, "ressources/img/add_obj_norm.XPM", &width, &height);
+	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 390);
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 40, col, "    Scene");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Width             : ", ft_itoa(W)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Height            : ", ft_itoa(H)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
@@ -46,6 +63,8 @@ void				trace_info(t_control *c)
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Objets");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Spheres           : ", ft_itoa(c->nb_obj)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Lumieres          : ", ft_itoa(c->nb_luz)));
+	//mlx_circle(100, 100, 100, &cercle, c->coef);
+	//mlx_put_image_to_window(c->coef->mlx, c->coef->win, cercle.img, 250, 250);
 }
 
 int					ft_keyhook(int key, t_control *e)

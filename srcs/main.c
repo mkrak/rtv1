@@ -103,7 +103,7 @@ int					quit(void)
 int					main(int ac, char **av)
 {
 	t_control	lll;
-	void		*menu_win;
+//	void		*menu_win;
 
 	if (ac != 2 && av)
 	{
@@ -118,16 +118,17 @@ int					main(int ac, char **av)
 	init_struct(lll.coef);
 	lll.coef->cur = 8;
 	lll.coef->total = 8;
-	menu_win = mlx_new_window(lll.coef->mlx, 250, 500, "Menu");
-	fill_menu(lll.coef, menu_win);
+//	menu_win = mlx_new_window(lll.coef->mlx, 250, 500, "Menu");
+//	fill_menu(lll.coef, menu_win);
 	ft_logo(lll.coef);
 
 	new_image(lll.coef);
 	init_w(&lll);
 
-	mlx_mouse_hook(menu_win, mouse_hook, &lll);
-	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
-	mlx_key_hook(menu_win, ft_keyhook, &lll);
+//	mlx_mouse_hook(menu_win, mouse_hook, &lll);
+	mlx_hook(lll.coef->win, 6, (1L<<6), main_mouse_hook_not, &lll);
+//	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
+//	mlx_key_hook(menu_win, ft_keyhook, &lll);
 
 	lll.roll = 0;
 	lll.rolr = 0;
