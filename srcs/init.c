@@ -42,6 +42,7 @@ void				init_w(t_control *l)
 	l->coef->wtf = 0;
 	l->coef->negatif = 0;
 	l->coef->bnw = 0;
+	l->coef->sat = 100;
 
 	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
 	l->antial = 1; // 1 pour non 4 pour oui bug sinon

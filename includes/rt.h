@@ -40,6 +40,7 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
+
 typedef union		s_col
 {
 	int				color;
@@ -109,12 +110,11 @@ typedef struct		s_coef
 	int			wtf;
 	int			negatif;
 	int			bnw;
-
+	int			sat;
 	void		*mlx;
 	void		*win;
 	void		*img;
 	char		*data;
-
 	int			is_on_button;
 }					t_coef;
 
@@ -142,6 +142,46 @@ typedef struct		s_inter
 	int id;
 	double t;
 }					t_inter;
+
+typedef struct		s_rect
+{
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+	int				type;
+	int				border;
+	t_col			c;
+}					t_rect;
+
+typedef struct		s_damier
+{
+	int				x1;
+	int				y1;
+	int				z1;
+	double			px;
+	double			py;
+	double			pz;
+} 					t_damier;
+
+typedef struct		s_buton
+{
+	t_img			img_norm;
+	t_img			img_hover;
+	t_rect			rect;
+	int				is_hover;
+	int				is_active;
+}					t_buton;
+
+typedef struct		s_scrol
+{
+	t_rect			bar;
+	t_circle		cir;
+	t_col			c1;
+	t_col			c2;
+	int				value;
+	int				id;
+}					t_scrol;
 
 typedef struct		s_control
 {
@@ -172,17 +212,6 @@ typedef struct		s_control
 	int			kaa;
 }					t_control;
 
-typedef struct		s_rect
-{
-	int				x;
-	int				y;
-	int				w;
-	int				h;
-	int				type;
-	int				border;
-	t_col			c;
-}					t_rect;
-
 typedef struct		s_thread
 {
 	t_control		l;
@@ -190,16 +219,6 @@ typedef struct		s_thread
 	pthread_t		t;
 	int				n;
 }					t_thread;
-
-typedef struct		s_damier
-{
-	int				x1;
-	int				y1;
-	int				z1;
-	double			px;
-	double			py;
-	double			pz;
-} 					t_damier;
 
 //main.c
 void				init_struct(t_coef *scoef);
@@ -257,8 +276,9 @@ int					key_r(int k, t_control *e);
 
 //mlx.c
 void				put_pixel_circle(t_img i, t_circle c, int x, int y);
-void				mlx_circle(int x, int y, int r, t_img *img, t_coef *coef);
+void				mlx_circle(t_circle c, t_coef *coef);
 void				mlx_rect(t_rect rect, t_coef *coef);
+void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 
 void	trace_info(t_control *e);
 void	export_file(t_control *t);

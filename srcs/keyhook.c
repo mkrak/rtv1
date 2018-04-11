@@ -16,7 +16,7 @@ void				trace_info(t_control *c)
 {
 	t_img	img;
 	t_rect	rect;
-	t_img	cercle;
+	t_scrol	scroll;
 	float	f;
 	char	s[255];
 	int		h;
@@ -25,6 +25,16 @@ void				trace_info(t_control *c)
 	int		width;
 	int		height;
 
+	scroll.bar.x = W + 45;
+	scroll.bar.y = 450;
+	scroll.bar.w = 165;
+	scroll.bar.h = 2;
+	scroll.bar.type = 0;
+	scroll.bar.border = 1;
+	scroll.c1.color = 0x0000b0b2;
+	scroll.c2.color = 0x00002324;
+	scroll.value = 35;
+	scroll.id = 0;
 	rect.x = W + 45;
 	rect.y = 25;
 	rect.w = 165;
@@ -63,8 +73,7 @@ void				trace_info(t_control *c)
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Objets");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Spheres           : ", ft_itoa(c->nb_obj)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Lumieres          : ", ft_itoa(c->nb_luz)));
-	//mlx_circle(100, 100, 100, &cercle, c->coef);
-	//mlx_put_image_to_window(c->coef->mlx, c->coef->win, cercle.img, 250, 250);
+	mlx_scroll_bar(scroll, c->coef);
 }
 
 int					ft_keyhook(int key, t_control *e)

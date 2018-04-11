@@ -252,5 +252,12 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		l->coef->cur = id;
 		menu_add(l, "Modifier", 1);
 	}
-	return (k);
+	if (((x >= W + 45 && x <= W + 165) && (y >= 440 && y <= 460)) && l && k == 1)
+	{
+		l->coef->sat = (x - (W + 45)) * 165  / 100;
+		ft_putendl(ft_itoa(l->coef->sat));
+		trace_info(l);
+		multithread(l);
+	}
+return (k);
 }

@@ -90,9 +90,9 @@ void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 		color.posz = color.posx;
 	}
 	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
-	s.data[i] = p + (color.posz - p) * 0.2;
-	s.data[++i] = p + (color.posy - p) * 0.2;
-	s.data[++i] = p + (color.posx - p) * 0.2;
+	s.data[i] = p + (color.posz - p) * c->sat / 100;
+	s.data[++i] = p + (color.posy - p) * c->sat / 100;
+	s.data[++i] = p + (color.posx - p) * c->sat / 100;
 }
 
 int					quit(void)
@@ -127,9 +127,8 @@ int					main(int ac, char **av)
 
 //	mlx_mouse_hook(menu_win, mouse_hook, &lll);
 	mlx_hook(lll.coef->win, 6, (1L<<6), main_mouse_hook_not, &lll);
-//	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
+	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
 //	mlx_key_hook(menu_win, ft_keyhook, &lll);
-
 	lll.roll = 0;
 	lll.rolr = 0;
 	lll.rotl = 0;
@@ -146,6 +145,7 @@ int					main(int ac, char **av)
 	lll.kaliadd = 0;
 	lll.kaa = 0;
 
+	trace_info(&lll);
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);
 	mlx_hook(lll.coef->win, 3, (1L << 1), &key_r, &lll);

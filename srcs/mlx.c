@@ -25,56 +25,62 @@ void	mlx_image_to_alpha(t_img img, int n)
 	}
 }
 
-void	mlx_circle(int x, int y, int r, t_img *img, t_coef *coef)
+void	mlx_circle(t_circle c, t_coef *coef)
 {
-	t_circle	c;
+	t_img		img;
 	int			i;
 	int			j;
 	int			d;
 
-	c.x = x;
-	c.y = y;
-	c.r = r;
-	c.c.color = 0x00ff00ff;
-	img->img = mlx_new_image(coef->mlx, (r * 2), (r * 2));
-	img->data = mlx_get_data_addr(img->img, &img->bpp, &img->sl, &img->end);
-	mlx_image_to_alpha(*img, ((r * 2) *(r * 2) * 4));
-	while (c.r > 0)
-	{
+	img.img = mlx_new_image(coef->mlx, (c.r * 2), (c.r * 2));
+	img.data = mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.end);
+	//mlx_image_to_alpha(img, ((c.r * 2) *(c.r * 2) * 4));
+//	while (c.r > 1)
+//	{
 		i = 0;
 		j = c.r;
 		d = c.r - 1;
 		while (j >= i)
 		{
-			put_pixel_circle(*img, c, y + i, x + j);
-			put_pixel_circle(*img, c, y + j, x + i);
-			put_pixel_circle(*img, c, y - i, x + j);
-			put_pixel_circle(*img, c, y - j, x + i);
-			put_pixel_circle(*img, c, y + i, x - j);
-			put_pixel_circle(*img, c, y + j, x - i);
-			put_pixel_circle(*img, c, y - i, x - j);
-			put_pixel_circle(*img, c, y - j, x - i);
+			put_pixel_circle(img, c, c.r + j, c.r + i);
+			put_pixel_circle(img, c, c.r + i, c.r + j);
+			put_pixel_circle(img, c, c.r - j, c.r + i);
+			put_pixel_circle(img, c, c.r - i, c.r + j);
+			put_pixel_circle(img, c, c.r + j, c.r - i);
+			put_pixel_circle(img, c, c.r + i, c.r - j);
+			put_pixel_circle(img, c, c.r - j, c.r - i);
+			put_pixel_circle(img, c, c.r - i, c.r - j);
+//			put_pixel_circle(img, c, c.y + j, c.x + i);
+//			put_pixel_circle(img, c, c.y + i, c.x + j);
+//			put_pixel_circle(img, c, c.y - j, c.x + i);
+//			put_pixel_circle(img, c, c.y - i, c.x + j);
+//			put_pixel_circle(img, c, c.y + j, c.x - i);
+//			put_pixel_circle(img, c, c.y + i, c.x - j);
+//			put_pixel_circle(img, c, c.y - j, c.x - i);
+//			put_pixel_circle(img, c, c.y - i, c.x - j);
 			if (d >= 2 * i)
 			{
-				d = d - 2 * i - 1;
+				d -= 2 * i + 1;
 				i++;
 			}
-			else if (d < 2 * (r - j))
+			else if (d < 2 * (c.r - j))
 			{
-				d = d + 2 * j - 1;
+				d += 2 * j - 1;
 				j--;
 			}
 			else
 			{
-				d = d + 2 * (j - i - 1);
+				d += 2 * (j - i - 1);
 				j--;
 				i++;
 			}
 		}
-		ft_putendl("bob");
-		c.r--;
-	}
+//		ft_putendl("bob");
+		//c.r--;
+	//}
+	mlx_put_image_to_window(coef->mlx, coef->win, img.img, c.x - c.r, c.y - c.r);
 }
+
 void	put_pixel_rect(t_img i, t_rect r, int x, int y)
 {
 	int		n;
@@ -114,3 +120,20 @@ void	mlx_rect(t_rect rect, t_coef *coef)
 	mlx_put_image_to_window(coef->mlx, coef->win, img.img, rect.x, rect.y);
 }
 
+void	mlx_scroll_bar(t_scrol s, t_coef *coef)
+{
+	t_rect	rect;
+
+	rect = s.bar;
+	s.value = coef->sat;
+	s.bar.c.color = s.c2.color;
+	mlx_rect(s.bar, coef);
+	rect.w = s.value * s.bar.w / 100;
+	rect.c.color = s.c1.color;
+	mlx_rect(rect, coef);
+	s.cir.x = s.bar.x + (s.bar.w * s.value / 100);
+	s.cir.y = s.bar.y + 1;
+	s.cir.r = 5;
+	s.cir.c.color = s.c1.color;
+	mlx_circle(s.cir, coef);
+}
