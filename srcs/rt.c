@@ -24,7 +24,7 @@ void		rt(t_thread *l)
 
 	moy = (t_point*)malloc(sizeof(t_point) * l->l.antial);
 
-	while(px < (l->n + 1) * (H / 8))
+	while(px < (l->n + 1) * (H / 8) + 1)
 	{
 		while(py < W)
 		{
@@ -40,7 +40,7 @@ void		rt(t_thread *l)
 			py++;
 		}
 		n++;
-		if ((n == 5 && l->n == 0) && (l->l.antial == 4 && l->l.aliasing < 4))
+		if ((n == 1 && l->n == 0) && (l->l.antial == 4 && l->l.aliasing < 4))
 		{
 			n = 0;
 			ft_loadbar(l->l.coef, px * 8);
@@ -48,7 +48,32 @@ void		rt(t_thread *l)
 		px++;
 		py = 0;
 	}
+	//		ft_loadbar(l->l.coef, px * 8);
 //	mlx_put_image_to_window(l->l.coef->mlx, l->l.coef->win, l->l.coef->img, 0, 0);
+}
+
+t_inter		inter_plane(t_control *l, int i, t_ray ray)
+{
+	float	n;
+	float	d;
+	float	res;
+	t_inter	ret;
+
+	n = OBJ_I.s.normal.posx * (OBJ_I.s.p.posx - ray.o.posx)
+		+ OBJ_I.s.normal.posy * (OBJ_I.s.p.posy - ray.o.posy)
+		+ OBJ_I.s.normal.posz * (OBJ_I.s.p.posz - ray.o.posz);
+	d = OBJ_I.s.normal.posx * ray.d.posx
+		+ OBJ_I.s.normal.posy * ray.d.posy
+		+ OBJ_I.s.normal.posz * ray.d.posz;
+	if ((res = n / d) > 0)
+	{
+		ret.t = res;
+		ret.pos = ope_add(ray.o, ope_mulv1(ray.d, ret.t));  
+		ret.norm = normalize(ope_sus(ret.pos, OBJ_I.s.p));
+	}
+	else
+		ret.t = 0;
+	return (ret);
 }
 
 t_point		get_color(t_control *l, int nb_ite, t_ray ray)
@@ -63,7 +88,7 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 		return (init_point(0, 0, 0));
 	while (i < l->nb_obj)
 	{
-		inter = intersec(l, i, ray);
+			inter = intersec(l, i, ray);
 		if ((inter.t != 0 && t.t == 0) || (inter.t < t.t && inter.t != 0))
 			t = inter;
 		i++;
@@ -71,7 +96,7 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 	if(t.t !=0)
 	{	
 		if (OBJ.s.type == 1)
-		{	
+		{
 			ray.o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
 			ray.d = ope_sus(ray.d, ope_mulv1(t.norm, dot(t.norm, ray.d) * 2));
 			power = get_color(l, nb_ite - 1, ray);
@@ -81,7 +106,7 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 			power = damier(l, t);
 		}
 		else
-			power = ombre(ray, l, t);			
+			power = ombre(ray, l, t);
 	}
 	return (power);
 }

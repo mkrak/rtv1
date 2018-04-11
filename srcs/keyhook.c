@@ -27,19 +27,25 @@ void				trace_info(t_control *c)
 	img.img = mlx_new_image(c->coef->mlx, 250, H);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, img.img, W, 0);
 	mlx_destroy_image(c->coef->mlx, img.img);
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 10, col, "    Scene");
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Anti-aliasing  (P): ", ft_itoa(c->antial)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Cartoon        (C): ", ft_itoa(c->coef->cartoon)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("WTF            (X): ", ft_itoa(c->coef->wtf)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Time (in sec)     : ", s));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 25, col, "    Camera");
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos X      (AU/AD): ", ft_itoa(c->coef->pos_x)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos Y      (AL/AR): ", ft_itoa(c->coef->pos_y)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Pos Z (CTRL/SHIFT): ", ft_itoa(c->coef->pos_z)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 20, col, ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 25, h += 15, col, ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 50, col, "    Scene");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Width             : ", ft_itoa(W)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Height            : ", ft_itoa(H)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Anti-aliasing  (P): ", ft_itoa(c->antial)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Cartoon        (C): ", ft_itoa(c->coef->cartoon)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Negatif        (N): ", ft_itoa(c->coef->negatif)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("WTF            (X): ", ft_itoa(c->coef->wtf)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Time (in sec)     : ", s));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Camera");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Pos X      (AU/AD): ", ft_itoa(c->coef->pos_x)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Pos Y      (AL/AR): ", ft_itoa(c->coef->pos_y)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Pos Z (CTRL/SHIFT): ", ft_itoa(c->coef->pos_z)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 20, col, ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Objets");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Spheres           : ", ft_itoa(c->nb_obj)));
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Lumieres          : ", ft_itoa(c->nb_luz)));
 }
 
 int					ft_keyhook(int key, t_control *e)

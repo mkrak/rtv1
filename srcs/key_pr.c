@@ -65,6 +65,21 @@ int		key_p(int k, t_control *e)
 			e->coef->wtf = 0;
 		multithread(e);
 	}
+	if (k == K_B)
+	{
+		if (e->coef->bnw == 0)
+			e->coef->bnw = 1;
+		else
+			e->coef->bnw = 0;
+		multithread(e);
+	}if (k == K_N)
+	{
+		if (e->coef->negatif == 0)
+			e->coef->negatif = 1;
+		else
+			e->coef->negatif = 0;
+		multithread(e);
+	}
 	if (k == K_ESC)
 	{
 		mlx_destroy_image(e->coef->mlx, e->coef->img);

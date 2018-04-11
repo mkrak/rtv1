@@ -22,6 +22,8 @@ void				init_w(t_control *l)
 	l->obj[5].s = init_sphere(init_point(0, 0, -5140) , 5000, init_point(1, 1, 0), 1); //fond
 	l->obj[6].s = init_sphere(init_point(0, 0, 5100) , 5000, init_point(1, 0, 1), 1);  //derriere
 	l->obj[7].s = init_sphere(init_point(-15, 10, -55) , 12, init_point(0, 1, 0), 2);
+//l->obj[7].s = init_sphere(init_point(-15, 10, -55) , 12, init_point(0, 1, 0), 3);
+//	l->obj[7].s.normal = init_point(0,0,0);
 
 	l->l[0].p  = init_point(-25, 40, -25);
 	l->l[0].power = 96660000;
@@ -38,6 +40,8 @@ void				init_w(t_control *l)
 	l->coef->pos_z = 0;
 	l->coef->cartoon = 0;
 	l->coef->wtf = 0;
+	l->coef->negatif = 0;
+	l->coef->bnw = 0;
 
 	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
 	l->antial = 1; // 1 pour non 4 pour oui bug sinon

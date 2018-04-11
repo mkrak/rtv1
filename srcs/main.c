@@ -31,6 +31,7 @@ void				new_image(t_coef *scoef)
 void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 {
 	int	i = 0;
+	double	p;
 
 	if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
@@ -76,9 +77,22 @@ void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 		else if (color.posx >= 200 && color.posx <= 255)
 			color.posx = 225;
 	}
-	s.data[i] = color.posz;
-	s.data[++i] = color.posy;
-	s.data[++i] = color.posx;
+	if (c->negatif == 1)
+	{
+		color.posx = 255 - color.posx;
+		color.posy = 255 - color.posy;
+		color.posz = 255 - color.posz;
+	}
+	if (c->bnw)
+	{
+		color.posx = (color.posz + color.posy + color.posz) / 1.5;
+		color.posy = color.posx;
+		color.posz = color.posx;
+	}
+	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
+	s.data[i] = p + (color.posz - p) * 0.2;
+	s.data[++i] = p + (color.posy - p) * 0.2;
+	s.data[++i] = p + (color.posx - p) * 0.2;
 }
 
 int					quit(void)

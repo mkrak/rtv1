@@ -31,7 +31,7 @@ void	multithread(t_control *l)
 	j = 0;
 	while (i > -1)
 	{
-		mlx_put_image_to_window(l->coef->mlx, l->coef->win, thread[i].i.img, 0, j * (H / 8));
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, thread[i].i.img, 0, j * (H / 8) + 5);
 		m = 0;
 		while (m < ((H / 8) * W * 4))
 		{

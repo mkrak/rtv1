@@ -40,6 +40,12 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
+typedef union		s_col
+{
+	int				color;
+	char			c[4];
+}					t_col;
+
 typedef struct		s_img
 {
 	void			*img;
@@ -61,6 +67,7 @@ typedef struct		s_sphere
 	t_point	p;
 	double	ray;
 	t_point color;
+	t_point normal;
 	int type;
 }					t_sphere;
 
@@ -92,6 +99,8 @@ typedef struct		s_coef
 	int			pos_z;
 	int			cartoon;
 	int			wtf;
+	int			negatif;
+	int			bnw;
 
 	void		*mlx;
 	void		*win;
