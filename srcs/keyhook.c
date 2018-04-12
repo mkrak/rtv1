@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 16:10:27 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:54:49 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void				trace_info(t_control *c)
 
 	scroll.bar.x = W + 45;
 	scroll.bar.y = 450;
-	scroll.bar.w = 165;
+	scroll.bar.w = 275;
 	scroll.bar.h = 2;
 	scroll.bar.type = 0;
 	scroll.bar.border = 1;
@@ -37,7 +37,7 @@ void				trace_info(t_control *c)
 	scroll.id = 0;
 	rect.x = W + 45;
 	rect.y = 25;
-	rect.w = 165;
+	rect.w = 275;
 	rect.h = 320;
 	rect.type = 0;
 	rect.border = 1;
@@ -46,7 +46,7 @@ void				trace_info(t_control *c)
 	col = 0x00ffffff;
 	f = (float)(c->coef->time - c->coef->prev_time) / 1000000;
 	ftoa(f, s, 4);
-	img.img = mlx_new_image(c->coef->mlx, 250, H);
+	img.img = mlx_new_image(c->coef->mlx, 350, H);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, img.img, W, 0);
 	mlx_destroy_image(c->coef->mlx, img.img);
 	mlx_rect(rect, c->coef);
@@ -54,7 +54,7 @@ void				trace_info(t_control *c)
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 360);
 	bouton = mlx_xpm_file_to_image(c->coef->mlx, "ressources/img/add_obj_norm.XPM", &width, &height);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 390);
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 40, col, "    Scene");
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Scene");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Width             : ", ft_itoa(W)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Height            : ", ft_itoa(H)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
@@ -147,13 +147,13 @@ int		ft_key_camrot(t_control *e)
 	else if (e->rolr)
 		e->coef->rot_z -= 5;
 	else if (e->rotr)
-		e->coef->rot_x += 50;
+		e->coef->rot_x -= 5;
 	else if (e->rotl)
-		e->coef->rot_x -= 50;
+		e->coef->rot_x += 5;
 	else if (e->rotu)
-		e->coef->rot_y += 50;
+		e->coef->rot_y += 5;
 	else if (e->rotd)
-		e->coef->rot_y -= 50;
+		e->coef->rot_y -= 5;
 	else
 		return (0);
 	return (1);

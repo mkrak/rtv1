@@ -199,8 +199,8 @@ int		rt_search(int x, int y, t_control *l)
 
 	t.t = 0;
 	r.d = normalize(init_point(x - W / 2, -(y - H / 2), -W / (2 * tan(fov / 2))));
-	r.d = rotate_cam(r.d, 0);
-	r.o = init_point(0, 0, 80);
+	r.d = rotate_cam(r.d, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
+	r.o = init_point(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
 	while (i < l->nb_obj)
 	{
 		inter = intersec(l, i, r);
@@ -252,12 +252,12 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		l->coef->cur = id;
 		menu_add(l, "Modifier", 1);
 	}
-	if (((x >= W + 45 && x <= W + 165) && (y >= 440 && y <= 460)) && l && k == 1)
+	if (((x >= W + 45 && x <= W + 350) && (y >= 440 && y <= 460)) && l && k == 1)
 	{
-		l->coef->sat = (x - (W + 45)) * 165  / 100;
+		l->coef->sat = (x - (W + 45)) * 100  / 275;
 		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
-return (k);
+	return (k);
 }

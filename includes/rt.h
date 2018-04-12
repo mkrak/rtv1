@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 16:09:16 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:39:30 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 500
-# define W 500
+# define H 1000
+# define W 1000
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -251,10 +251,12 @@ t_point				ope_add(t_point p, t_point b);
 t_point				ope_mulv1(t_point b, double a);
 
 //ope_vec2.c
-t_point				rotate_cam(t_point d, double angle);
+t_point				rotate_cam(t_point d, double x, double y, double z);
 double				dot(t_point p, t_point b);
 t_point				moy_point(t_point *moy, int antial);
-
+t_point				rot_x(t_point d, double x);
+t_point				rot_y(t_point d, double y);
+t_point				rot_z(t_point d, double z);
 //aliasing.c
 t_point				aliasing(int py, t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);

@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 18:02:30 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 16:10:36 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/12 15:13:56 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void				init_struct(t_coef *scoef)
 {
 	scoef->mlx = mlx_init();
-	scoef->win = mlx_new_window(scoef->mlx, W + 250, H, "mlx 42");
+	scoef->win = mlx_new_window(scoef->mlx, W + 350, H, "mlx 42");
 	scoef->load = malloc(sizeof(t_img));
 }
 
@@ -32,8 +32,11 @@ void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 {
 	int	i = 0;
 	double	p;
+	int		tr;
+	int		tg;
+	int		tb;
 
-	if (x >= H / 8 || x < 0 || y >= W || y < 0)
+if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
 
 	i = ((H / 8 - x - 1) * W + y) * 4;
@@ -85,14 +88,32 @@ void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 	}
 	if (c->bnw)
 	{
-		color.posx = (color.posz + color.posy + color.posz) / 1.5;
+		color.posx = (color.posz + color.posy + color.posz) / 3;
 		color.posy = color.posx;
 		color.posz = color.posx;
 	}
+	tr = 0.393 * color.posx + 0.769 * color.posy + 0.189 * color.posz;
+	tg = 0.349 * color.posx + 0.686 * color.posy + 0.168 * color.posz;
+	tb = 0.272 * color.posx + 0.534 * color.posy + 0.131 * color.posz;
+	if (tr > 255)
+		color.posx = 255;
+	else
+		color.posx = tr;
+	if (tg > 255)
+		color.posy = 255;
+	else
+		color.posy = tr;
+	if (tb > 255)
+		color.posz = 255;
+	else
+		color.posz = tr;
 	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
-	s.data[i] = p + (color.posz - p) * c->sat / 100;
-	s.data[++i] = p + (color.posy - p) * c->sat / 100;
-	s.data[++i] = p + (color.posx - p) * c->sat / 100;
+	s.data[i] = color.posz;
+	s.data[++i] = color.posy;
+	s.data[++i] = color.posx;
+//	s.data[i] = p + (color.posz - p) * c->sat / 100;
+//	s.data[++i] = p + (color.posy - p) * c->sat / 100;
+//	s.data[++i] = p + (color.posx - p) * c->sat / 100;
 }
 
 int					quit(void)

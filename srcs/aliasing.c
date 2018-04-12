@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 15:54:10 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/12 14:40:55 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 		x = 0.75;
 		y = 0.25;
 	}
-	ray.d = normalize(init_point((py - W / 2 + x) + t->rot_x, (px - H / 2 + y) + t->rot_y, -W / (2 * tan(fov / 2))));
-	ray.d = rotate_cam(ray.d, t->rot_z);
+	ray.d = normalize(init_point((py - W / 2 + x), (px - H / 2 + y), -W / (2 * tan(fov / 2))));
+	ray.d = rotate_cam(ray.d, t->rot_y, t->rot_x, t->rot_z);
 	ray.o = init_point(t->pos_y, t->pos_z, t->pos_x);
 
 	return (ray);

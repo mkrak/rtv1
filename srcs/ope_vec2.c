@@ -12,38 +12,48 @@
 
 #include "../includes/rt.h"
 
-t_point		rotate_cam(t_point d, double angle)
+t_point		rotate_cam(t_point d, double x, double y, double z)
 {
 	t_point tmp;
 
-	angle *= M_PI / 180;
-//	t->rot_x *= M_PI / 180;
-//	t->rot_y *= M_PI / 180;
-//	t->rot_z *= M_PI / 180;
-/*	tmp.posx = d.posx;
-	tmp.posy = cos(t->rot_y * M_PI / 180) * d.posy - sin(t->rot_y * M_PI / 180) * d.posz;
-	tmp.posz = sin(t->rot_z * M_PI / 180) * d.posy + cos(t->rot_z * M_PI / 180) * d.posz;
+	tmp = rot_z(rot_y(rot_x(d, x), y), z);
+ 
+	return (tmp);
+}
 
-	tmp.posx = cos(t->rot_x * M_PI / 180) * d.posx + sin(t->rot_x * M_PI / 180) * d.posz;
-	tmp.posy = d.posy;
-	tmp.posz = -sin(t->rot_z * M_PI / 180) * d.posx + cos(t->rot_z * M_PI / 180) * d.posz;
+t_point		rot_x(t_point d, double x)
+{
+	t_point tmp;
 
-	tmp.posx = cos(t->rot_x * M_PI / 180) * d.posx - sin(t->rot_x * M_PI / 180) * d.posy;
-	tmp.posy = sin(t->rot_y * M_PI / 180) * d.posx + cos(t->rot_y * M_PI / 180) * d.posy;
-	tmp.posz = d.posz;
-*/
+	x *= M_PI / 180;
 	tmp.posx = d.posx;
-	tmp.posy = cos(angle) * d.posy - sin(angle) * d.posz;
-	tmp.posz = sin(angle) * d.posy + cos(angle) * d.posz;
+	tmp.posy = cos(x) * d.posy - sin(x) * d.posz;
+	tmp.posz = sin(x) * d.posy + cos(x) * d.posz;
+	
+	return (tmp);
+}
 
-	tmp.posx = cos(angle) * d.posx + sin(angle) * d.posz;
+t_point		rot_y(t_point d, double y)
+{
+	t_point tmp;
+
+	y *= M_PI / 180;
+	tmp.posx = cos(y) * d.posx + sin(y) * d.posz;
 	tmp.posy = d.posy;
-	tmp.posz = -sin(angle) * d.posx + cos(angle) * d.posz;
+	tmp.posz = -sin(y) * d.posx + cos(y) * d.posz;
+	
+	return (tmp);
+}
 
-	tmp.posx = cos(angle) * d.posx - sin(angle) * d.posy;
-	tmp.posy = sin(angle) * d.posx + cos(angle) * d.posy;
+t_point		rot_z(t_point d, double z)
+{
+	t_point tmp;
+
+	z *= M_PI / 180;
+	tmp.posx = cos(z) * d.posx - sin(z) * d.posy;
+	tmp.posy = sin(z) * d.posx + cos(z) * d.posy;
 	tmp.posz = d.posz;
-
+	
 	return (tmp);
 }
 
