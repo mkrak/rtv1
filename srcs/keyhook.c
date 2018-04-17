@@ -17,6 +17,7 @@ void				trace_info(t_control *c)
 	t_img	img;
 	t_rect	rect;
 	t_scrol	scroll;
+	t_scrol	lum;
 	float	f;
 	char	s[255];
 	int		h;
@@ -24,6 +25,16 @@ void				trace_info(t_control *c)
 	void	*bouton;
 	int		width;
 	int		height;
+	lum.bar.x = W + 45;
+	lum.bar.y = 490;
+	lum.bar.w = 275;
+	lum.bar.h = 2;
+	lum.bar.type = 0;
+	lum.bar.border = 1;
+	lum.c1.color = 0x0000b0b2;
+	lum.c2.color = 0x00002324;
+	lum.value = 15;
+	lum.id = 1;
 
 	scroll.bar.x = W + 45;
 	scroll.bar.y = 450;
@@ -74,6 +85,7 @@ void				trace_info(t_control *c)
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Spheres           : ", ft_itoa(c->nb_obj)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Lumieres          : ", ft_itoa(c->nb_luz)));
 	mlx_scroll_bar(scroll, c->coef);
+	mlx_scroll_bar(lum, c->coef);
 }
 
 int					ft_keyhook(int key, t_control *e)

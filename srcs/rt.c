@@ -40,7 +40,7 @@ void		rt(t_thread *l)
 			py++;
 		}
 		n++;
-		if ((n == 1 && l->n == 0) && (l->l.antial == 4 && l->l.aliasing < 4))
+		if ((n == 10 && l->n == 0) && (l->l.antial == 4 && l->l.aliasing < 4))
 		{
 			n = 0;
 			ft_loadbar(l->l.coef, px * 8);

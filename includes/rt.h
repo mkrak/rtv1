@@ -113,6 +113,7 @@ typedef struct		s_coef
 	int 		sepia;
 	int			bnw;
 	int			sat;
+	int			lum;
 	void		*mlx;
 	void		*win;
 	void		*img;

@@ -31,6 +31,7 @@ void				new_image(t_coef *scoef)
 void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 {
 	int	i = 0;
+	double	p;
 	t_point tmp;
 
 if (x >= H / 8 || x < 0 || y >= W || y < 0)
@@ -95,10 +96,13 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 	color.posy = fmin(255, fmax(0, ((tmp.posx * 0.349) + (tmp.posy * 0.686) + (tmp.posz * 0.168)) + 5)); 
 	color.posz = fmin(255, fmax(0, ((tmp.posx * 0.272) + (tmp.posy * 0.534) + (tmp.posz * 0.131)) - 5));
 	}
-
-	s.data[i] = color.posz;
-	s.data[++i] = color.posy;
-	s.data[++i] = color.posx;
+	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
+	s.data[i] = fmin(fmax((p + (color.posz - p) * c->sat / 100) + c->lum, 0), 255);
+	s.data[++i] = fmin(fmax((p + (color.posy - p) * c->sat / 100) + c->lum, 0), 255);
+	s.data[++i] = fmin(fmax((p + (color.posx - p) * c->sat / 100) + c->lum, 0), 255);
+//	s.data[i] = color.posz;
+//	s.data[++i] = color.posy;
+//	s.data[++i] = color.posx;
 
 }
 

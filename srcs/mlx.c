@@ -125,13 +125,22 @@ void	mlx_scroll_bar(t_scrol s, t_coef *coef)
 	t_rect	rect;
 
 	rect = s.bar;
-	s.value = coef->sat;
+	if (s.id == 0)
+		s.value = coef->sat;
+	if (s.id == 1)
+		s.value = coef->lum;
 	s.bar.c.color = s.c2.color;
 	mlx_rect(s.bar, coef);
-	rect.w = s.value * s.bar.w / 100;
+	if (s.id == 0)
+		rect.w = s.value * s.bar.w / 100;
+	if (s.id == 1)
+		rect.w = (s.value + 255) * s.bar.w / 510;
 	rect.c.color = s.c1.color;
 	mlx_rect(rect, coef);
-	s.cir.x = s.bar.x + (s.bar.w * s.value / 100);
+	if (s.id == 0)
+		s.cir.x = s.bar.x + (s.bar.w * s.value / 100);
+	if (s.id == 1)
+		s.cir.x = s.bar.x + (s.bar.w * (s.value + 255) / 510);
 	s.cir.y = s.bar.y + 1;
 	s.cir.r = 5;
 	s.cir.c.color = s.c1.color;

@@ -24,6 +24,29 @@ void	expand_name(t_control *l, char c)
 	mlx_string_put(l->coef->mlx, l->coef->win_rename, 10, 10, 0x00ffffff, l->coef->name);
 }
 
+void	trunc_name(t_control *l)
+{
+	char	*swap;
+	int		i;
+
+	i = 0;
+	if (l->coef->name && ft_strlen(l->coef->name) > 0)
+	{
+		swap = malloc(sizeof(char) * ft_strlen(l->coef->name));
+		while (i < (int)ft_strlen(l->coef->name) - 1)
+		{
+			swap[i] = l->coef->name[i];
+			i++;
+		}
+		swap[i] = '\0';
+		l->coef->name = malloc(sizeof(swap));
+		l->coef->name = ft_strdup(swap);
+		l->coef->name[i] = '\0';
+		free(swap);
+		mlx_string_put(l->coef->mlx, l->coef->win_rename, 10, 10, 0x00ffffff, l->coef->name);
+	}
+}
+
 void	hook_mac_rename(t_control *l, int k)
 {
 	if (k == K_A)
@@ -90,19 +113,35 @@ void	hook_mac_rename3(t_control *l, int k)
 		expand_name(l, 'y');
 	else if (k == K_Z)
 		expand_name(l, 'z');
+	else if (k == 51)
+		trunc_name(l);
+}
+
+void	refresh_name(t_control *l)
+{
+	t_img	img;
+
+	img.img = mlx_new_image(l->coef->mlx, 500, 100);
+	mlx_put_image_to_window(l->coef->mlx, l->coef->win_rename, img.img, 0, 0);
+	mlx_destroy_image(l->coef->mlx, img.img);
 }
 
 int		hook_rename(int k, t_control *l)
 {
+	refresh_name(l);
 	if ((!OS && (k >= 'a' && k <= 'z')))
 		expand_name(l, k);
 	if (OS)
 		hook_mac_rename(l, k);
+	if (k == K_ESC)
+	{
+		ft_strdel(&l->coef->name);
+		mlx_destroy_window(l->coef->mlx, l->coef->win_rename);
+	}
 	if (k == K_ENTER)
 	{
 		l->coef->name = ft_strjoin(l->coef->name, ".bmp");
 		l->coef->name = ft_strjoin("export/", l->coef->name);
-		ft_putendl(l->coef->name);
 		export_file(l);
 		ft_strdel(&l->coef->name);
 		mlx_destroy_window(l->coef->mlx, l->coef->win_rename);

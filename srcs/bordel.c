@@ -259,5 +259,12 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		trace_info(l);
 		multithread(l);
 	}
+		if (((x >= W + 45 && x <= W + 350) && (y >= 480 && y <= 500)) && l && k == 1)
+	{
+		l->coef->lum = fmax(-254, (((x - (W + 45)) * 510 / 275) - 255));
+		ft_putendl(ft_itoa(l->coef->sat));
+		trace_info(l);
+		multithread(l);
+	}
 	return (k);
 }
