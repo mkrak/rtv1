@@ -26,7 +26,7 @@ void				trace_info(t_control *c)
 	int		width;
 	int		height;
 	lum.bar.x = W + 45;
-	lum.bar.y = 490;
+	lum.bar.y = 500;
 	lum.bar.w = 275;
 	lum.bar.h = 2;
 	lum.bar.type = 0;
@@ -37,7 +37,7 @@ void				trace_info(t_control *c)
 	lum.id = 1;
 
 	scroll.bar.x = W + 45;
-	scroll.bar.y = 450;
+	scroll.bar.y = 470;
 	scroll.bar.w = 275;
 	scroll.bar.h = 2;
 	scroll.bar.type = 0;
@@ -64,7 +64,7 @@ void				trace_info(t_control *c)
 	bouton = mlx_xpm_file_to_image(c->coef->mlx, "ressources/img/add_filter_norm.XPM", &width, &height);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 360);
 	bouton = mlx_xpm_file_to_image(c->coef->mlx, "ressources/img/add_obj_norm.XPM", &width, &height);
-	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 390);
+	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 410);
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 25, col, "    Scene");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Width             : ", ft_itoa(W)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, h += 15, col, ft_strjoin("Height            : ", ft_itoa(H)));

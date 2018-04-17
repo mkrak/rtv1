@@ -221,16 +221,16 @@ int		main_mouse_hook_not(int x, int y, t_control *l)
 	int		w;
 	int		h;
 
-	if (((x >= W + 45 && x <= W + 165) && (y >= 360 && y <= 380)) && l)
+	if (((x >= W + 45 && x <= W + 320) && (y >= 360 && y <= 395)) && l)
 	{
 		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_filter_hover.XPM", &w, &h);
 		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 360);
 		l->coef->is_on_button = 1;
 	}
-	else if (((x >= W + 45 && x <= W + 165) && (y >= 390 && y <= 410)) && l)
+	else if (((x >= W + 45 && x <= W + 320) && (y >= 410 && y <= 445)) && l)
 	{
 		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_obj_hover.XPM", &w, &h);
-		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 390);
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 410);
 		l->coef->is_on_button = 1;
 	}
 	else if (l->coef->is_on_button)
@@ -252,14 +252,14 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		l->coef->cur = id;
 		menu_add(l, "Modifier", 1);
 	}
-	if (((x >= W + 45 && x <= W + 350) && (y >= 440 && y <= 460)) && l && k == 1)
+	if (((x >= W + 45 && x <= W + 320) && (y >= 460 && y <= 480)) && l && k == 1)
 	{
 		l->coef->sat = (x - (W + 45)) * 100  / 275;
 		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
-		if (((x >= W + 45 && x <= W + 350) && (y >= 480 && y <= 500)) && l && k == 1)
+		if (((x >= W + 45 && x <= W + 320) && (y >= 490 && y <= 510)) && l && k == 1)
 	{
 		l->coef->lum = fmax(-254, (((x - (W + 45)) * 510 / 275) - 255));
 		ft_putendl(ft_itoa(l->coef->sat));
