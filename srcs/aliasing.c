@@ -45,7 +45,7 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 	return (ray);
 }
 
-t_point				aliasing(int py, t_control *l, t_ray ray)
+t_point				aliasing(t_control *l, t_ray ray)
 {
 	t_point power;
 

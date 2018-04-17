@@ -31,10 +31,7 @@ void				new_image(t_coef *scoef)
 void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
 {
 	int	i = 0;
-	double	p;
-	int		tr;
-	int		tg;
-	int		tb;
+	t_point tmp;
 
 if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
@@ -58,7 +55,6 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 			color.posz = 175;
 		else if (color.posz >= 200 && color.posz <= 255)
 			color.posz = 225;
-
 		if (color.posy > 0 && color.posy < 50)
 			color.posy = 25;
 		else if (color.posy >= 50 && color.posy < 100)
@@ -92,28 +88,18 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		color.posy = color.posx;
 		color.posz = color.posx;
 	}
-	tr = 0.393 * color.posx + 0.769 * color.posy + 0.189 * color.posz;
-	tg = 0.349 * color.posx + 0.686 * color.posy + 0.168 * color.posz;
-	tb = 0.272 * color.posx + 0.534 * color.posy + 0.131 * color.posz;
-	if (tr > 255)
-		color.posx = 255;
-	else
-		color.posx = tr;
-	if (tg > 255)
-		color.posy = 255;
-	else
-		color.posy = tr;
-	if (tb > 255)
-		color.posz = 255;
-	else
-		color.posz = tr;
-	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
+	if(c->sepia)
+	{
+	tmp = color;
+	color.posx = fmin(255, fmax(0, ((tmp.posx * 0.393) + (tmp.posy * 0.769) + (tmp.posz * 0.189)) + 15));
+	color.posy = fmin(255, fmax(0, ((tmp.posx * 0.349) + (tmp.posy * 0.686) + (tmp.posz * 0.168)) + 5)); 
+	color.posz = fmin(255, fmax(0, ((tmp.posx * 0.272) + (tmp.posy * 0.534) + (tmp.posz * 0.131)) - 5));
+	}
+
 	s.data[i] = color.posz;
 	s.data[++i] = color.posy;
 	s.data[++i] = color.posx;
-//	s.data[i] = p + (color.posz - p) * c->sat / 100;
-//	s.data[++i] = p + (color.posy - p) * c->sat / 100;
-//	s.data[++i] = p + (color.posx - p) * c->sat / 100;
+
 }
 
 int					quit(void)
@@ -134,7 +120,7 @@ int					main(int ac, char **av)
 	lll.nb_obj = ft_atoi(av[1]);
 	lll.nb_luz = 3; 
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.l = (t_luz*)malloc(sizeof(t_luz) * 3);
+	lll.l = (t_luz*)malloc(sizeof(t_luz) * 1);
 	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.nb_obj);
 	init_struct(lll.coef);
 	lll.coef->cur = 8;

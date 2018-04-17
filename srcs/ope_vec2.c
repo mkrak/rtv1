@@ -72,7 +72,7 @@ t_point		moy_point(t_point *moy, int antial)
 		ret.posy = (moy[0].posy + moy[1].posy + moy[2].posy + moy[3].posy) / antial;
 		ret.posz = (moy[0].posz + moy[1].posz + moy[2].posz + moy[3].posz) / antial;
 		}
-	else if (antial == 1)
+	else
 		{
 		ret.posx = (moy[0].posx) / antial;
 		ret.posy = (moy[0].posy) / antial;

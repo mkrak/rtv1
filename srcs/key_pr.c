@@ -19,6 +19,23 @@ int		key_p(int k, t_control *e)
 		e->kalisub = 1;
 	if (k == KP_ADD)
 		e->kaliadd = 1;
+	if (k == K_U)
+	{
+		e->coef->reflec *= 1.5;
+		multithread(e);
+				trace_info(e);
+
+	}
+	if (k == K_I)
+	{
+		if (e->coef->reflec != 1)
+		{
+			e->coef->reflec /=  1.5;
+			e->coef->reflec = fmax(e->coef->reflec, 1);
+			multithread(e);
+			trace_info(e);
+		}
+	}
 	if (k == K_P)
 		e->kaa = 1;
 	if ((!OS && k == K_A) || (OS && k == K_Q))
@@ -56,6 +73,14 @@ int		key_p(int k, t_control *e)
 			e->coef->cartoon = 1;
 		else
 			e->coef->cartoon = 0;
+		multithread(e);
+	}
+	if (k == K_F)
+	{
+		if (e->coef->sepia == 0)
+			e->coef->sepia = 1;
+		else
+			e->coef->sepia = 0;
 		multithread(e);
 	}
 	if (k == K_X)

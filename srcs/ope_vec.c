@@ -39,3 +39,8 @@ t_point		ope_mulv1(t_point b, double a)
 {
 	return (init_point(a * b.posx, a * b.posy, a * b.posz));
 }
+
+t_point		ope_divv1(t_point b, double a)
+{
+	return (init_point(b.posx / a, b.posy / a, b.posz / a));
+}

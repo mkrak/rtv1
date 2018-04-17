@@ -31,7 +31,7 @@ void		rt(t_thread *l)
 			while(i < l->l.antial && (py % (int)fmax(l->l.aliasing, 1) == 0))
 			{
 				ray = anti_alias(px, py, ray, i, l->l.coef);
-				moy[i] = aliasing(py, &l->l, ray);
+				moy[i] = aliasing(&l->l, ray);
 				i++;
 			}
 			i = 0;
@@ -100,6 +100,11 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 			ray.o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
 			ray.d = ope_sus(ray.d, ope_mulv1(t.norm, dot(t.norm, ray.d) * 2));
 			power = get_color(l, nb_ite - 1, ray);
+			power = ope_divv1(power, l->coef->reflec); 
+			if (l->coef->reflec != 1)
+			{
+				power = ope_add(power, ope_divv1(ombre(ray, l, t), fmax((15 / l->coef->reflec), 1)));
+			}
 		}
 		else if (OBJ.s.type == 2)
 		{

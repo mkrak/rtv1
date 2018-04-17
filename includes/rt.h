@@ -108,7 +108,9 @@ typedef struct		s_coef
 	int			pos_z;
 	int			cartoon;
 	int			wtf;
+	double 		reflec;
 	int			negatif;
+	int 		sepia;
 	int			bnw;
 	int			sat;
 	void		*mlx;
@@ -249,6 +251,7 @@ t_point				normalize(t_point p);
 t_point				ope_sus(t_point p, t_point b);
 t_point				ope_add(t_point p, t_point b);
 t_point				ope_mulv1(t_point b, double a);
+t_point		ope_divv1(t_point b, double a);
 
 //ope_vec2.c
 t_point				rotate_cam(t_point d, double x, double y, double z);
@@ -258,7 +261,7 @@ t_point				rot_x(t_point d, double x);
 t_point				rot_y(t_point d, double y);
 t_point				rot_z(t_point d, double z);
 //aliasing.c
-t_point				aliasing(int py, t_control *l, t_ray ray);
+t_point				aliasing(t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 
 //multithread.c
