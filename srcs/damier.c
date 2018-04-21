@@ -13,14 +13,14 @@
 #include "../includes/rt.h"
 
 
-t_point			damier(t_control *l, t_inter inter)
+t_vec3			damier(t_control *l, t_inter inter)
 {
     t_damier	a;
-    t_point color = init_point(0, 0, 0);
+    t_vec3 color = init_point(0, 0, 0);
 
-    a.px = inter.pos.posx - l->obj[inter.id].s.p.posx;
-    a.py = inter.pos.posy - l->obj[inter.id].s.p.posy;
-    a.pz = inter.pos.posz - l->obj[inter.id].s.p.posz;
+    a.px = inter.pos.x - l->obj[inter.id].s.p.x;
+    a.py = inter.pos.y - l->obj[inter.id].s.p.y;
+    a.pz = inter.pos.z - l->obj[inter.id].s.p.z;
 	a.x1 = (int)(floor((a.px / LENGHT_PROCED)));
 	a.y1 = (int)(floor((a.py / LENGHT_PROCED)));
 	a.z1 = (int)(floor((a.pz / LENGHT_PROCED)));
@@ -29,30 +29,30 @@ t_point			damier(t_control *l, t_inter inter)
     {
         if(((a.y1 % 2 == 0) && (a.z1 % 2 == 0)) || (((a.y1 % 2 != 0) && (a.z1 % 2 != 0))))
         {
-            color.posx = 0;
-            color.posy = 0;
-            color.posz = 0;
+            color.x = 0;
+            color.y = 0;
+            color.z = 0;
         }
         else
         {
-            color.posx = 255;
-            color.posy = 255;
-            color.posz = 0;
+            color.x = 255;
+            color.y = 255;
+            color.z = 0;
         }
     }
     else
     {
 		if (((a.y1 % 2 == 0) && (a.z1 % 2 == 0)) || (((a.y1 % 2 != 0) && (a.z1 % 2 != 0))))
 		{
-		    color.posx = 255;
-            color.posy = 255;
-            color.posz = 0;
+		    color.x = 255;
+            color.y = 255;
+            color.z = 0;
 		}
 		else
 		{
-            color.posx = 0;
-            color.posy = 0;
-            color.posz = 0;
+            color.x = 0;
+            color.y = 0;
+            color.z = 0;
 		}
     }
     return (color);

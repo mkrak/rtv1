@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 1000
-# define W 1000
+# define H 600
+# define W 600
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -40,6 +40,18 @@
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 
+typedef struct		s_vec3
+{ 
+	double		x;
+	double		y;
+	double		z;
+}					t_vec3;
+
+typedef struct		s_ray
+{
+	t_vec3	origin;
+	t_vec3 dir;
+}					t_ray;
 
 typedef union		s_col
 {
@@ -56,13 +68,6 @@ typedef struct		s_img
 	int				end;
 }					t_img;
 
-typedef struct		s_point
-{ 
-	double		posx;
-	double		posy;
-	double		posz;
-}					t_point;
-
 typedef struct		s_circle
 {
 	int				x;
@@ -73,10 +78,10 @@ typedef struct		s_circle
 
 typedef struct		s_sphere
 {
-	t_point	p;
+	t_vec3	p;
 	double	ray;
-	t_point color;
-	t_point normal;
+	t_vec3 color;
+	t_vec3 normal;
 	int type;
 }					t_sphere;
 
@@ -121,15 +126,9 @@ typedef struct		s_coef
 	int			is_on_button;
 }					t_coef;
 
-typedef struct		s_ray
-{
-	t_point	o;
-	t_point d;
-}					t_ray;
-
 typedef struct		s_luz
 {
-	t_point	p;
+	t_vec3	p;
 	double	power;
 }					t_luz;
 
@@ -140,8 +139,8 @@ typedef struct		s_obj
 
 typedef struct		s_inter
 {
-	t_point pos;
-	t_point norm;
+	t_vec3 pos;
+	t_vec3 norm;
 	int id;
 	double t;
 }					t_inter;
@@ -226,7 +225,7 @@ typedef struct		s_thread
 //main.c
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
-void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c);
+void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c);
 int					quit(void);
 
 //keyhook.c
@@ -237,32 +236,32 @@ int					ft_key_aa(t_control *e);
 
 //init.c
 void				init_w(t_control *l);
-t_point				init_point(double x, double y, double z);
-t_sphere			init_sphere(t_point p, double ray, t_point color, int type);
+t_vec3				init_point(double x, double y, double z);
+t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 
 //rt.c
 void				rt(t_thread *l);
-t_point				get_color(t_control *l, int nb_ite, t_ray ray);
+t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
 t_inter				intersec(t_control *l, int i, t_ray ray);
-t_point				ombre(t_ray ray, t_control *l, t_inter t);
+t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
 
 //ope_vec.c
-double				getnorm2(t_point p);
-t_point				normalize(t_point p);
-t_point				ope_sus(t_point p, t_point b);
-t_point				ope_add(t_point p, t_point b);
-t_point				ope_mulv1(t_point b, double a);
-t_point		ope_divv1(t_point b, double a);
+double				getnorm2(t_vec3 p);
+t_vec3				normalize(t_vec3 v);
+t_vec3				sub_vec3(t_vec3 a, t_vec3 b);
+t_vec3				add_vec3(t_vec3 a, t_vec3 b);
+t_vec3				k_vec3(double k, t_vec3 b);
+t_vec3				ope_divv1(t_vec3 b, double a);
 
 //ope_vec2.c
-t_point				rotate_cam(t_point d, double x, double y, double z);
-double				dot(t_point p, t_point b);
-t_point				moy_point(t_point *moy, int antial);
-t_point				rot_x(t_point d, double x);
-t_point				rot_y(t_point d, double y);
-t_point				rot_z(t_point d, double z);
+t_vec3				rotate_cam(t_vec3 d, double x, double y, double z);
+double				dot(t_vec3 p, t_vec3 b);
+t_vec3				moy_point(t_vec3 *moy, int antial);
+t_vec3				rot_x(t_vec3 d, double x);
+t_vec3				rot_y(t_vec3 d, double y);
+t_vec3				rot_z(t_vec3 d, double z);
 //aliasing.c
-t_point				aliasing(t_control *l, t_ray ray);
+t_vec3				aliasing(t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 
 //multithread.c
@@ -302,7 +301,7 @@ int		main_mouse_hook_not(int x, int y, t_control *l);
 void	ft_loadbar(t_coef *t, int n);
 void	menu_add(t_control *l, char *str, int status);
 
-t_point			damier(t_control *l, t_inter inter);
+t_vec3			damier(t_control *l, t_inter inter);
 
 
 

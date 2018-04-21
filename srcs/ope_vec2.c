@@ -12,71 +12,71 @@
 
 #include "../includes/rt.h"
 
-t_point		rotate_cam(t_point d, double x, double y, double z)
+t_vec3		rotate_cam(t_vec3 d, double x, double y, double z)
 {
-	t_point tmp;
+	t_vec3 tmp;
 
 	tmp = rot_z(rot_y(rot_x(d, x), y), z);
  
 	return (tmp);
 }
 
-t_point		rot_x(t_point d, double x)
+t_vec3		rot_x(t_vec3 d, double x)
 {
-	t_point tmp;
+	t_vec3 tmp;
 
 	x *= M_PI / 180;
-	tmp.posx = d.posx;
-	tmp.posy = cos(x) * d.posy - sin(x) * d.posz;
-	tmp.posz = sin(x) * d.posy + cos(x) * d.posz;
+	tmp.x = d.x;
+	tmp.y = cos(x) * d.y - sin(x) * d.z;
+	tmp.z = sin(x) * d.y + cos(x) * d.z;
 	
 	return (tmp);
 }
 
-t_point		rot_y(t_point d, double y)
+t_vec3		rot_y(t_vec3 d, double y)
 {
-	t_point tmp;
+	t_vec3 tmp;
 
 	y *= M_PI / 180;
-	tmp.posx = cos(y) * d.posx + sin(y) * d.posz;
-	tmp.posy = d.posy;
-	tmp.posz = -sin(y) * d.posx + cos(y) * d.posz;
+	tmp.x = cos(y) * d.x + sin(y) * d.z;
+	tmp.y = d.y;
+	tmp.z = -sin(y) * d.x + cos(y) * d.z;
 	
 	return (tmp);
 }
 
-t_point		rot_z(t_point d, double z)
+t_vec3		rot_z(t_vec3 d, double z)
 {
-	t_point tmp;
+	t_vec3 tmp;
 
 	z *= M_PI / 180;
-	tmp.posx = cos(z) * d.posx - sin(z) * d.posy;
-	tmp.posy = sin(z) * d.posx + cos(z) * d.posy;
-	tmp.posz = d.posz;
+	tmp.x = cos(z) * d.x - sin(z) * d.y;
+	tmp.y = sin(z) * d.x + cos(z) * d.y;
+	tmp.z = d.z;
 	
 	return (tmp);
 }
 
-double		dot(t_point p, t_point b)
+double		dot(t_vec3 p, t_vec3 b)
 {
-	return (p.posx * b.posx + p.posy * b.posy + p.posz * b.posz);
+	return (p.x * b.x + p.y * b.y + p.z * b.z);
 }
 
-t_point		moy_point(t_point *moy, int antial)
+t_vec3		moy_point(t_vec3 *moy, int antial)
 {
-	t_point ret;
+	t_vec3 ret;
 
 	if (antial == 4)
 		{
-		ret.posx = (moy[0].posx + moy[1].posx + moy[2].posx + moy[3].posx) / antial;
-		ret.posy = (moy[0].posy + moy[1].posy + moy[2].posy + moy[3].posy) / antial;
-		ret.posz = (moy[0].posz + moy[1].posz + moy[2].posz + moy[3].posz) / antial;
+		ret.x = (moy[0].x + moy[1].x + moy[2].x + moy[3].x) / antial;
+		ret.y = (moy[0].y + moy[1].y + moy[2].y + moy[3].y) / antial;
+		ret.z = (moy[0].z + moy[1].z + moy[2].z + moy[3].z) / antial;
 		}
 	else
 		{
-		ret.posx = (moy[0].posx) / antial;
-		ret.posy = (moy[0].posy) / antial;
-		ret.posz = (moy[0].posz) / antial;
+		ret.x = (moy[0].x) / antial;
+		ret.y = (moy[0].y) / antial;
+		ret.z = (moy[0].z) / antial;
 		}
 	return (ret); 
 }

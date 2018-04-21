@@ -14,15 +14,15 @@
 
 void		rt(t_thread *l)
 {
-	t_point power;
-	t_point *moy;
+	t_vec3 power;
+	t_vec3 *moy;
 	int px = l->n * (H / 8);
 	int py = 0;
 	int n = 0;
 	t_ray ray;
 	int i = 0;
 
-	moy = (t_point*)malloc(sizeof(t_point) * l->l.antial);
+	moy = (t_vec3*)malloc(sizeof(t_vec3) * l->l.antial);
 
 	while(px < (l->n + 1) * (H / 8) + 1)
 	{
@@ -59,30 +59,30 @@ t_inter		inter_plane(t_control *l, int i, t_ray ray)
 	float	res;
 	t_inter	ret;
 
-	n = OBJ_I.s.normal.posx * (OBJ_I.s.p.posx - ray.o.posx)
-		+ OBJ_I.s.normal.posy * (OBJ_I.s.p.posy - ray.o.posy)
-		+ OBJ_I.s.normal.posz * (OBJ_I.s.p.posz - ray.o.posz);
-	d = OBJ_I.s.normal.posx * ray.d.posx
-		+ OBJ_I.s.normal.posy * ray.d.posy
-		+ OBJ_I.s.normal.posz * ray.d.posz;
+	n = OBJ_I.s.normal.x * (OBJ_I.s.p.x - ray.origin.x)
+		+ OBJ_I.s.normal.y * (OBJ_I.s.p.y - ray.origin.y)
+		+ OBJ_I.s.normal.z * (OBJ_I.s.p.z - ray.origin.z);
+	d = OBJ_I.s.normal.x * ray.dir.x
+		+ OBJ_I.s.normal.y * ray.dir.y
+		+ OBJ_I.s.normal.z * ray.dir.z;
 	if ((res = n / d) > 0)
 	{
 		ret.t = res;
-		ret.pos = ope_add(ray.o, ope_mulv1(ray.d, ret.t));  
-		ret.norm = normalize(ope_sus(ret.pos, OBJ_I.s.p));
+		ret.pos = add_vec3(ray.origin, k_vec3(ret.t, ray.dir));  
+		ret.norm = normalize(sub_vec3(ret.pos, OBJ_I.s.p));
 	}
 	else
 		ret.t = 0;
 	return (ret);
 }
 
-t_point		get_color(t_control *l, int nb_ite, t_ray ray)
+t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 {
 	int i = 0;
 	t_inter	t;
 	t.t = 0;
 	t_inter inter;
-	t_point power = init_point(0, 0, 0);
+	t_vec3 power = init_point(0, 0, 0);
 
 	if (nb_ite == 0)
 		return (init_point(0, 0, 0));
@@ -97,13 +97,14 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 	{	
 		if (OBJ.s.type == 1)
 		{
-			ray.o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
-			ray.d = ope_sus(ray.d, ope_mulv1(t.norm, dot(t.norm, ray.d) * 2));
+			ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
+			ray.dir = sub_vec3(ray.dir, k_vec3(dot(t.norm, ray.dir) * 2, t.norm));
+
 			power = get_color(l, nb_ite - 1, ray);
 			power = ope_divv1(power, l->coef->reflec); 
 			if (l->coef->reflec != 1)
 			{
-				power = ope_add(power, ope_divv1(ombre(ray, l, t), fmax((15 / l->coef->reflec), 1)));
+				power = add_vec3(power, ope_divv1(ombre(ray, l, t), fmax((15 / l->coef->reflec), 1)));
 			}
 		}
 		else if (OBJ.s.type == 2)
@@ -119,8 +120,8 @@ t_point		get_color(t_control *l, int nb_ite, t_ray ray)
 t_inter		intersec(t_control *l, int i, t_ray ray)
 {
 	double a = 1;
-	double b = 2 * dot(ray.d, ope_sus(ray.o, OBJ_I.s.p));
-	double c = getnorm2(ope_sus(ray.o, OBJ_I.s.p)) - (OBJ_I.s.ray * OBJ_I.s.ray);
+	double b = 2 * dot(ray.dir, sub_vec3(ray.origin, OBJ_I.s.p));
+	double c = getnorm2(sub_vec3(ray.origin, OBJ_I.s.p)) - (OBJ_I.s.ray * OBJ_I.s.ray);
 	double delta = (b * b) - (4 * a * c);
 	t_inter ret;
 
@@ -141,21 +142,21 @@ t_inter		intersec(t_control *l, int i, t_ray ray)
 		ret.t = t1;
 	else
 		ret.t = t2;
-	ret.pos = ope_add(ray.o, ope_mulv1(ray.d, ret.t));  
-	ret.norm = normalize(ope_sus(ret.pos, OBJ_I.s.p));
+	ret.pos = add_vec3(ray.origin, k_vec3(ret.t, ray.dir));  
+	ret.norm = normalize(sub_vec3(ret.pos, OBJ_I.s.p));
 	return (ret);
 }
 
-t_point		ombre(t_ray ray, t_control *l, t_inter t)
+t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
 {
 	int i = 0;
 	t_inter ombre;
 	ombre.t = 0;
 	t_inter inter;
-	t_point power;
+	t_vec3 power;
 
-	ray.o = ope_add(t.pos, ope_mulv1(t.norm, 0.001));
-	ray.d = normalize(ope_sus(l->l[l->obj_i].p, t.pos));
+	ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
+	ray.dir = normalize(sub_vec3(l->l[l->obj_i].p, t.pos));
 	
 	while (i < l->nb_obj)
 	{
@@ -164,10 +165,10 @@ t_point		ombre(t_ray ray, t_control *l, t_inter t)
 			ombre = inter;
 		i++;
 	}
-	double dist_l2 = getnorm2(ope_sus(l->l[l->obj_i].p, t.pos));
+	double dist_l2 = getnorm2(sub_vec3(l->l[l->obj_i].p, t.pos));
  	if(ombre.t !=0 && ombre.t * ombre.t < dist_l2)
  		power = init_point(0, 0, 0);
  	else
-		power = ope_mulv1(OBJ.s.color, l->l[l->obj_i].power * fmax(0, dot(normalize(ope_sus(l->l[l->obj_i].p, t.pos)), t.norm)) / dist_l2);
+		power = k_vec3(l->l[l->obj_i].power * fmax(0, dot(normalize(sub_vec3(l->l[l->obj_i].p, t.pos)), t.norm)) / dist_l2, OBJ.s.color);
 	return (power);
 }

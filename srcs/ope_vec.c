@@ -12,35 +12,35 @@
 
 #include "../includes/rt.h"
 
-double		getnorm2(t_point p)
+double		getnorm2(t_vec3 p)
 {
-	return (p.posx * p.posx + p.posy * p.posy + p.posz * p.posz);
+	return (p.x * p.x + p.y * p.y + p.z * p.z);
 }
 
-t_point		normalize(t_point p)
+t_vec3		normalize(t_vec3 v)
 {
 	double norm;
 
-	norm = sqrt(getnorm2(p));
-	return (init_point(p.posx / norm, p.posy / norm, p.posz / norm));
+	norm = sqrt(getnorm2(v));
+	return (init_point(v.x / norm, v.y / norm, v.z / norm));
 }
 
-t_point		ope_sus(t_point p, t_point b)
+t_vec3		sub_vec3(t_vec3 a, t_vec3 b)
 {
-	return (init_point(p.posx - b.posx, p.posy - b.posy, p.posz - b.posz));
+	return (init_point(a.x - b.x, a.y - b.y, a.z - b.z));
 }
 
-t_point		ope_add(t_point p, t_point b)
+t_vec3		add_vec3(t_vec3 a, t_vec3 b)
 {
-	return (init_point(p.posx + b.posx, p.posy + b.posy, p.posz + b.posz));
+	return (init_point(a.x + b.x, a.y + b.y, a.z + b.z));
 }
 
-t_point		ope_mulv1(t_point b, double a)
+t_vec3		k_vec3(double k, t_vec3 b)
 {
-	return (init_point(a * b.posx, a * b.posy, a * b.posz));
+	return (init_point(k * b.x, k * b.y, k * b.z));
 }
 
-t_point		ope_divv1(t_point b, double a)
+t_vec3		ope_divv1(t_vec3 b, double a)
 {
-	return (init_point(b.posx / a, b.posy / a, b.posz / a));
+	return (init_point(b.x / a, b.y / a, b.z / a));
 }

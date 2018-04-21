@@ -51,22 +51,22 @@ void				init_w(t_control *l)
 }
 
 
-t_point		init_point(double x, double y, double z)
+t_vec3		init_point(double x, double y, double z)
 {
-	t_point tmp;
+	t_vec3 tmp;
 
-	tmp.posx = x;
-	tmp.posy = y;
-	tmp.posz = z;
+	tmp.x = x;
+	tmp.y = y;
+	tmp.z = z;
 
 	return (tmp);
 }
 
-t_sphere		init_sphere(t_point p, double ray, t_point color, int type)
+t_sphere		init_sphere(t_vec3 p, double ray, t_vec3 color, int type)
 {
 	t_sphere tmp;
 
-	tmp.p = init_point(p.posx, p.posy, p.posz);
+	tmp.p = init_point(p.x, p.y, p.z);
 	tmp.ray = ray;
 	tmp.color = color;
 	tmp.type = type;

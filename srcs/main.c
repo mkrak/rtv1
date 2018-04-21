@@ -28,11 +28,11 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				put_pixel(t_img s, int x, int y, t_point color, t_coef *c)
+void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c)
 {
 	int	i = 0;
 	double	p;
-	t_point tmp;
+	t_vec3 tmp;
 
 if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
@@ -40,69 +40,69 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 	i = ((H / 8 - x - 1) * W + y) * 4;
 	if (!c->wtf)
 	{
-		color.posx = fmin(255, fmax(0, pow(color.posx, 1 / 2.2)));
-		color.posy = fmin(255, fmax(0, pow(color.posy, 1 / 2.2)));
-		color.posz = fmin(255, fmax(0, pow(color.posz, 1 / 2.2)));
+		color.x = fmin(255, fmax(0, pow(color.x, 1 / 2.2)));
+		color.y = fmin(255, fmax(0, pow(color.y, 1 / 2.2)));
+		color.z = fmin(255, fmax(0, pow(color.z, 1 / 2.2)));
 	}
 	if (c->cartoon == 1)
 	{
-		if (color.posz > 0 && color.posz < 50)
-			color.posz = 25;
-		else if (color.posz >= 50 && color.posz < 100)
-			color.posz = 75;
-		else if (color.posz >= 100 && color.posz < 150)
-			color.posz = 125;
-		else if (color.posz >= 150 && color.posz < 200)
-			color.posz = 175;
-		else if (color.posz >= 200 && color.posz <= 255)
-			color.posz = 225;
-		if (color.posy > 0 && color.posy < 50)
-			color.posy = 25;
-		else if (color.posy >= 50 && color.posy < 100)
-			color.posy = 75;
-		else if (color.posy >= 100 && color.posy < 150)
-			color.posy = 125;
-		else if (color.posy >= 150 && color.posy < 200)
-			color.posy = 175;
-		else if (color.posy >= 200 && color.posy <= 255)
-			color.posy = 225;
-		if (color.posx > 0 && color.posx < 50)
-			color.posx = 25;
-		else if (color.posx >= 50 && color.posx < 100)
-			color.posx = 75;
-		else if (color.posx >= 100 && color.posx < 150)
-			color.posx = 125;
-		else if (color.posx >= 150 && color.posx < 200)
-			color.posx = 175;
-		else if (color.posx >= 200 && color.posx <= 255)
-			color.posx = 225;
+		if (color.z > 0 && color.z < 50)
+			color.z = 25;
+		else if (color.z >= 50 && color.z < 100)
+			color.z = 75;
+		else if (color.z >= 100 && color.z < 150)
+			color.z = 125;
+		else if (color.z >= 150 && color.z < 200)
+			color.z = 175;
+		else if (color.z >= 200 && color.z <= 255)
+			color.z = 225;
+		if (color.y > 0 && color.y < 50)
+			color.y = 25;
+		else if (color.y >= 50 && color.y < 100)
+			color.y = 75;
+		else if (color.y >= 100 && color.y < 150)
+			color.y = 125;
+		else if (color.y >= 150 && color.y < 200)
+			color.y = 175;
+		else if (color.y >= 200 && color.y <= 255)
+			color.y = 225;
+		if (color.x > 0 && color.x < 50)
+			color.x = 25;
+		else if (color.x >= 50 && color.x < 100)
+			color.x = 75;
+		else if (color.x >= 100 && color.x < 150)
+			color.x = 125;
+		else if (color.x >= 150 && color.x < 200)
+			color.x = 175;
+		else if (color.x >= 200 && color.x <= 255)
+			color.x = 225;
 	}
 	if (c->negatif == 1)
 	{
-		color.posx = 255 - color.posx;
-		color.posy = 255 - color.posy;
-		color.posz = 255 - color.posz;
+		color.x = 255 - color.x;
+		color.y = 255 - color.y;
+		color.z = 255 - color.z;
 	}
 	if (c->bnw)
 	{
-		color.posx = (color.posz + color.posy + color.posz) / 3;
-		color.posy = color.posx;
-		color.posz = color.posx;
+		color.x = (color.z + color.y + color.z) / 3;
+		color.y = color.x;
+		color.z = color.x;
 	}
 	if(c->sepia)
 	{
 	tmp = color;
-	color.posx = fmin(255, fmax(0, ((tmp.posx * 0.393) + (tmp.posy * 0.769) + (tmp.posz * 0.189)) + 15));
-	color.posy = fmin(255, fmax(0, ((tmp.posx * 0.349) + (tmp.posy * 0.686) + (tmp.posz * 0.168)) + 5)); 
-	color.posz = fmin(255, fmax(0, ((tmp.posx * 0.272) + (tmp.posy * 0.534) + (tmp.posz * 0.131)) - 5));
+	color.x = fmin(255, fmax(0, ((tmp.x * 0.393) + (tmp.y * 0.769) + (tmp.z * 0.189)) + 15));
+	color.y = fmin(255, fmax(0, ((tmp.x * 0.349) + (tmp.y * 0.686) + (tmp.z * 0.168)) + 5)); 
+	color.z = fmin(255, fmax(0, ((tmp.x * 0.272) + (tmp.y * 0.534) + (tmp.z * 0.131)) - 5));
 	}
-	p = sqrt(color.posx*color.posx*0.299 + color.posy*color.posy*0.587 + color.posz*color.posz*0.114);
-	s.data[i] = fmin(fmax((p + (color.posz - p) * c->sat / 100) + c->lum, 0), 255);
-	s.data[++i] = fmin(fmax((p + (color.posy - p) * c->sat / 100) + c->lum, 0), 255);
-	s.data[++i] = fmin(fmax((p + (color.posx - p) * c->sat / 100) + c->lum, 0), 255);
-//	s.data[i] = color.posz;
-//	s.data[++i] = color.posy;
-//	s.data[++i] = color.posx;
+	p = sqrt(color.x*color.x*0.299 + color.y*color.y*0.587 + color.z*color.z*0.114);
+	s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
+	s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
+	s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
+//	s.data[i] = color.z;
+//	s.data[++i] = color.y;
+//	s.data[++i] = color.x;
 
 }
 
