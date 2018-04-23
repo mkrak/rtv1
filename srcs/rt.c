@@ -82,10 +82,10 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 	t_inter	t;
 	t.t = 0;
 	t_inter inter;
-	t_vec3 power = init_point(0, 0, 0);
+	t_vec3 power = vec3(0, 0, 0);
 
 	if (nb_ite == 0)
-		return (init_point(0, 0, 0));
+		return (vec3(0, 0, 0));
 	while (i < l->nb_obj)
 	{
 			inter = intersec(l, i, ray);
@@ -167,7 +167,7 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
 	}
 	double dist_l2 = getnorm2(sub_vec3(l->l[l->obj_i].p, t.pos));
  	if(ombre.t !=0 && ombre.t * ombre.t < dist_l2)
- 		power = init_point(0, 0, 0);
+ 		power = vec3(0, 0, 0);
  	else
 		power = k_vec3(l->l[l->obj_i].power * fmax(0, dot(normalize(sub_vec3(l->l[l->obj_i].p, t.pos)), t.norm)) / dist_l2, OBJ.s.color);
 	return (power);

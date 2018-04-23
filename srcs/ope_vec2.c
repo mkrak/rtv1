@@ -16,12 +16,12 @@ t_vec3		rotate_cam(t_vec3 d, double x, double y, double z)
 {
 	t_vec3 tmp;
 
-	tmp = rot_z(rot_y(rot_x(d, x), y), z);
+	tmp = rot_cam_z(rot_cam_y(rot_cam_x(d, x), y), z);
  
 	return (tmp);
 }
 
-t_vec3		rot_x(t_vec3 d, double x)
+t_vec3		rot_cam_x(t_vec3 d, double x)
 {
 	t_vec3 tmp;
 
@@ -33,7 +33,7 @@ t_vec3		rot_x(t_vec3 d, double x)
 	return (tmp);
 }
 
-t_vec3		rot_y(t_vec3 d, double y)
+t_vec3		rot_cam_y(t_vec3 d, double y)
 {
 	t_vec3 tmp;
 
@@ -45,7 +45,7 @@ t_vec3		rot_y(t_vec3 d, double y)
 	return (tmp);
 }
 
-t_vec3		rot_z(t_vec3 d, double z)
+t_vec3		rot_cam_z(t_vec3 d, double z)
 {
 	t_vec3 tmp;
 

@@ -16,7 +16,7 @@
 t_vec3			damier(t_control *l, t_inter inter)
 {
     t_damier	a;
-    t_vec3 color = init_point(0, 0, 0);
+    t_vec3 color = vec3(0, 0, 0);
 
     a.px = inter.pos.x - l->obj[inter.id].s.p.x;
     a.py = inter.pos.y - l->obj[inter.id].s.p.y;

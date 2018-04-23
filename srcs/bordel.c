@@ -198,9 +198,9 @@ int		rt_search(int x, int y, t_control *l)
 	t_ray	r;
 
 	t.t = 0;
-	r.dir = normalize(init_point(x - W / 2, -(y - H / 2), -W / (2 * tan(fov / 2))));
+	r.dir = normalize(vec3(x - W / 2, -(y - H / 2), -W / (2 * tan(fov / 2))));
 	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
-	r.origin = init_point(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
+	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
 	while (i < l->nb_obj)
 	{
 		inter = intersec(l, i, r);

@@ -236,7 +236,7 @@ int					ft_key_aa(t_control *e);
 
 //init.c
 void				init_w(t_control *l);
-t_vec3				init_point(double x, double y, double z);
+t_vec3				vec3(double x, double y, double z);
 t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 
 //rt.c
@@ -257,9 +257,9 @@ t_vec3				ope_divv1(t_vec3 b, double a);
 t_vec3				rotate_cam(t_vec3 d, double x, double y, double z);
 double				dot(t_vec3 p, t_vec3 b);
 t_vec3				moy_point(t_vec3 *moy, int antial);
-t_vec3				rot_x(t_vec3 d, double x);
-t_vec3				rot_y(t_vec3 d, double y);
-t_vec3				rot_z(t_vec3 d, double z);
+t_vec3				rot_cam_x(t_vec3 d, double x);
+t_vec3				rot_cam_y(t_vec3 d, double y);
+t_vec3				rot_cam_z(t_vec3 d, double z);
 //aliasing.c
 t_vec3				aliasing(t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
