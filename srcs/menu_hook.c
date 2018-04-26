@@ -142,14 +142,14 @@ void	menu_hook_posz(int k, int x, int y, t_control *l)
 
 int		menu_hook_update(int k, t_control *l)
 {
-	l->obj[l->coef->cur].s = init_sphere(vec3(l->coef->posx, l->coef->posy, l->coef->posz) , l->coef->rad, vec3((float)l->coef->r / 100, (float)l->coef->g / 100, (float)l->coef->b / 100), l->coef->type);
+//	l->obj[l->coef->cur].s = init_sphere(vec3(l->coef->posx, l->coef->posy, l->coef->posz) , l->coef->rad, vec3((float)l->coef->r / 100, (float)l->coef->g / 100, (float)l->coef->b / 100), l->coef->type);
 	multithread(l);
 	return (k);
 }
 
 int		menu_hook_add(int k, t_control *l)
 {
-		l->obj[l->coef->cur].s = init_sphere(vec3(l->coef->posx, l->coef->posy, l->coef->posz) , l->coef->rad, vec3((float)l->coef->r / 100, (float)l->coef->g / 100, (float)l->coef->b / 100), l->coef->type);
+//		l->obj[l->coef->cur].s = init_sphere(vec3(l->coef->posx, l->coef->posy, l->coef->posz) , l->coef->rad, vec3((float)l->coef->r / 100, (float)l->coef->g / 100, (float)l->coef->b / 100), l->coef->type);
 		if (l->coef->cur > l->coef->total)
 			l->coef->total += 1;
 		mlx_destroy_window(l->coef->mlx, l->coef->win_add);
@@ -162,7 +162,7 @@ int		menu_hook_add(int k, t_control *l)
 int		menu_hook_cancel(int k, t_control *l)
 {
 		mlx_destroy_window(l->coef->mlx, l->coef->win_add);
-		l->obj[l->coef->cur].s = l->coef->swap;
+//		l->obj[l->coef->cur].s = l->coef->swap;
 //		l->av = l->coef->cur;
 		multithread(l);
 		l->coef->win_add = NULL;

@@ -1,4 +1,4 @@
-NAME		=	rtv1
+NAME		=	rt
 SHEL		=	/bin/bash
 
 OS			=	$(shell uname -s)
@@ -24,7 +24,9 @@ SRCS_LIST	=	rt.c \
 				utils.c \
 				key_pr.c \
 				menu_hook.c \
-				mlx.c
+				mlx.c \
+				surface.c \
+				quadric.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))

@@ -6,34 +6,40 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/03 16:11:52 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/25 23:37:24 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-void				init_w(t_control *l)
+t_obj	*init_obj(int nb_obj)
 {
-	l->obj[0].s = init_sphere(vec3(15, 10, -55) , 12, vec3(1, 0, 0), 0);
-	l->obj[1].s = init_sphere(vec3(0, -5020, 0) , 5000, vec3(1, 1, 1), 0); // bas
-	l->obj[2].s = init_sphere(vec3(0, 5050, 0) , 5000, vec3(0.5, 0.5, 0), 0); //haut
-	l->obj[3].s = init_sphere(vec3(-5050, 0, 0) , 5000, vec3(0, 1, 0), 0); // gauche
-	l->obj[4].s = init_sphere(vec3(5050, 0, 0) , 5000, vec3(0, 1, 1), 0);  // droite
-	l->obj[5].s = init_sphere(vec3(0, 0, -5140) , 5000, vec3(1, 1, 0), 1); //fond
-	l->obj[6].s = init_sphere(vec3(0, 0, 5100) , 5000, vec3(1, 0, 1), 0);  //derriere
-	l->obj[7].s = init_sphere(vec3(-15, 10, -55) , 12, vec3(0, 1, 0), 2);
+	int		c;
+	double	h;
+	t_obj	*obj;
 
-	l->l[0].p  = vec3(-25, 40, -25);
-	l->l[0].power = 156660000;
-	//l->l[1].p  = vec3(25, 40, -25);
-	//l->l[1].power = 36666000;
-	//l->l[2].p  = vec3(0, -19, 0);
-	//l->l[2].power = 36666000;
+	c = 0x333333;
+	h = 0.75;
+	obj = (t_obj*)malloc(sizeof(t_obj) * nb_obj);
+	obj[0] = gen_surface(0, gen_attr(0x00ff7f, 7, 0, 0), vec3(0, 0, -30));
+	obj[1] = gen_surface(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, -25, 0));
+	obj[2] = gen_surface(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, 25, 0));
+	obj[3] = gen_surface(1, gen_attr(0xffffff, 0, 'x', 0), vec3(50, 0, 0));
+	obj[4] = gen_surface(1, gen_attr(0xffffff, 0, 'x', 0), vec3(-50, 0, 0));
+	obj[5] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, -75));
+	obj[6] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, 75));
+	obj[7] = gen_surface(2, gen_attr(0x7fff00, 5, 'x', 0), vec3(0, 10, -60));
+	obj[8] = gen_surface(2, gen_attr(0xff007f, 6, 'y', 0), vec3(30, 0, -60));
+	obj[9] = gen_surface(3, gen_attr(0x7f0000, 25, 'y', 1), vec3(-50, -25, -60));
+	return (obj);
+}
 
+void	init_coef(t_control *l)
+{
 	l->coef->rot_x = 0;
 	l->coef->rot_y = 0;
 	l->coef->rot_z = 0;
-	l->coef->pos_x = 0;
+	l->coef->pos_x = 70;
 	l->coef->pos_y = 0;
 	l->coef->pos_z = 0;
 	l->coef->cartoon = 0;
@@ -44,6 +50,19 @@ void				init_w(t_control *l)
 	l->coef->sat = 100;
 	l->coef->reflec = 1;
 	l->coef->sat = 100;
+	l->coef->cur = 8;
+	l->coef->total = 8;
+}
+
+void				init_w(t_control *l)
+{
+	init_coef(l);
+	l->l[0].p  = vec3(0, 20, 70);
+	l->l[0].power = 156660000;
+	l->l[1].p  = vec3(30, 0, 25);
+	l->l[1].power = 36666000;
+	l->l[2].p  = vec3(-30, 0, 25);
+	l->l[2].power = 36666000;
 	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
 	l->antial = 1; // 1 pour non 4 pour oui bug sinon
 

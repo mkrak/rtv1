@@ -54,14 +54,14 @@ void	menu_add(t_control *l, char *str, int status)
 	{
 		if (l->coef->win_add == NULL)
 		{
-			l->coef->posx = (int)l->obj[l->coef->cur].s.p.x;
-			l->coef->posy = (int)l->obj[l->coef->cur].s.p.y;
-			l->coef->posz = (int)l->obj[l->coef->cur].s.p.z;
-			l->coef->rad = (int)l->obj[l->coef->cur].s.ray;
-			l->coef->r = (int)l->obj[l->coef->cur].s.color.x * 100;
-			l->coef->g = (int)l->obj[l->coef->cur].s.color.y * 100;
-			l->coef->b = (int)l->obj[l->coef->cur].s.color.z * 100;
-			l->coef->type = (int)l->obj[l->coef->cur].s.type;
+			l->coef->posx = (int)l->obj[l->coef->cur].attr.pos.x;
+			l->coef->posy = (int)l->obj[l->coef->cur].attr.pos.y;
+			l->coef->posz = (int)l->obj[l->coef->cur].attr.pos.z;
+			l->coef->rad = (int)l->obj[l->coef->cur].attr.radius;
+			l->coef->r = (int)l->obj[l->coef->cur].attr.albedo.x * 100;
+			l->coef->g = (int)l->obj[l->coef->cur].attr.albedo.y * 100;
+			l->coef->b = (int)l->obj[l->coef->cur].attr.albedo.z * 100;
+			l->coef->type = (int)l->obj[l->coef->cur].attr.type;
 			l->coef->win_add = mlx_new_window(l->coef->mlx, 250, 500, str);
 		}
 	}
@@ -203,7 +203,7 @@ int		rt_search(int x, int y, t_control *l)
 	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
 	while (i < l->nb_obj)
 	{
-		inter = intersec(l, i, r);
+		inter = intersec(i, l->obj[i].q, r.origin, r.dir);
 		if (t.t == 0 && inter.t != 0)
 			t = inter;
 		else if (inter.t < t.t && inter.t != 0)
@@ -248,7 +248,7 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 	if (k == 1 && ((x >= 0 && x <= W) && y) && l)
 	{
 		id = rt_search(x, y, l);
-		l->coef->swap = l->obj[id].s;
+		l->coef->swap = l->obj[id];
 		l->coef->cur = id;
 		menu_add(l, "Modifier", 1);
 	}

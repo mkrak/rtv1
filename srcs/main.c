@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 18:02:30 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/12 15:13:56 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/25 21:40:43 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 	color.z = fmin(255, fmax(0, ((tmp.x * 0.272) + (tmp.y * 0.534) + (tmp.z * 0.131)) - 5));
 	}
 	p = sqrt(color.x*color.x*0.299 + color.y*color.y*0.587 + color.z*color.z*0.114);
-	s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
-	s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
-	s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
-//	s.data[i] = color.z;
-//	s.data[++i] = color.y;
-//	s.data[++i] = color.x;
+//	s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
+//	s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
+//	s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
+	s.data[i] = color.x;
+	s.data[++i] = color.y;
+	s.data[++i] = color.z;
 
 }
 
@@ -124,11 +124,10 @@ int					main(int ac, char **av)
 	lll.nb_obj = ft_atoi(av[1]);
 	lll.nb_luz = 3; 
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.l = (t_luz*)malloc(sizeof(t_luz) * 1);
-	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.nb_obj);
+	lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz);
+	lll.obj = init_obj(lll.nb_obj);
+//	lll.obj = (t_obj*)malloc(sizeof(t_obj) * lll.nb_obj);
 	init_struct(lll.coef);
-	lll.coef->cur = 8;
-	lll.coef->total = 8;
 //	menu_win = mlx_new_window(lll.coef->mlx, 250, 500, "Menu");
 //	fill_menu(lll.coef, menu_win);
 	ft_logo(lll.coef);

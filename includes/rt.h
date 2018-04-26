@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/12 14:39:30 by cballest         ###   ########.fr       */
+/*   Updated: 2018/04/25 21:40:11 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 600
-# define W 600
+# define H 720
+# define W 720
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -52,6 +52,42 @@ typedef struct		s_ray
 	t_vec3	origin;
 	t_vec3 dir;
 }					t_ray;
+
+typedef	struct	s_quadric
+{
+	double		a;
+	double		b;
+	double		c;
+	double		d;
+	double		e;
+	double		f;
+	double		g;
+	double		h;
+	double		i;
+	double		j;
+
+}				t_quadric;
+
+typedef	struct	s_attr
+{
+	int		id;
+	t_vec3		pos;
+	double		radius;
+	char		axe;
+	double		kd;
+	double		ks;
+	int 		color;
+	int			type;
+	t_vec3		albedo;
+
+}				t_attr;
+
+typedef	struct	s_obj
+{
+	t_attr		attr;
+	t_quadric	q;
+
+}				t_obj;
 
 typedef union		s_col
 {
@@ -89,7 +125,7 @@ typedef struct		s_coef
 {
 	int			time;
 	int			prev_time;
-	t_sphere	swap;
+	t_obj		swap;
 	t_img		*load;
 	char		*name;
 	void		*win_rename;
@@ -131,11 +167,6 @@ typedef struct		s_luz
 	t_vec3	p;
 	double	power;
 }					t_luz;
-
-typedef struct		s_obj
-{
-	t_sphere s;
-}					t_obj;
 
 typedef struct		s_inter
 {
@@ -222,6 +253,8 @@ typedef struct		s_thread
 	int				n;
 }					t_thread;
 
+typedef	void	(*gen_obj)(t_quadric*, t_attr);
+
 //main.c
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
@@ -238,11 +271,13 @@ int					ft_key_aa(t_control *e);
 void				init_w(t_control *l);
 t_vec3				vec3(double x, double y, double z);
 t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
+t_obj				*init_obj(int nb_obj);
+void				init_coef(t_control *l);
 
 //rt.c
 void				rt(t_thread *l);
 t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
-t_inter				intersec(t_control *l, int i, t_ray ray);
+t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
 
 //ope_vec.c
@@ -263,6 +298,20 @@ t_vec3				rot_cam_z(t_vec3 d, double z);
 //aliasing.c
 t_vec3				aliasing(t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
+
+//quadric.c
+gen_obj				*init_gen(void);
+t_vec3				get_normal(t_quadric q, t_vec3 p);
+void				gen_quadric(t_quadric *q);
+t_attr				gen_attr(int color, double radius, char axe, int type);
+void				translation(t_quadric* q, t_vec3 v);
+
+//surface.c
+void				gen_sphere(t_quadric *q, t_attr attr);
+void				gen_cylinder(t_quadric *q, t_attr attr);
+void				gen_plane(t_quadric *q, t_attr attr);
+void				gen_cone(t_quadric *q, t_attr attr);
+t_obj				gen_surface(int id, t_attr attr, t_vec3 coord);
 
 //multithread.c
 void				multithread(t_control *l);
