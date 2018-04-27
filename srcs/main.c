@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/13 18:02:30 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/25 21:40:43 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/04/27 17:12:48 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,19 @@ if (x >= H / 8 || x < 0 || y >= W || y < 0)
 	color.y = fmin(255, fmax(0, ((tmp.x * 0.349) + (tmp.y * 0.686) + (tmp.z * 0.168)) + 5)); 
 	color.z = fmin(255, fmax(0, ((tmp.x * 0.272) + (tmp.y * 0.534) + (tmp.z * 0.131)) - 5));
 	}
-	p = sqrt(color.x*color.x*0.299 + color.y*color.y*0.587 + color.z*color.z*0.114);
-//	s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
-//	s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
-//	s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
-	s.data[i] = color.x;
-	s.data[++i] = color.y;
-	s.data[++i] = color.z;
+	if (!c->wtf)
+	{
+		p = sqrt(color.x*color.x*0.299 + color.y*color.y*0.587 + color.z*color.z*0.114);
+		s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
+		s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
+		s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
+	}
+	else
+	{
+		s.data[i] = color.z;
+		s.data[++i] = color.y;
+		s.data[++i] = color.x;
+	}
 
 }
 
@@ -154,7 +160,6 @@ int					main(int ac, char **av)
 	lll.kalisub = 0;
 	lll.kaliadd = 0;
 	lll.kaa = 0;
-
 	trace_info(&lll);
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);

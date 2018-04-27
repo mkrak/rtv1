@@ -29,77 +29,6 @@ void				fill_menu(t_coef *t, void *win)
 	mlx_put_image_to_window(t->mlx, win, img, 125 - w / 2, 15 + 85 * 3);
 }
 
-void	menu_add(t_control *l, char *str, int status)
-{
-	void	*img;
-	int		w;
-	int		h;
-
-	if (status == 0)
-	{
-		if (l->coef->win_add == NULL)
-		{
-			l->coef->posx = 0;
-			l->coef->posy = 0;
-			l->coef->posz = 0;
-			l->coef->rad = 0;
-			l->coef->r = 0;
-			l->coef->g = 0;
-			l->coef->b = 0;
-			l->coef->type = 0;
-			l->coef->win_add = mlx_new_window(l->coef->mlx, 250, 500, str);
-		}
-	}
-	if (status == 1)
-	{
-		if (l->coef->win_add == NULL)
-		{
-			l->coef->posx = (int)l->obj[l->coef->cur].attr.pos.x;
-			l->coef->posy = (int)l->obj[l->coef->cur].attr.pos.y;
-			l->coef->posz = (int)l->obj[l->coef->cur].attr.pos.z;
-			l->coef->rad = (int)l->obj[l->coef->cur].attr.radius;
-			l->coef->r = (int)l->obj[l->coef->cur].attr.albedo.x * 100;
-			l->coef->g = (int)l->obj[l->coef->cur].attr.albedo.y * 100;
-			l->coef->b = (int)l->obj[l->coef->cur].attr.albedo.z * 100;
-			l->coef->type = (int)l->obj[l->coef->cur].attr.type;
-			l->coef->win_add = mlx_new_window(l->coef->mlx, 250, 500, str);
-		}
-	}
-	img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/ADD_BAR.XPM", &w, &h);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 10);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 50);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 90);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 150);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 210);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 250);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 290);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 350);
-	img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/UPDATE.XPM", &w, &h);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win_add, img, 13, 410);
-
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 10 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->posx));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 50 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->posy));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 90 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->posz));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 150 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->rad));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 210 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->r));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 250 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->g));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 290 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->b));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 350 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->type));
-
-/*	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 10, 0x00000000, ft_itoa(l->coef->posx));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 50, 0x00000000, ft_itoa(l->coef->posy));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 90, 0x00000000, ft_itoa(l->coef->posz));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 150, 0x00000000, ft_itoa(l->coef->rad));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 210, 0x00000000, ft_itoa(l->coef->r));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 250, 0x00000000, ft_itoa(l->coef->g));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 290, 0x00000000, ft_itoa(l->coef->b));
-	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 350, 0x00000000, ft_itoa(l->coef->type));
-*/
-	mlx_mouse_hook(l->coef->win_add, add_mouse_hook, l);
-	mlx_key_hook(l->coef->win_add, ft_keyhook, l);
-	mlx_destroy_image(l->coef->mlx, img);
-}
-
 void	export_file(t_control *l)
 {
 	int		fd;
@@ -176,19 +105,6 @@ void	export_file(t_control *l)
 	close(fd);
 }
 
-int		mouse_hook(int k, int x, int y, t_control *l)
-{
-	if (k == 1 && (x >= 25 && x <= 225) && (y >= 15 && y <= 90))
-		menu_add(l, "SPHERE", 0);
-	if (k == 1 && (x >= 25 && x <= 225) && (y >= 100 && y <= 175))
-		menu_add(l, "", 0);
-	if (k == 1 && (x >= 25 && x <= 225) && (y >= 185 && y <= 260))
-		menu_add(l, "", 0);
-	if (k == 1 && (x >= 25 && x <= 225) && (y >= 270 && y <= 345))
-		menu_add(l, "", 0);
-	return (k);
-}
-
 int		rt_search(int x, int y, t_control *l)
 {
 	double	fov = 60 * M_PI / 180;
@@ -215,22 +131,100 @@ int		rt_search(int x, int y, t_control *l)
 	return (-1);
 }
 
+void	obj_realloc(t_control *l)
+{
+	t_obj	*swap;
+	int		i;
+
+	i = 0;
+	l->nb_obj++;
+	l->coef->total++;
+	swap = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj - 1);
+	while (i < l->nb_obj)
+	{
+		swap[i] = l->obj[i];
+		i++;
+	}
+	i = 0;
+	free(l->obj);
+	l->obj = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
+	while (i <= l->nb_obj)
+	{
+
+		l->obj[i] = swap[i];
+		i++;
+	}
+	ft_putendl("test");
+}
+
 int		main_mouse_hook_not(int x, int y, t_control *l)
 {
+	t_img	bl;
 	void	*img;
 	int		w;
 	int		h;
 
-	if (((x >= W + 45 && x <= W + 320) && (y >= 360 && y <= 395)) && l)
+	bl.img = mlx_new_image(l->coef->mlx, 350, 35);
+	if (((x >= W + 45 && x <= W + 320) && (y >= 360 && y <= 395)) && l && l->coef->menu_state == 0)
 	{
-		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_filter_hover.XPM", &w, &h);
+		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_0/add_filter_hover.XPM", &w, &h);
 		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 360);
 		l->coef->is_on_button = 1;
 	}
-	else if (((x >= W + 45 && x <= W + 320) && (y >= 410 && y <= 445)) && l)
+
+	else if (((x >= W + 45 && x <= W + 320) && (y > 60 && y <= 93)) && l && l->coef->menu_state == 1)
 	{
-		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/add_obj_hover.XPM", &w, &h);
-		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 410);
+		if (l->coef->negatif == 0)
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/neg/hover_0.XPM", &w, &h);
+		else
+		{
+			mlx_put_image_to_window(l->coef->mlx, l->coef->win, bl.img, W, 60);
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/neg/hover_1.XPM", &w, &h);
+		}
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 60);
+		l->coef->is_on_button = 1;
+	}
+	else if (((x >= W + 45 && x <= W + 320) && (y > 95 && y <= 128)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->sepia == 0)
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/sepia/hover_0.XPM", &w, &h);
+		else
+		{
+			mlx_put_image_to_window(l->coef->mlx, l->coef->win, bl.img, W, 95);
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/sepia/hover_1.XPM", &w, &h);
+		}
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 95);
+		l->coef->is_on_button = 1;
+	}
+	else if (((x >= W + 45 && x <= W + 320) && (y > 130 && y <= 163)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->cartoon == 0)
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/cartoon/hover_0.XPM", &w, &h);
+		else
+		{
+			mlx_put_image_to_window(l->coef->mlx, l->coef->win, bl.img, W, 130);
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/cartoon/hover_1.XPM", &w, &h);
+		}
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 130);
+		l->coef->is_on_button = 1;
+	}
+	else if (((x >= W + 45 && x <= W + 320) && (y > 165 && y <= 198)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->wtf == 0)
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/wtf/hover_0.XPM", &w, &h);
+		else
+		{
+			mlx_put_image_to_window(l->coef->mlx, l->coef->win, bl.img, W, 165);
+			img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_1/wtf/hover_1.XPM", &w, &h);
+		}
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 165);
+		l->coef->is_on_button = 1;
+	}
+
+	else if (((x >= W + 45 && x <= W + 320) && (y >= 400 && y <= 435)) && l && l->coef->menu_state == 0)
+	{
+		img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/menu_0/add_obj_hover.XPM", &w, &h);
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 400);
 		l->coef->is_on_button = 1;
 	}
 	else if (l->coef->is_on_button)
@@ -245,26 +239,180 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 {
 	int		id;
 
-	if (k == 1 && ((x >= 0 && x <= W) && y) && l)
+	if ((k == 1 && (x >= W + 45 && x <= W + 75) && (y >= 25 && y <= 50)) && l && l->coef->menu_state == 1)
 	{
+		l->coef->menu_state = 0;
+		trace_info(l);
+	}
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 360 && y <= 395)) && l && l->coef->menu_state == 0)
+	{
+		l->coef->menu_state = 1;
+		trace_info(l);
+	}
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 400 && y <= 435)) && l && l->coef->menu_state == 0)
+	{
+		l->coef->menu_state = 2;
+		trace_info(l);
+	}
+
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 60 && y <= 95)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->negatif == 0)
+			l->coef->negatif = 1;
+		else
+			l->coef->negatif = 0;
+		trace_info(l);
+		multithread(l);
+	}
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 95 && y <= 130)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->sepia == 0)
+			l->coef->sepia = 1;
+		else
+			l->coef->sepia = 0;
+		trace_info(l);
+		multithread(l);
+	}
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 130 && y <= 165)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->cartoon == 0)
+			l->coef->cartoon = 1;
+		else
+			l->coef->cartoon = 0;
+		trace_info(l);
+		multithread(l);
+	}
+	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 165 && y <= 200)) && l && l->coef->menu_state == 1)
+	{
+		if (l->coef->wtf == 0)
+			l->coef->wtf = 1;
+		else
+			l->coef->wtf = 0;
+		trace_info(l);
+		multithread(l);
+	}
+
+	if (k == 1 && ((x >= 0 && x <= W) && (y >= 0 && y <= H)) && l)
+	{
+		l->coef->status = 1;
+		l->coef->menu_state = 3;
 		id = rt_search(x, y, l);
 		l->coef->swap = l->obj[id];
+		l->coef->id_swap = l->coef->cur;
 		l->coef->cur = id;
-		menu_add(l, "Modifier", 1);
+		trace_info_3(l, 2);
 	}
-	if (((x >= W + 45 && x <= W + 320) && (y >= 460 && y <= 480)) && l && k == 1)
+	if (((x >= W + 45 && x <= W + 350) && (y >= 235 && y <= 255)) && l && k == 1 && l->coef->menu_state == 1)
 	{
 		l->coef->sat = (x - (W + 45)) * 100  / 275;
 		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
-		if (((x >= W + 45 && x <= W + 320) && (y >= 490 && y <= 510)) && l && k == 1)
+	if (((x >= W + 45 && x <= W + 350) && (y >= 305 && y <= 325)) && l && k == 1 && l->coef->menu_state == 1)
 	{
 		l->coef->lum = fmax(-254, (((x - (W + 45)) * 510 / 275) - 255));
 		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
+
+	if (k == 1 && (x >= W + 45 && x <= W + 350) && (y >= 15 && y <= 90 && l->coef->menu_state == 2))
+	{
+		l->coef->shape = 0;
+		l->coef->status = 0;
+		l->coef->menu_state = 3;
+		trace_info_3(l, 0);
+	}
+	if (k == 1 && (x >= W + 45 && x <= W + 350) && (y >= 100 && y <= 175 && l->coef->menu_state == 2))
+	{
+		l->coef->shape = 1;
+		l->coef->status = 0;
+		l->coef->menu_state = 3;
+		trace_info_3(l, 0);
+	}
+	if (k == 1 && (x >= W + 45 && x <= W + 350) && (y >= 185 && y <= 260 && l->coef->menu_state == 2))
+	{
+		l->coef->shape = 2;
+		l->coef->status = 0;
+		l->coef->menu_state = 3;
+		trace_info_3(l, 0);
+	}
+	if (k == 1 && (x >= W + 45 && x <= W + 350) && (y >= 270 && y <= 345 && l->coef->menu_state == 2))
+	{
+		l->coef->shape = 3;
+		l->coef->status = 0;
+		l->coef->menu_state = 3;
+		trace_info_3(l, 0);
+	}
+
+	if ((x >= W + 45 && x <= W + 350) && (y >= 150 && y <= 175) && l->coef->menu_state == 3)
+	{
+		menu_hook_rad(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 350 && y <= 375) && l->coef->menu_state == 3)
+	{
+		menu_hook_type(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 210 && y <= 235) && l->coef->menu_state == 3)
+	{
+		menu_hook_r(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 250 && y <= 275) && l->coef->menu_state == 3)
+	{
+		menu_hook_g(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 290 && y <= 315) && l->coef->menu_state == 3)
+	{
+		menu_hook_b(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 15 && y <= 40) && l->coef->menu_state == 3)
+	{
+		menu_hook_posx(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 50 && y <= 75) && l->coef->menu_state == 3)
+	{
+		menu_hook_posy(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((x >= W + 45 && x <= W + 350) && (y >= 90 && y <= 115) && l->coef->menu_state == 3)
+	{
+		menu_hook_posz(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((k == 1 && (x >= (W + 45) + 0 && x <= (W + 45) + 75) && (y >= 410 && y <= 750)) && l->coef->menu_state == 3)
+		menu_hook_update(k, l);
+	if ((k == 1 && (x >= (W + 45) + 75 && x <= (W + 45) + 150) && (y >= 410 && y <= 750)) && l->coef->menu_state == 3)
+	{
+		if (!l->coef->status)
+		{
+			obj_realloc(l);
+			l->coef->cur += 1;
+		}
+		ft_putendl("TEST");
+		menu_hook_add(k, l);
+		ft_putendl("TEST");
+		if (l->coef->status)
+			l->coef->cur = l->coef->id_swap;
+		l->coef->menu_state = 0;
+		trace_info(l);
+	}
+	if ((k == 1 && (x >= (W + 45) + 150 && x <= (W + 45) + 250) && (y >= 410 && y <= 750)) && l->coef->menu_state == 3)
+	{
+		menu_hook_cancel(k, l);
+		l->coef->menu_state = 0;
+		if (l->coef->status)
+			l->coef->cur = l->coef->id_swap;
+		else
+			l->coef->cur += 1;
+		trace_info(l);
+	}
+//		trace_info_3(l, 0);
 	return (k);
 }

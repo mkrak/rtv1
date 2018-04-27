@@ -102,6 +102,8 @@ typedef struct		s_img
 	int				bpp;
 	int				sl;
 	int				end;
+	int 			w;
+	int 			h;
 }					t_img;
 
 typedef struct		s_circle
@@ -127,6 +129,7 @@ typedef struct		s_coef
 	int			prev_time;
 	t_obj		swap;
 	t_img		*load;
+	t_col 		color;
 	char		*name;
 	void		*win_rename;
 	void		*win_add;
@@ -159,7 +162,12 @@ typedef struct		s_coef
 	void		*win;
 	void		*img;
 	char		*data;
+	int 		menu_state;
+	int 		id_swap;
+	int 		status;
 	int			is_on_button;
+	int 		shape;
+	char		axe;
 }					t_coef;
 
 typedef struct		s_luz
@@ -316,9 +324,6 @@ t_obj				gen_surface(int id, t_attr attr, t_vec3 coord);
 //multithread.c
 void				multithread(t_control *l);
 
-//menu_hook.c
-int					add_mouse_hook(int k, int x, int y, t_control *l);
-
 //utils.c
 void				ft_putfloat(float d, double eps);
 void				ftoa(float n, char *res, int p);
@@ -334,7 +339,23 @@ void				mlx_circle(t_circle c, t_coef *coef);
 void				mlx_rect(t_rect rect, t_coef *coef);
 void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 
+//menu_hook.c
+int					add_mouse_hook(int k, int x, int y, t_control *l);
+void	menu_hook_type(int k, int x, int y, t_control *l);
+void	menu_hook_rad(int k, int x, int y, t_control *l);
+void	menu_hook_r(int k, int x, int y, t_control *l);
+void	menu_hook_g(int k, int x, int y, t_control *l);
+void	menu_hook_b(int k, int x, int y, t_control *l);
+void	menu_hook_posx(int k, int x, int y, t_control *l);
+void	menu_hook_posy(int k, int x, int y, t_control *l);
+void	menu_hook_posz(int k, int x, int y, t_control *l);
+int		menu_hook_update(int k, t_control *l);
+int		menu_hook_add(int k, t_control *l);
+int		menu_hook_cancel(int k, t_control *l);
+int		add_mouse_hook(int k, int x, int y, t_control *l);
+
 void	trace_info(t_control *e);
+void	trace_info_3(t_control *l, int status);
 void	export_file(t_control *t);
 void	hook_mac_rename(t_control *l, int k);
 void	hook_mac_rename2(t_control *l, int k);
