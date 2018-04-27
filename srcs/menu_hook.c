@@ -167,8 +167,8 @@ int		menu_hook_add(int k, t_control *l)
 int		menu_hook_cancel(int k, t_control *l)
 {
 //		mlx_destroy_window(l->coef->mlx, l->coef->win_add);
-//		l->obj[l->coef->cur].s = l->coef->swap;
-//		l->av = l->coef->cur;
+		l->obj[l->coef->cur] = l->coef->swap;
+		l->av = l->coef->cur;
 		multithread(l);
 //		l->coef->win_add = NULL;
 		return (k);
