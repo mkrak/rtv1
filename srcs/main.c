@@ -28,13 +28,6 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				borne(t_vec3 *color)
-{
-	color->x = fmin(255, fmax(0, pow(color->x, 1 / 2.2)));
-	color->y = fmin(255, fmax(0, pow(color->y, 1 / 2.2)));
-	color->z = fmin(255, fmax(0, pow(color->z, 1 / 2.2)));
-}
-
 void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c)
 {
 	int		i;
@@ -75,25 +68,6 @@ int					quit(void)
 	exit(0);
 }
 
-void		init_mouv(t_control *l)
-{
-	l->roll = 0;
-	l->rolr = 0;
-	l->rotl = 0;
-	l->rotr = 0;
-	l->rotu = 0;
-	l->rotd = 0;
-	l->au = 0;
-	l->ad = 0;
-	l->al = 0;
-	l->ar = 0;
-	l->ctrl = 0;
-	l->shif = 0;
-	l->kalisub = 0;
-	l->kaliadd = 0;
-	l->kaa = 0;
-}
-
 int					main(int ac, char **av)
 {
 	t_control	lll;
@@ -114,9 +88,7 @@ int					main(int ac, char **av)
 	init_w(&lll);
 	mlx_hook(lll.coef->win, 6, (1L << 6), main_mouse_hook_not, &lll);
 	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
-
 	init_mouv(&lll);
-
 	trace_info(&lll);
 	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);

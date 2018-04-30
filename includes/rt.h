@@ -268,18 +268,12 @@ void				new_image(t_coef *scoef);
 void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c);
 int					quit(void);
 
-//keyhook.c
-int					ft_keyhook(int key, t_control *e);
-int					ft_key_camtrans(t_control *e);
-int					ft_key_camrot(t_control *e);
-int					ft_key_aa(t_control *e);
-
 //init.c
+t_obj				*init_obj(int nb_obj);
+void				init_coef(t_control *l);
 void				init_w(t_control *l);
 t_vec3				vec3(double x, double y, double z);
 t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
-t_obj				*init_obj(int nb_obj);
-void				init_coef(t_control *l);
 
 //rt.c
 void				rt(t_thread *l);
@@ -288,7 +282,6 @@ t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
 
 //ope_vec.c
-double				getnorm2(t_vec3 p);
 t_vec3				normalize(t_vec3 v);
 t_vec3				sub_vec3(t_vec3 a, t_vec3 b);
 t_vec3				add_vec3(t_vec3 a, t_vec3 b);
@@ -297,19 +290,18 @@ t_vec3				ope_divv1(t_vec3 b, double a);
 
 //ope_vec2.c
 t_vec3				rotate_cam(t_vec3 d, double x, double y, double z);
-double				dot(t_vec3 p, t_vec3 b);
-t_vec3				moy_point(t_vec3 *moy, int antial);
 t_vec3				rot_cam_x(t_vec3 d, double x);
 t_vec3				rot_cam_y(t_vec3 d, double y);
 t_vec3				rot_cam_z(t_vec3 d, double z);
+
 //aliasing.c
-t_vec3				aliasing(t_control *l, t_ray ray);
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
+void				init_x_y(double *x, double *y, int i);
+t_vec3				aliasing(t_control *l, t_ray ray);
 
 //quadric.c
 gen_obj				*init_gen(void);
 t_vec3				get_normal(t_quadric q, t_vec3 p);
-void				gen_quadric(t_quadric *q);
 t_attr				gen_attr(int color, double radius, char axe, int type);
 void				translation(t_quadric* q, t_vec3 v);
 void				stretch(t_quadric *q, t_vec3 v);
@@ -345,11 +337,25 @@ int					main_loop(t_control *e);
 int					key_p(int k, t_control *e);
 int					key_r(int k, t_control *e);
 
+//keyhook.c
+int					ft_keyhook(int key, t_control *e);
+int					ft_key_camtrans(t_control *e);
+int					ft_key_camrot(t_control *e);
+int					ft_key_aa(t_control *e);
+
 //mlx.c
 void				put_pixel_circle(t_img i, t_circle c, int x, int y);
 void				mlx_circle(t_circle c, t_coef *coef);
 void				mlx_rect(t_rect rect, t_coef *coef);
 void				mlx_scroll_bar(t_scrol s, t_coef *coef);
+
+//autres.c
+void				borne(t_vec3 *color);
+void				init_mouv(t_control *l);
+double				getnorm2(t_vec3 p);
+double				dot(t_vec3 p, t_vec3 b);
+t_vec3				moy_point(t_vec3 *moy, int antial);
+void				gen_quadric(t_quadric *q);
 
 //menu_hook.c
 int					add_mouse_hook(int k, int x, int y, t_control *l);
@@ -386,7 +392,7 @@ void	menu_add(t_control *l, char *str, int status);
 
 t_vec3	damier(t_control *l, t_inter inter);
 void	init_dam(t_control *l, t_inter inter, t_damier *a);
-void	init_x_y(double *x, double *y, int i);
-void				borne(t_vec3 *color);
+
+
 
 #endif

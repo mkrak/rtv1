@@ -33,16 +33,6 @@ t_vec3		get_normal(t_quadric q, t_vec3 p)
 	return (normal);
 }
 
-void	gen_quadric(t_quadric *q)
-{
-	q->d = 0.0;
-	q->e = 0.0;
-	q->f = 0.0;
-	q->g = 0.0;
-	q->h = 0.0;
-	q->i = 0.0;
-}
-
 t_attr	gen_attr(int color, double radius, char axe, int type)
 {
 	t_attr	attr;

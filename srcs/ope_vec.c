@@ -12,11 +12,6 @@
 
 #include "../includes/rt.h"
 
-double		getnorm2(t_vec3 p)
-{
-	return (p.x * p.x + p.y * p.y + p.z * p.z);
-}
-
 t_vec3		normalize(t_vec3 v)
 {
 	double norm;
