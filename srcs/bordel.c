@@ -137,9 +137,8 @@ void	obj_realloc(t_control *l)
 	int		i;
 
 	i = 0;
-	l->nb_obj++;
 	l->coef->total++;
-	swap = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj - 1);
+	swap = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
 	while (i < l->nb_obj)
 	{
 		swap[i] = l->obj[i];
@@ -147,13 +146,15 @@ void	obj_realloc(t_control *l)
 	}
 	i = 0;
 	free(l->obj);
+	l->nb_obj++;
 	l->obj = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
-	while (i <= l->nb_obj)
+	while (i < l->nb_obj - 1)
 	{
-
 		l->obj[i] = swap[i];
 		i++;
 	}
+	l->coef->cur = l->nb_obj - 2;
+	free(swap);
 	ft_putendl("test");
 }
 
@@ -398,9 +399,9 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		if (!l->coef->status)
 		{
 			obj_realloc(l);
-			l->nb_obj++;
 			l->coef->cur += 1;
 		}
+		ft_putnbr(l->coef->cur);
 		ft_putendl("TEST");
 		menu_hook_add(k, l);
 		ft_putendl("TEST");

@@ -104,7 +104,7 @@ int					main(int ac, char **av)
 		return (-1);
 	}
 	lll.nb_obj = ft_atoi(av[1]);
-	lll.nb_luz = 3;
+	lll.nb_luz = 1;
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
 	lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz);
 	lll.obj = init_obj(lll.nb_obj);
