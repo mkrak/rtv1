@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quadric.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/30 19:18:04 by lgautier          #+#    #+#             */
+/*   Updated: 2018/04/30 19:18:06 by lgautier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 gen_obj	*init_gen(void)
@@ -21,16 +33,6 @@ t_vec3		get_normal(t_quadric q, t_vec3 p)
 	return (normal);
 }
 
-void	gen_quadric(t_quadric *q)
-{
-	q->d = 0.0;
-	q->e = 0.0;
-	q->f = 0.0;
-	q->g = 0.0;
-	q->h = 0.0;
-	q->i = 0.0;
-}
-
 t_attr	gen_attr(int color, double radius, char axe, int type)
 {
 	t_attr	attr;
@@ -45,10 +47,23 @@ t_attr	gen_attr(int color, double radius, char axe, int type)
 	return (attr);
 }
 
-void		translation(t_quadric* q, t_vec3 v)
+void		translation(t_quadric *q, t_vec3 v)
 {
 	q->j = q->a * pow(v.x, 2) + q->b * pow(v.y, 2) + q->c * pow(v.z, 2) + q->d * v.y * v.z + q->e * v.x * v.z + q->f * v.x * v.y + q->g * v.x + q->h * v.y + q->i * v.z + q->j;
 	q->i = - 2 * q->c * v.z - q->d * v.y - q->e * v.x + q->i;
 	q->h = - 2 * q->b * v.y - q->d * v.z - q->e * v.x + q->h;
 	q->g = - 2 * q->a * v.x - q->e * v.z - q->f * v.y + q->g;
+}
+
+void		stretch(t_quadric *q, t_vec3 v)
+{
+	q->a = q->a / (v.x * v.x);
+	q->b = q->b / (v.y * v.y);
+	q->c = q->c / (v.z * v.z);
+	q->d = q->d / (v.y * v.z);
+	q->e = q->e / (v.x * v.z);
+	q->f = q->f / (v.y * v.x);
+	q->g = q->g / v.x;
+	q->h = q->h / v.y;
+	q->i = q->i / v.z;
 }

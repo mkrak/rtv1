@@ -52,27 +52,3 @@ t_vec3		rot_cam_z(t_vec3 d, double z)
 	tmp.z = d.z;
 	return (tmp);
 }
-
-double		dot(t_vec3 p, t_vec3 b)
-{
-	return (p.x * b.x + p.y * b.y + p.z * b.z);
-}
-
-t_vec3		moy_point(t_vec3 *moy, int antial)
-{
-	t_vec3 ret;
-
-	if (antial == 4)
-	{
-		ret.x = (moy[0].x + moy[1].x + moy[2].x + moy[3].x) / antial;
-		ret.y = (moy[0].y + moy[1].y + moy[2].y + moy[3].y) / antial;
-		ret.z = (moy[0].z + moy[1].z + moy[2].z + moy[3].z) / antial;
-	}
-	else
-	{
-		ret.x = (moy[0].x) / antial;
-		ret.y = (moy[0].y) / antial;
-		ret.z = (moy[0].z) / antial;
-	}
-	return (ret);
-}
