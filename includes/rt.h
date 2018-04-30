@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/25 21:40:11 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/04/30 19:21:36 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,7 @@ t_vec3				get_normal(t_quadric q, t_vec3 p);
 void				gen_quadric(t_quadric *q);
 t_attr				gen_attr(int color, double radius, char axe, int type);
 void				translation(t_quadric* q, t_vec3 v);
+void				stretch(t_quadric *q, t_vec3 v);
 
 //surface.c
 void				gen_sphere(t_quadric *q, t_attr attr);
@@ -319,6 +320,11 @@ void				gen_cylinder(t_quadric *q, t_attr attr);
 void				gen_plane(t_quadric *q, t_attr attr);
 void				gen_cone(t_quadric *q, t_attr attr);
 t_obj				gen_surface(int id, t_attr attr, t_vec3 coord);
+
+//rotation.c
+void				rot_x(t_quadric *q, double n);
+void				rot_y(t_quadric *q, double n);
+void				rot_z(t_quadric *q, double n);
 
 //filtre.c
 void				carton(t_vec3 *color);
