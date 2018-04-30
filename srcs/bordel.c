@@ -386,13 +386,19 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		menu_hook_posz(k, x, y, l);
 		trace_info_3(l, 1);
 	}
-	if ((k == 1 && (x >= (W + 45) + 0 && x <= (W + 45) + 75) && (y >= 410 && y <= 750)) && l->coef->menu_state == 3)
+	if ((x >= W + 45 && x <= W + 350) && (y >= 390 && y <= 415) && l->coef->menu_state == 3)
+	{
+		menu_hook_axe(k, x, y, l);
+		trace_info_3(l, 1);
+	}
+	if ((k == 1 && (x >= (W + 45) + 0 && x <= (W + 45) + 75) && (y >= 450 && y <= 750)) && l->coef->menu_state == 3)
 		menu_hook_update(k, l);
-	if ((k == 1 && (x >= (W + 45) + 75 && x <= (W + 45) + 150) && (y >= 410 && y <= 750)) && l->coef->menu_state == 3)
+	if ((k == 1 && (x >= (W + 45) + 75 && x <= (W + 45) + 150) && (y >= 450 && y <= 750)) && l->coef->menu_state == 3)
 	{
 		if (!l->coef->status)
 		{
 			obj_realloc(l);
+			l->nb_obj++;
 			l->coef->cur += 1;
 		}
 		ft_putendl("TEST");
