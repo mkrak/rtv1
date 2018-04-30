@@ -320,6 +320,13 @@ void				gen_plane(t_quadric *q, t_attr attr);
 void				gen_cone(t_quadric *q, t_attr attr);
 t_obj				gen_surface(int id, t_attr attr, t_vec3 coord);
 
+//filtre.c
+void				carton(t_vec3 *color);
+void				cartoon(t_vec3 *color);
+void				sepia(t_vec3 *color);
+void				negatif(t_vec3 *color);
+void				black_n_white(t_vec3 *color);
+
 //multithread.c
 void				multithread(t_control *l);
 
@@ -373,7 +380,6 @@ void	menu_add(t_control *l, char *str, int status);
 t_vec3	damier(t_control *l, t_inter inter);
 void	init_dam(t_control *l, t_inter inter, t_damier *a);
 void	init_x_y(double *x, double *y, int i);
-
-
+void				borne(t_vec3 *color);
 
 #endif

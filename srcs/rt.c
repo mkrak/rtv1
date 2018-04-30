@@ -18,13 +18,13 @@ void		rt(t_thread *l)
 	t_vec3 *moy;
 	int px;
 	int py;
-	int n;
+
 	t_ray ray;
 	int i;
 
 	px = l->n * (H / 8);
 	py = 0;
-	n = 0;
+
 	i = 0;
 	moy = (t_vec3*)malloc(sizeof(t_vec3) * l->l.antial);
 	while (px < (l->n + 1) * (H / 8) + 1)
@@ -42,17 +42,11 @@ void		rt(t_thread *l)
 			put_pixel(l->i, px - (l->n * (H / 8)), py, power, l->l.coef);
 			py++;
 		}
-		n++;
-		if ((n == 10 && l->n == 0) && (l->l.antial == 4 && l->l.aliasing < 4))
-		{
-			n = 0;
-			ft_loadbar(l->l.coef, px * 8);
-		}
+
 		px++;
 		py = 0;
 	}
-	//		ft_loadbar(l->l.coef, px * 8);
-//	mlx_put_image_to_window(l->l.coef->mlx, l->l.coef->win, l->l.coef->img, 0, 0);
+
 }
 
 t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
