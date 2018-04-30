@@ -25,6 +25,7 @@ SRCS_LIST	=	rt.c \
 				key_pr.c \
 				menu_hook.c \
 				mlx.c \
+				filtre.c \
 				surface.c \
 				quadric.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
