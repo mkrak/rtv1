@@ -370,7 +370,9 @@ int		main_mouse_hook_not(int x, int y, t_control *l);
 void	ft_loadbar(t_coef *t, int n);
 void	menu_add(t_control *l, char *str, int status);
 
-t_vec3			damier(t_control *l, t_inter inter);
+t_vec3	damier(t_control *l, t_inter inter);
+void	init_dam(t_control *l, t_inter inter, t_damier *a);
+void	init_x_y(double *x, double *y, int i);
 
 
 

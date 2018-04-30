@@ -17,7 +17,6 @@ t_vec3		rotate_cam(t_vec3 d, double x, double y, double z)
 	t_vec3 tmp;
 
 	tmp = rot_cam_z(rot_cam_y(rot_cam_x(d, x), y), z);
- 
 	return (tmp);
 }
 
@@ -29,7 +28,6 @@ t_vec3		rot_cam_x(t_vec3 d, double x)
 	tmp.x = d.x;
 	tmp.y = cos(x) * d.y - sin(x) * d.z;
 	tmp.z = sin(x) * d.y + cos(x) * d.z;
-	
 	return (tmp);
 }
 
@@ -41,7 +39,6 @@ t_vec3		rot_cam_y(t_vec3 d, double y)
 	tmp.x = cos(y) * d.x + sin(y) * d.z;
 	tmp.y = d.y;
 	tmp.z = -sin(y) * d.x + cos(y) * d.z;
-	
 	return (tmp);
 }
 
@@ -53,7 +50,6 @@ t_vec3		rot_cam_z(t_vec3 d, double z)
 	tmp.x = cos(z) * d.x - sin(z) * d.y;
 	tmp.y = sin(z) * d.x + cos(z) * d.y;
 	tmp.z = d.z;
-	
 	return (tmp);
 }
 
@@ -67,16 +63,16 @@ t_vec3		moy_point(t_vec3 *moy, int antial)
 	t_vec3 ret;
 
 	if (antial == 4)
-		{
+	{
 		ret.x = (moy[0].x + moy[1].x + moy[2].x + moy[3].x) / antial;
 		ret.y = (moy[0].y + moy[1].y + moy[2].y + moy[3].y) / antial;
 		ret.z = (moy[0].z + moy[1].z + moy[2].z + moy[3].z) / antial;
-		}
+	}
 	else
-		{
+	{
 		ret.x = (moy[0].x) / antial;
 		ret.y = (moy[0].y) / antial;
 		ret.z = (moy[0].z) / antial;
-		}
-	return (ret); 
+	}
+	return (ret);
 }

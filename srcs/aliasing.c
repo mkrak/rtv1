@@ -14,35 +14,41 @@
 
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 {
-	double x = 0;
-	double y = 0;
-	double fov = 60 * M_PI / 180;
+	double x;
+	double y;
+	double fov;
 
-	if (i == 0)
-	{
-		x = 0.25;
-		y = 0.25;
-	}
-	if (i == 1)
-	{
-		x = 0.75;
-		y = 0.75;
-	}
-	if (i == 2)
-	{
-		x = 0.25;
-		y = 0.75;
-	}
-	if (i == 3)
-	{
-		x = 0.75;
-		y = 0.25;
-	}
-	ray.dir = normalize(vec3((py - W / 2 + x), (px - H / 2 + y), -W / (2 * tan(fov / 2))));
+	fov = 60 * M_PI / 180;
+	init_x_y(&x, &y, i);
+	ray.dir = normalize(vec3((py - W / 2 + x), (px - H / 2 + y), -W / \
+		(2 * tan(fov / 2))));
 	ray.dir = rotate_cam(ray.dir, t->rot_y, t->rot_x, t->rot_z);
 	ray.origin = vec3(t->pos_y, t->pos_z, t->pos_x);
-
 	return (ray);
+}
+
+void				init_x_y(double *x, double *y, int i)
+{
+	if (i == 0)
+	{
+		*x = 0.25;
+		*y = 0.25;
+	}
+	else if (i == 1)
+	{
+		*x = 0.75;
+		*y = 0.75;
+	}
+	else if (i == 2)
+	{
+		*x = 0.25;
+		*y = 0.75;
+	}
+	else
+	{
+		*x = 0.75;
+		*y = 0.25;
+	}
 }
 
 t_vec3				aliasing(t_control *l, t_ray ray)

@@ -12,7 +12,7 @@
 
 #include "../includes/rt.h"
 
-t_obj	*init_obj(int nb_obj)
+t_obj		*init_obj(int nb_obj)
 {
 	int		c;
 	double	h;
@@ -28,13 +28,14 @@ t_obj	*init_obj(int nb_obj)
 	obj[4] = gen_surface(1, gen_attr(0xffffff, 0, 'x', 0), vec3(-50, 0, 0));
 	obj[5] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, -75));
 	obj[6] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, 75));
-	obj[7] = gen_surface(2, gen_attr(0x7fff00, 5, 'x', 0), vec3(0, 10, -60));
-	obj[8] = gen_surface(2, gen_attr(0xff007f, 6, 'y', 0), vec3(30, 0, -60));
-	obj[9] = gen_surface(3, gen_attr(0x7f0000, 25, 'y', 1), vec3(-50, -25, -60));
+	obj[7] = gen_surface(2, gen_attr(0x7fff00, 5, 'x', 2), vec3(0, 10, -60));
+	obj[8] = gen_surface(2, gen_attr(0xff007f, 6, 'y', 2), vec3(30, 0, -60));
+	obj[9] = gen_surface(3, gen_attr(0x7f0000, 25, 'y', 2), \
+		vec3(-50, -25, -60));
 	return (obj);
 }
 
-void	init_coef(t_control *l)
+void		init_coef(t_control *l)
 {
 	l->coef->rot_x = 0;
 	l->coef->rot_y = 0;
@@ -54,21 +55,19 @@ void	init_coef(t_control *l)
 	l->coef->total = 8;
 }
 
-void				init_w(t_control *l)
+void		init_w(t_control *l)
 {
 	init_coef(l);
-	l->l[0].p  = vec3(0, 20, 70);
+	l->l[0].p = vec3(0, 20, 70);
 	l->l[0].power = 156660000;
-	l->l[1].p  = vec3(30, 0, 25);
+	l->l[1].p = vec3(30, 0, 25);
 	l->l[1].power = 36666000;
-	l->l[2].p  = vec3(-30, 0, 25);
+	l->l[2].p = vec3(-30, 0, 25);
 	l->l[2].power = 36666000;
-	l->aliasing = 4; //pas de max, min 1, si inferieur utilise 1
-	l->antial = 1; // 1 pour non 4 pour oui bug sinon
-
+	l->aliasing = 4;
+	l->antial = 1;
 	multithread(l);
 }
-
 
 t_vec3		vec3(double x, double y, double z)
 {
@@ -77,11 +76,10 @@ t_vec3		vec3(double x, double y, double z)
 	tmp.x = x;
 	tmp.y = y;
 	tmp.z = z;
-
 	return (tmp);
 }
 
-t_sphere		init_sphere(t_vec3 p, double ray, t_vec3 color, int type)
+t_sphere	init_sphere(t_vec3 p, double ray, t_vec3 color, int type)
 {
 	t_sphere tmp;
 
@@ -89,6 +87,5 @@ t_sphere		init_sphere(t_vec3 p, double ray, t_vec3 color, int type)
 	tmp.ray = ray;
 	tmp.color = color;
 	tmp.type = type;
-	
 	return (tmp);
 }
