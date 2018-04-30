@@ -355,6 +355,7 @@ void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 int					add_mouse_hook(int k, int x, int y, t_control *l);
 void	menu_hook_type(int k, int x, int y, t_control *l);
 void	menu_hook_rad(int k, int x, int y, t_control *l);
+void	menu_hook_axe(int k, int x, int y, t_control *l);
 void	menu_hook_r(int k, int x, int y, t_control *l);
 void	menu_hook_g(int k, int x, int y, t_control *l);
 void	menu_hook_b(int k, int x, int y, t_control *l);

@@ -28,6 +28,16 @@ void	menu_hook_type(int k, int x, int y, t_control *l)
 		l->coef->type += 100;
 }
 
+void	menu_hook_axe(int k, int x, int y, t_control *l)
+{
+	if ((x >= (W + 45) + 80 && x <= (W + 45) + 112) && (y >= 390 && y <= 415) && k == 1
+		&& l->coef->axe > 'x')
+		l->coef->axe--;
+	if ((x >= (W + 45) + 144 && x <= (W + 45) + 176) && (y >= 390 && y <= 415) && k == 1
+		&& l->coef->axe < 'z')
+		l->coef->axe++;
+}
+
 void	menu_hook_rad(int k, int x, int y, t_control *l)
 {
 	if ((x >= (W + 45) + 16 && x <= (W + 45) + 48) && (y >= 150 && y <= 175) && k == 1)
@@ -156,15 +166,15 @@ int		menu_hook_add(int k, t_control *l)
 
 		if (l->obj[l->coef->cur].attr.id == 0)
 			l->coef->axe = 0;
-		if (l->obj[l->coef->cur].attr.id == 1)
-		{
-			l->coef->axe = 'x' + l->coef->rad;
-			l->coef->rad = 0;
-		}
-		if (l->obj[l->coef->cur].attr.id == 2)
-			l->coef->axe = 'x';
-		if (l->obj[l->coef->cur].attr.id == 3)
-			l->coef->axe = 'x';
+//		if (l->obj[l->coef->cur].attr.id == 1)
+//		{
+//			l->coef->axe = 'x' + l->coef->rad;
+//			l->coef->rad = 0;
+//		}
+//		if (l->obj[l->coef->cur].attr.id == 2)
+//			l->coef->axe = 'x';
+//		if (l->obj[l->coef->cur].attr.id == 3)
+//			l->coef->axe = 'x';
 
 		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz));
 		if (l->coef->cur > l->coef->total)

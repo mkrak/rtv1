@@ -153,6 +153,7 @@ void	trace_info_3(t_control *l, int status)
 	int		w;
 	int		h;
 	t_img 	bl;
+	char	rot[2];
 
 	bl.img = mlx_new_image(l->coef->mlx, 350, H);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, bl.img, W, 0);
@@ -167,6 +168,9 @@ void	trace_info_3(t_control *l, int status)
 			l->coef->g = 0;
 			l->coef->b = 0;
 			l->coef->type = 0;
+			l->coef->axe = 'x';
+			rot[0] = l->coef->axe;
+			rot[1] = '\0';
 	}
 	if (status == 2)
 	{
@@ -180,18 +184,26 @@ void	trace_info_3(t_control *l, int status)
 			l->coef->g = l->coef->color.c[1];
 			l->coef->b = l->coef->color.c[2];
 			l->coef->type = (int)l->obj[l->coef->cur].attr.type;
+			l->coef->axe = l->obj[l->coef->cur].attr.axe;
+			rot[0] = l->coef->axe;
+			rot[1] = '\0';
 	}
 	img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/ADD_BAR.XPM", &w, &h);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 10);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 50);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 90);
+
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 150);
+
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 210);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 250);
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 290);
+
 	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 350);
+	if (l->obj[l->coef->cur].attr.id != 0)
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 390);
 	img = mlx_xpm_file_to_image(l->coef->mlx, "ressources/img/UPDATE.XPM", &w, &h);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 410);
+	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 450);
 
 	mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 10 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->posx));
 	mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 50 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->posy));
@@ -201,6 +213,8 @@ void	trace_info_3(t_control *l, int status)
 	mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 250 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->g));
 	mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 290 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->b));
 	mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 350 + 15 - (OS * 9), 0x00000000, ft_itoa(l->coef->type));
+	if (l->coef->shape != 0)
+		mlx_string_put(l->coef->mlx, l->coef->win, (W + 45) + 109, 390 + 15 - (OS * 9), 0x00000000, rot);
 
 /*	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 10, 0x00000000, ft_itoa(l->coef->posx));
 	mlx_string_put(l->coef->mlx, l->coef->win_add, 109, 50, 0x00000000, ft_itoa(l->coef->posy));
