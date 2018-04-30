@@ -79,6 +79,7 @@ typedef	struct	s_attr
 	int 		color;
 	int			type;
 	t_vec3		albedo;
+	t_vec3		rot;
 }				t_attr;
 
 typedef	struct	s_obj
@@ -136,6 +137,9 @@ typedef struct		s_coef
 	int			posx;
 	int			posy;
 	int			posz;
+	int 		rotx;
+	int 		roty;
+	int 		rotz;
 	int			rad;
 	int			r;
 	int			g;
@@ -311,7 +315,7 @@ void				gen_sphere(t_quadric *q, t_attr attr);
 void				gen_cylinder(t_quadric *q, t_attr attr);
 void				gen_plane(t_quadric *q, t_attr attr);
 void				gen_cone(t_quadric *q, t_attr attr);
-t_obj				gen_surface(int id, t_attr attr, t_vec3 coord);
+t_obj				gen_surface(int id, t_attr attr, t_vec3 coord, t_vec3 rot);
 
 //rotation.c
 void				rot_x(t_quadric *q, double n);

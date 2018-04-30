@@ -153,7 +153,7 @@ void	obj_realloc(t_control *l)
 		l->obj[i] = swap[i];
 		i++;
 	}
-	l->coef->cur = l->nb_obj - 2;
+	l->coef->cur = l->nb_obj - 1;
 	free(swap);
 	ft_putendl("test");
 }
@@ -399,7 +399,6 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		if (!l->coef->status)
 		{
 			obj_realloc(l);
-			l->coef->cur += 1;
 		}
 		ft_putnbr(l->coef->cur);
 		ft_putendl("TEST");

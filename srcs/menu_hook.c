@@ -152,7 +152,7 @@ void	menu_hook_posz(int k, int x, int y, t_control *l)
 
 int		menu_hook_update(int k, t_control *l)
 {
-		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz));
+		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx, l->coef->roty, l->coef->rotz));
 	multithread(l);
 	return (k);
 }
@@ -176,7 +176,7 @@ int		menu_hook_add(int k, t_control *l)
 //		if (l->obj[l->coef->cur].attr.id == 3)
 //			l->coef->axe = 'x';
 
-		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz));
+		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx, l->coef->roty, l->coef->rotz));
 		if (l->coef->cur > l->coef->total)
 			l->coef->total += 1;
 //		mlx_destroy_window(l->coef->mlx, l->coef->win_add);
