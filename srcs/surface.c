@@ -38,7 +38,7 @@ t_obj	gen_surface(int id, t_attr attr, t_vec3 coord)
 	gen_obj		*generate;
 
 	generate = init_gen();
-	obj.attr = attr;
+	obj.attr = attr;	
 	obj.attr.id = id;
 	obj.attr.pos = coord;
 	generate[obj.attr.id](&obj.q, obj.attr);

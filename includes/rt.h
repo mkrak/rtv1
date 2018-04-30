@@ -21,8 +21,8 @@
 #  define OS 1
 # endif
 
-# define H 720
-# define W 720
+# define H 1000
+# define W 1000
 # define LENGHT_PROCED 10
 # define OBJ l->obj[t.id]
 # define OBJ_I l->obj[i]
@@ -79,7 +79,6 @@ typedef	struct	s_attr
 	int 		color;
 	int			type;
 	t_vec3		albedo;
-
 }				t_attr;
 
 typedef	struct	s_obj

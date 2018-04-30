@@ -170,6 +170,7 @@ void	trace_info_3(t_control *l, int status)
 	}
 	if (status == 2)
 	{
+			l->coef->shape = l->obj[l->coef->cur].attr.id;
 			l->coef->color.color = (int)l->obj[l->coef->cur].attr.color;
 			l->coef->posx = (int)l->obj[l->coef->cur].attr.pos.x;
 			l->coef->posy = (int)l->obj[l->coef->cur].attr.pos.y;

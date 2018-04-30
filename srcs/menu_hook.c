@@ -154,6 +154,18 @@ int		menu_hook_add(int k, t_control *l)
 		l->coef->color.c[1] = l->coef->g;
 		l->coef->color.c[2] = l->coef->b;
 
+		if (l->obj[l->coef->cur].attr.id == 0)
+			l->coef->axe = 0;
+		if (l->obj[l->coef->cur].attr.id == 1)
+		{
+			l->coef->axe = 'x' + l->coef->rad;
+			l->coef->rad = 0;
+		}
+		if (l->obj[l->coef->cur].attr.id == 2)
+			l->coef->axe = 'x';
+		if (l->obj[l->coef->cur].attr.id == 3)
+			l->coef->axe = 'x';
+
 		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz));
 		if (l->coef->cur > l->coef->total)
 			l->coef->total += 1;
