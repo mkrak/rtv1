@@ -28,23 +28,26 @@ void				new_image(t_coef *scoef)
 	scoef->data = mlx_get_data_addr(scoef->img, &bpp, &scoef->sl, &endian);
 }
 
-void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c)
+void				put_pixel(t_img s, t_pxl p, t_vec3 color, t_coef *c)
 {
 	int		i;
-	double	p;
+	double	q;
 
 	i = 0;
-	if (x >= H / 8 || x < 0 || y >= W || y < 0)
+	if (p.x >= H / 8 || p.x < 0 || p.y >= W || p.y < 0)
 		return ;
-	i = ((H / 8 - x - 1) * W + y) * 4;
+	i = ((H / 8 - p.x - 1) * W + p.y) * 4;
 	filtre(c, &color);
 	if (!c->wtf)
 	{
-		p = sqrt(color.x * color.x * 0.299 + color.y * color.y * 0.587 + \
+		q = sqrt(color.x * color.x * 0.299 + color.y * color.y * 0.587 + \
 			color.z * color.z * 0.114);
-		s.data[i] = fmin(fmax((p + (color.z - p) * c->sat / 100) + c->lum, 0), 255);
-		s.data[++i] = fmin(fmax((p + (color.y - p) * c->sat / 100) + c->lum, 0), 255);
-		s.data[++i] = fmin(fmax((p + (color.x - p) * c->sat / 100) + c->lum, 0), 255);
+		s.data[i] = fmin(fmax((q + (color.z - q) * c->sat / 100) \
+			+ c->lum, 0), 255);
+		s.data[++i] = fmin(fmax((q + (color.y - q) * c->sat / 100) \
+			+ c->lum, 0), 255);
+		s.data[++i] = fmin(fmax((q + (color.x - q) * c->sat / 100) \
+			+ c->lum, 0), 255);
 	}
 	else
 	{
