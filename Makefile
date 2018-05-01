@@ -23,6 +23,7 @@ SRCS_LIST	=	rt.c \
 				multithread.c \
 				utils.c \
 				key_pr.c \
+				key_pr_2.c \
 				autres.c \
 				menu_hook.c \
 				mlx.c \
