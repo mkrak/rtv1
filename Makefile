@@ -17,15 +17,19 @@ SRCS_LIST	=	rt.c \
 				keyhook.c \
 				main.c \
 				aliasing.c \
-				bordel.c \
 				export.c \
 				export_2.c \
+				export_3.c \
 				loadbar.c \
 				multithread.c \
 				utils.c \
+				utils_2.c \
 				key_pr.c \
 				key_pr_2.c \
 				autres.c \
+				menu.c \
+				main_mouse_hook_0.c \
+				main_mouse_hook_1.c \
 				menu_hook.c \
 				menu_hook_1.c \
 				menu_hook_2.c \

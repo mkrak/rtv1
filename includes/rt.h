@@ -275,10 +275,10 @@ typedef struct		s_export
 	int		bpp;
 	int		compression;
 	int		isize;
-	int		resX;
-	int		resY;
-	int		clrUsd;
-	int		clrImp;
+	int		resx;
+	int		resy;
+	int		clrusd;
+	int		clrimp;
 }					t_export;
 
 typedef struct		s_thread
@@ -428,6 +428,23 @@ int					menu_hook_update(int k, t_control *l);
 int					menu_hook_add(int k, t_control *l);
 int					menu_hook_cancel(int k, t_control *l);
 int					add_mouse_hook(int k, int x, int y, t_control *l);
+void				obj_realloc(t_control *l);
+void				main_mouse_hook_1(int k, int x, int y, t_control *l);
+void				main_mouse_hook_2(int k, int x, int y, t_control *l);
+void				main_mouse_hook_3(int k, int x, int y, t_control *l);
+void				main_mouse_hook_4(int k, int x, int y, t_control *l);
+void				main_mouse_hook_5(int k, int x, int y, t_control *l);
+void				main_mouse_hook_6(int k, int x, int y, t_control *l);
+void				main_mouse_hook_7(int k, int x, int y, t_control *l);
+void				main_mouse_hook_8(int k, int x, int y, t_control *l);
+void				main_mouse_hook_9(int k, int x, int y, t_control *l);
+void				main_mouse_hook_10(int k, int x, int y, t_control *l);
+void				hook_not_5(t_control *l, void *img, int *w, int *h);
+void				hook_not_4(t_control *l, void *img, int *w, int *h);
+void				hook_not_3(t_control *l, void *img, int *w, int *h);
+void				hook_not_2(t_control *l, void *img, int *w, int *h);
+void				hook_not_1(t_control *l, void *img, int *w, int *h);
+void				hook_not_0(t_control *l, void *img, int *w, int *h);
 
 void				trace_info(t_control *e);
 void				trace_info_0(t_control *c);
