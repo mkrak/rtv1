@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loadbar.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/01 13:49:49 by cballest          #+#    #+#             */
+/*   Updated: 2018/05/01 13:49:51 by cballest         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
 
 void		fill_img(char *data, int w, int h, t_col color)
@@ -16,7 +28,6 @@ void		fill_img(char *data, int w, int h, t_col color)
 			data[i] = color.c[0];
 			data[++i] = color.c[1];
 			data[++i] = color.c[2];
-//			mlx_pixel_put(t->mlx, t->win, x, y, 0x00ffffff);
 			x++;
 		}
 		y++;
@@ -33,13 +44,15 @@ void		ft_loadbar(t_coef *t, int n)
 	if (n <= 10)
 	{
 		t->load->img = mlx_new_image(t->mlx, W, 10);
-		t->load->data = mlx_get_data_addr(t->load->img, &t->load->bpp, &t->load->sl, &t->load->end);
+		t->load->data = mlx_get_data_addr(t->load->img, &t->load->bpp, \
+				&t->load->sl, &t->load->end);
 		fill_img(t->load->data, W, 10, color1);
 		mlx_put_image_to_window(t->mlx, t->win, t->load->img, 0, H - 10);
 		mlx_destroy_image(t->mlx, t->load->img);
 	}
 	t->load->img = mlx_new_image(t->mlx, n * (W + 250) / H, 10);
-	t->load->data = mlx_get_data_addr(t->load->img, &t->load->bpp, &t->load->sl, &t->load->end);
+	t->load->data = mlx_get_data_addr(t->load->img, &t->load->bpp, \
+			&t->load->sl, &t->load->end);
 	fill_img(t->load->data, n * (W + 250) / H, 10, color2);
 	mlx_put_image_to_window(t->mlx, t->win, t->load->img, 0, H - 10);
 	mlx_destroy_image(t->mlx, t->load->img);

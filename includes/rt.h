@@ -389,6 +389,9 @@ int		menu_hook_cancel(int k, t_control *l);
 int		add_mouse_hook(int k, int x, int y, t_control *l);
 
 void	trace_info(t_control *e);
+void	trace_info_0(t_control *c);
+void	trace_info_1(t_control *c);
+void	trace_info_2(t_control *c);
 void	trace_info_3(t_control *l, int status);
 void	export_file(t_control *t);
 void	hook_mac_rename(t_control *l, int k);

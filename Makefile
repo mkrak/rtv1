@@ -29,7 +29,11 @@ SRCS_LIST	=	rt.c \
 				filtre.c \
 				surface.c \
 				quadric.c \
-				rotation.c 
+				rotation.c \
+				trace_info_0.c \
+				trace_info_1.c \
+				trace_info_2.c \
+				trace_info_3.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))

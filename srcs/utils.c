@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/01 13:37:09 by cballest          #+#    #+#             */
+/*   Updated: 2018/05/01 13:37:10 by cballest         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
 
 static void		ft_float(float d, float eps)
@@ -26,7 +38,7 @@ void			ft_putfloat(float d, double eps)
 	ft_float(d - (int)d, (float)eps);
 }
 
-void	reverse(char *str, int len)
+void			reverse(char *str, int len)
 {
 	int		i;
 	int		j;
@@ -44,7 +56,7 @@ void	reverse(char *str, int len)
 	}
 }
 
-int		inttostr(int x, char *str, int d)
+int				inttostr(int x, char *str, int d)
 {
 	int		i;
 
@@ -61,7 +73,7 @@ int		inttostr(int x, char *str, int d)
 	return (i);
 }
 
-void	ftoa(float n, char *res, int p)
+void			ftoa(float n, char *res, int p)
 {
 	int		in;
 	int		i;
