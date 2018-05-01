@@ -19,6 +19,7 @@ SRCS_LIST	=	rt.c \
 				aliasing.c \
 				bordel.c \
 				export.c \
+				export_2.c \
 				loadbar.c \
 				multithread.c \
 				utils.c \
@@ -26,7 +27,11 @@ SRCS_LIST	=	rt.c \
 				key_pr_2.c \
 				autres.c \
 				menu_hook.c \
+				menu_hook_1.c \
+				menu_hook_2.c \
+				menu_hook_3.c \
 				mlx.c \
+				mlx_2.c \
 				filtre.c \
 				surface.c \
 				quadric.c \

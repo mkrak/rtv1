@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/01 15:26:02 by cballest          #+#    #+#             */
+/*   Updated: 2018/05/01 15:26:05 by cballest         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/rt.h"
 
 void	put_pixel_circle(t_img i, t_circle c, int x, int y)
@@ -23,62 +35,6 @@ void	mlx_image_to_alpha(t_img img, int n)
 		img.data[i] = 0xff;
 		i += 4;
 	}
-}
-
-void	mlx_circle(t_circle c, t_coef *coef)
-{
-	t_img		img;
-	int			i;
-	int			j;
-	int			d;
-
-	img.img = mlx_new_image(coef->mlx, (c.r * 2), (c.r * 2));
-	img.data = mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.end);
-	//mlx_image_to_alpha(img, ((c.r * 2) *(c.r * 2) * 4));
-//	while (c.r > 1)
-//	{
-		i = 0;
-		j = c.r;
-		d = c.r - 1;
-		while (j >= i)
-		{
-			put_pixel_circle(img, c, c.r + j, c.r + i);
-			put_pixel_circle(img, c, c.r + i, c.r + j);
-			put_pixel_circle(img, c, c.r - j, c.r + i);
-			put_pixel_circle(img, c, c.r - i, c.r + j);
-			put_pixel_circle(img, c, c.r + j, c.r - i);
-			put_pixel_circle(img, c, c.r + i, c.r - j);
-			put_pixel_circle(img, c, c.r - j, c.r - i);
-			put_pixel_circle(img, c, c.r - i, c.r - j);
-//			put_pixel_circle(img, c, c.y + j, c.x + i);
-//			put_pixel_circle(img, c, c.y + i, c.x + j);
-//			put_pixel_circle(img, c, c.y - j, c.x + i);
-//			put_pixel_circle(img, c, c.y - i, c.x + j);
-//			put_pixel_circle(img, c, c.y + j, c.x - i);
-//			put_pixel_circle(img, c, c.y + i, c.x - j);
-//			put_pixel_circle(img, c, c.y - j, c.x - i);
-//			put_pixel_circle(img, c, c.y - i, c.x - j);
-			if (d >= 2 * i)
-			{
-				d -= 2 * i + 1;
-				i++;
-			}
-			else if (d < 2 * (c.r - j))
-			{
-				d += 2 * j - 1;
-				j--;
-			}
-			else
-			{
-				d += 2 * (j - i - 1);
-				j--;
-				i++;
-			}
-		}
-//		ft_putendl("bob");
-		//c.r--;
-	//}
-	mlx_put_image_to_window(coef->mlx, coef->win, img.img, c.x - c.r, c.y - c.r);
 }
 
 void	put_pixel_rect(t_img i, t_rect r, int x, int y)
@@ -107,9 +63,11 @@ void	mlx_rect(t_rect rect, t_coef *coef)
 		x = 0;
 		while (x <= rect.w)
 		{
-			if ((x >= 0 && x <= rect.border) || (x <= rect.w && x >= rect.w - rect.border))
+			if ((x >= 0 && x <= rect.border) ||
+				(x <= rect.w && x >= rect.w - rect.border))
 				put_pixel_rect(img, rect, y, x);
-			if ((y >= 0 && y <= rect.border) || (y <= rect.h && y >= rect.h - rect.border))
+			if ((y >= 0 && y <= rect.border) ||
+				(y <= rect.h && y >= rect.h - rect.border))
 				put_pixel_rect(img, rect, y, x);
 			if (rect.type == 1)
 				put_pixel_rect(img, rect, y, x);

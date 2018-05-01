@@ -261,6 +261,26 @@ typedef struct		s_control
 	int			kaa;
 }					t_control;
 
+typedef struct		s_export
+{
+	int		type;
+	int		fsize;
+	int		reserved1;
+	int		reserved2;
+	int		offset;
+	int		hsize;
+	int		width;
+	int		height;
+	int		plane;
+	int		bpp;
+	int		compression;
+	int		isize;
+	int		resX;
+	int		resY;
+	int		clrUsd;
+	int		clrImp;
+}					t_export;
+
 typedef struct		s_thread
 {
 	t_control		l;
@@ -415,12 +435,22 @@ void				trace_info_1(t_control *c);
 void				trace_info_2(t_control *c);
 void				trace_info_3(t_control *l, int status);
 void				export_file(t_control *t);
+/*
+** export.c
+*/
+int					hook_rename(int k, t_control *l);
+void				rename_win(t_control *l);
+void				expand_name(t_control *l, char c);
+void				trunc_name(t_control *l);
+void				refresh_name(t_control *l);
+/*
+** export_2.c
+*/
 void				hook_mac_rename(t_control *l, int k);
 void				hook_mac_rename2(t_control *l, int k);
 void				hook_mac_rename3(t_control *l, int k);
+
 int					rt_search(int x, int y, t_control *l);
-int					hook_rename(int k, t_control *l);
-void				rename_win(t_control *l);
 void				fill_menu(t_coef *t, void *win);
 void				ft_logo(t_coef *t);
 int					mouse_hook(int k, int x, int y, t_control *l);

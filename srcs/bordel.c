@@ -29,69 +29,58 @@ void				fill_menu(t_coef *t, void *win)
 	mlx_put_image_to_window(t->mlx, win, img, 125 - w / 2, 15 + 85 * 3);
 }
 
+void	export_header_init(t_export *e)
+{
+	e->type = 19778;
+	e->fsize = H * W * 4 + 40 + 14;
+	e->reserved1 = 0;
+	e->reserved2 = 0;
+	e->offset = 40 + 14;
+	e->hsize = 40;
+	e->width = W;
+	e->height = H;
+	e->plane = 1;
+	e->bpp = 32;
+	e->compression = 0;
+	e->isize = W * H * 4;
+	e->resX = 0;
+	e->resY = 0;
+	e->clrUsd = 0;
+	e->clrImp = 0;	
+}
+
+void	export_header_write(t_export *e, int fd)
+{
+	write(fd, (char *)&e->type, 2);
+	write(fd, (char *)&e->fsize, 4);
+	write(fd, (char *)&e->reserved1, 2);
+	write(fd, (char *)&e->reserved2, 2);
+	write(fd, (char *)&e->offset, 4);
+	write(fd, (char *)&e->hsize, 4);
+	write(fd, (char *)&e->width, 4);
+	write(fd, (char *)&e->height, 4);
+	write(fd, (char *)&e->plane, 2);
+	write(fd, (char *)&e->bpp, 2);
+	write(fd, (char *)&e->compression, 4);
+	write(fd, (char *)&e->isize, 4);
+	write(fd, (char *)&e->resX, 4);
+	write(fd, (char *)&e->resY, 4);
+	write(fd, (char *)&e->clrUsd, 4);
+	write(fd, (char *)&e->clrImp, 4);
+}
+
 void	export_file(t_control *l)
 {
-	int		fd;
-	int		x;
-	int		y;
+	int			fd;
+	int			x;
+	int			y;
+	t_export	e;
 
 	y = H;
 	x = W * H * 4 - W * 4;
 	fd = open(l->coef->name, O_CREAT | O_RDWR, S_IRWXU | S_IRWXG | S_IRWXO);
-
-	int		type;
-	int		fsize;
-	int		reserved1;
-	int		reserved2;
-	int		offset;
-	int		hsize;
-	int		width;
-	int		height;
-	int		plane;
-	int		bpp;
-	int		compression;
-	int		isize;
-	int		resX;
-	int		resY;
-	int		clrUsd;
-	int		clrImp;
-
-	type = 19778;
-	fsize = H * W * 4 + 40 + 14;
-	reserved1 = 0;
-	reserved2 = 0;
-	offset = 40 + 14;
-	hsize = 40;
-	width = W;
-	height = H;
-	plane = 1;
-	bpp = 32;
-	compression = 0;
-	isize = W * H * 4;
-	resX = 0;
-	resY = 0;
-	clrUsd = 0;
-	clrImp = 0;
-
-	//HEADER
-	write(fd, (char *)&type, 2); //type
-	write(fd, (char *)&fsize, 4); //fsize
-	write(fd, (char *)&reserved1, 2); //reserved1
-	write(fd, (char *)&reserved2, 2); //reserved2
-	write(fd, (char *)&offset, 4); //offset
-	write(fd, (char *)&hsize, 4); //hsize
-	write(fd, (char *)&width, 4); //width
-	write(fd, (char *)&height, 4); //height
-	write(fd, (char *)&plane, 2); //plane
-	write(fd, (char *)&bpp, 2); //bpp
-	write(fd, (char *)&compression, 4); //compression
-	write(fd, (char *)&isize, 4); //isize
-	write(fd, (char *)&resX, 4); //resX
-	write(fd, (char *)&resY, 4); //resY
-	write(fd, (char *)&clrUsd, 4); //clrUsd
-	write(fd, (char *)&clrImp, 4); //clrImp
-
-	//REMPLISSAGE
+	export_header_init(&e);
+	export_header_write(&e, fd);
 	while (y >= 0)
 	{
 		while (x < W * y * 4)
@@ -155,7 +144,6 @@ void	obj_realloc(t_control *l)
 	}
 	l->coef->cur = l->nb_obj - 1;
 	free(swap);
-	ft_putendl("test");
 }
 
 int		main_mouse_hook_not(int x, int y, t_control *l)
@@ -306,14 +294,12 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 	if (((x >= W + 45 && x <= W + 350) && (y >= 235 && y <= 255)) && l && k == 1 && l->coef->menu_state == 1)
 	{
 		l->coef->sat = (x - (W + 45)) * 100  / 275;
-		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
 	if (((x >= W + 45 && x <= W + 350) && (y >= 305 && y <= 325)) && l && k == 1 && l->coef->menu_state == 1)
 	{
 		l->coef->lum = fmax(-254, (((x - (W + 45)) * 510 / 275) - 255));
-		ft_putendl(ft_itoa(l->coef->sat));
 		trace_info(l);
 		multithread(l);
 	}
@@ -454,9 +440,7 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 			obj_realloc(l);
 		}
 		ft_putnbr(l->coef->cur);
-		ft_putendl("TEST");
 		menu_hook_add(k, l);
-		ft_putendl("TEST");
 		if (l->coef->status)
 			l->coef->cur = l->coef->id_swap;
 		l->coef->menu_state = 0;

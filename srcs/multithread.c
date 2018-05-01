@@ -22,22 +22,31 @@ void	thread_sub_1(t_thread *thread, t_control *l, int i)
 	pthread_create(&thread[i].t, NULL, (void *)rt, (void *)&thread[i]);
 }
 
-void	thread_sub_2(t_thread *thread, t_control *l, int i, int j)
+void	thread_sub_2(t_thread *thread, t_control *l)
 {
 	int		m;
+	int		i;
+	int		j;
 	int		k;
 
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win, thread[i].i.img, 0, \
-			j * (H / 8) + 5);
-	m = 0;
+	i = 7;
+	j = 0;
 	k = 0;
-	while (m < ((H / 8) * W * 4))
+	while (i > -1)
 	{
-		l->coef->data[k] = thread[i].i.data[m];
-		m++;
-		k++;
+		mlx_put_image_to_window(l->coef->mlx, l->coef->win,\
+			thread[i].i.img, 0, j * (H / 8) + 5);
+		m = 0;
+		while (m < ((H / 8) * W * 4))
+		{
+			l->coef->data[k] = thread[i].i.data[m];
+			m++;
+			k++;
+		}
+		mlx_destroy_image(l->coef->mlx, thread[i].i.img);
+		i--;
+		j++;
 	}
-	mlx_destroy_image(l->coef->mlx, thread[i].i.img);
 }
 
 void	multithread(t_control *l)
@@ -45,7 +54,6 @@ void	multithread(t_control *l)
 	struct timeval	tv;
 	t_thread		*thread;
 	int				i;
-	int				j;
 
 	i = 0;
 	gettimeofday(&tv, NULL);
@@ -56,14 +64,7 @@ void	multithread(t_control *l)
 	i = 0;
 	while (i < 8)
 		pthread_join(thread[i++].t, NULL);
-	i = 7;
-	j = 0;
-	while (i > -1)
-	{
-		thread_sub_2(thread, l, i, j);
-		i--;
-		j++;
-	}
+	thread_sub_2(thread, l);
 	free(thread);
 	gettimeofday(&tv, NULL);
 	l->coef->time = tv.tv_sec * 1000000 + tv.tv_usec;
