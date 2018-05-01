@@ -119,7 +119,7 @@ int		rt_search(int x, int y, t_control *l)
 	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
 	while (i < l->nb_obj)
 	{
-		inter = intersec(i, l->obj[i].q, r.origin, r.dir);
+		inter = intersec(i, l->obj[i].q, r.origin, r.dir, l);
 		if (t.t == 0 && inter.t != 0)
 			t = inter;
 		else if (inter.t < t.t && inter.t != 0)

@@ -36,6 +36,14 @@ int		key_p(int k, t_control *e)
 			trace_info(e);
 		}
 	}
+	if (k == K_V)
+	{
+		if (e->coef->pn == 0)
+			e->coef->pn = 1;
+		else
+			e->coef->pn = 0;
+		multithread(e);
+	}
 	if (k == K_P)
 		e->kaa = 1;
 	if ((!OS && k == K_A) || (OS && k == K_Q))

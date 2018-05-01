@@ -61,7 +61,7 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 		return (vec3(0, 0, 0));
 	while (i < l->nb_obj)
 	{
-			inter = intersec(i, l->obj[i].q, ray.origin, ray.dir);
+			inter = intersec(i, l->obj[i].q, ray.origin, ray.dir, l);
 		if ((inter.t != 0 && t.t == 0) || (inter.t < t.t && inter.t != 0))
 			t = inter;
 		i++;
@@ -89,7 +89,7 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 	return (power);
 }
 
-t_inter		intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir)
+t_inter		intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l)
 {
 	double a = (q.a * pow(dir.x, 2)) + (q.b * pow(dir.y, 2)) + (q.c * pow(dir.z, 2)) + (q.d * dir.y * dir.z) + (q.e * dir.x * dir.z) + (q.f * dir.x * dir.y);
 	double b = 2 * (q.a * eye.x * dir.x + q.b * eye.y * dir.y + q.c * eye.z * dir.z) + q.d * (eye.y * dir.z + eye.z * dir.y) + q.e * (eye.x * dir.z + eye.z * dir.x) + q.f * (eye.x * dir.y + eye.y * dir.x) + q.g * dir.x + q.h * dir.y + q.i * dir.z;
@@ -118,6 +118,11 @@ t_inter		intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir)
 		ret.t = t2;
 	ret.pos = add_vec3(eye, k_vec3(ret.t, dir));
 	ret.norm = normalize(get_normal(q, ret.pos));
+	if (l->coef->pn)
+	{
+    	ret.norm.x = ret.norm.x + (sin(ret.pos.x) * 0.5);
+    	ret.norm = normalize(ret.norm);
+	}
 	return (ret);
 }
 
@@ -134,7 +139,7 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
 
 	while (i < l->nb_obj)
 	{
-		inter = intersec(i, l->obj[i].q, ray.origin, ray.dir);
+		inter = intersec(i, l->obj[i].q, ray.origin, ray.dir, l);
 		if ((ombre.t == 0 && inter.t != 0) || (inter.t < ombre.t && inter.t != 0))
 			ombre = inter;
 		i++;

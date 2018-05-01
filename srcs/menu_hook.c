@@ -249,7 +249,7 @@ void	menu_hook_strz(int k, int x, int y, t_control *l)
 
 int		menu_hook_update(int k, t_control *l)
 {
-		l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx, l->coef->roty, l->coef->rotz), vec3(l->coef->strx / 100, l->coef->stry / 100, l->coef->strz / 100));
+	l->obj[l->coef->cur] = gen_surface(l->coef->shape, gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type), vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx, l->coef->roty, l->coef->rotz), vec3(l->coef->strx / 100, l->coef->stry / 100, l->coef->strz / 100));
 	multithread(l);
 	return (k);
 }

@@ -90,7 +90,6 @@ int					main(int ac, char **av)
 	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
 	init_mouv(&lll);
 	trace_info(&lll);
-	mlx_key_hook(lll.coef->win, ft_keyhook, &lll);
 	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);
 	mlx_hook(lll.coef->win, 3, (1L << 1), &key_r, &lll);
 	mlx_hook(lll.coef->win, 17, 0L, &quit, lll.coef);

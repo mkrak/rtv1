@@ -266,43 +266,7 @@ void				trace_info(t_control *c)
 		trace_info_2(c);
 }
 
-int					ft_keyhook(int key, t_control *e)
-{
-//	if (key == K_ESC)
-//	{
-//		mlx_destroy_image(e->coef->mlx, e->coef->img);
-//		free(e->coef);
-//		free(e->obj);
-//		free(e->l);
-//		exit(EXIT_SUCCESS);
-//	}
-//	if ((!OS && key == K_W) || (OS && key == K_Z))
-//		rename_win(e);
-//	if (ft_key_aa(key, e))
-//		multithread(e);
-//	if (ft_key_camtrans(key, e))
-//		multithread(e);
-//	if (ft_key_camrot(key, e))
-//		multithread(e);
-	if (key == K_C)
-	{
-		if (e->coef->cartoon == 0)
-			e->coef->cartoon = 1;
-		else
-			e->coef->cartoon = 0;
-		multithread(e);
-	}
-	if (key == K_X)
-	{
-		if (e->coef->wtf == 0)
-			e->coef->wtf = 1;
-		else
-			e->coef->wtf = 0;
-		multithread(e);
-	}
-	trace_info(e);
-	return (0);
-}
+
 
 int		ft_key_aa(t_control *e)
 {

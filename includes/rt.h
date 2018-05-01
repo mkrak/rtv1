@@ -165,6 +165,7 @@ typedef struct		s_coef
 	int			bnw;
 	int			sat;
 	int			lum;
+	int 		pn;
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -286,7 +287,7 @@ t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 //rt.c
 void				rt(t_thread *l);
 t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
-t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir);
+t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
 
 //ope_vec.c

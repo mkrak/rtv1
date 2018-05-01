@@ -52,6 +52,7 @@ void		init_coef(t_control *l)
 	l->coef->reflec = 1;
 	l->coef->sat = 100;
 	l->coef->cur = 8;
+	l->coef->pn = 0;
 	l->coef->total = l->nb_obj;
 }
 
