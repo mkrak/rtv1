@@ -37,16 +37,7 @@ void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c)
 	if (x >= H / 8 || x < 0 || y >= W || y < 0)
 		return ;
 	i = ((H / 8 - x - 1) * W + y) * 4;
-	if (!c->wtf)
-		borne(&color);
-	if (c->cartoon == 1)
-		cartoon(&color);
-	if (c->negatif == 1)
-		negatif(&color);
-	if (c->bnw)
-		black_n_white(&color);
-	if (c->sepia)
-		sepia(&color);
+	filtre(c, &color);
 	if (!c->wtf)
 	{
 		p = sqrt(color.x * color.x * 0.299 + color.y * color.y * 0.587 + \
@@ -72,11 +63,8 @@ int					main(int ac, char **av)
 {
 	t_control	lll;
 
-	if (ac != 2 && av)
-	{
-		ft_putendl("Usage : ../rt [Scene valide]");
+	if (check_arg(ac, av) == -1)
 		return (-1);
-	}
 	lll.nb_obj = ft_atoi(av[1]);
 	lll.nb_luz = 1;
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));

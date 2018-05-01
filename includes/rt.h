@@ -383,6 +383,8 @@ double				getnorm2(t_vec3 p);
 double				dot(t_vec3 p, t_vec3 b);
 t_vec3				moy_point(t_vec3 *moy, int antial);
 void				gen_quadric(t_quadric *q);
+int					check_arg(int ac, char **av);
+void				filtre(t_coef *c, t_vec3 *color);
 /*
 ** menu_hook.c
 */
