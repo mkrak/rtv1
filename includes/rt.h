@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/30 19:21:36 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/01 14:19:30 by mkrakows         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include "../libft/get_next_line.h"
 
 typedef struct		s_vec3
-{ 
+{
 	double		x;
 	double		y;
 	double		z;
@@ -50,10 +50,10 @@ typedef struct		s_vec3
 typedef struct		s_ray
 {
 	t_vec3	origin;
-	t_vec3 dir;
+	t_vec3	dir;
 }					t_ray;
 
-typedef	struct	s_quadric
+typedef	struct		s_quadric
 {
 	double		a;
 	double		b;
@@ -66,31 +66,31 @@ typedef	struct	s_quadric
 	double		i;
 	double		j;
 
-}				t_quadric;
+}					t_quadric;
 
-typedef	struct	s_attr
+typedef	struct		s_attr
 {
-	int		id;
+	int			id;
 	t_vec3		pos;
 	double		radius;
 	char		axe;
 	double		kd;
 	double		ks;
-	int 		color;
+	int			color;
 	int			type;
 	t_vec3		albedo;
 	t_vec3		rot;
 	t_vec3		str;
-}				t_attr;
+}					t_attr;
 
-typedef	struct	s_obj
+typedef	struct		s_obj
 {
 	t_attr		attr;
 	t_quadric	q;
 
-}				t_obj;
+}					t_obj;
 
-typedef union		s_col
+typedef union		u_col
 {
 	int				color;
 	char			c[4];
@@ -103,8 +103,8 @@ typedef struct		s_img
 	int				bpp;
 	int				sl;
 	int				end;
-	int 			w;
-	int 			h;
+	int				w;
+	int				h;
 }					t_img;
 
 typedef struct		s_circle
@@ -119,9 +119,9 @@ typedef struct		s_sphere
 {
 	t_vec3	p;
 	double	ray;
-	t_vec3 color;
-	t_vec3 normal;
-	int type;
+	t_vec3	color;
+	t_vec3	normal;
+	int		type;
 }					t_sphere;
 
 typedef struct		s_coef
@@ -130,7 +130,7 @@ typedef struct		s_coef
 	int			prev_time;
 	t_obj		swap;
 	t_img		*load;
-	t_col 		color;
+	t_col		color;
 	char		*name;
 	void		*win_rename;
 	void		*win_add;
@@ -138,12 +138,12 @@ typedef struct		s_coef
 	int			posx;
 	int			posy;
 	int			posz;
-	int 		rotx;
-	int 		roty;
-	int 		rotz;
-	int 		strx;
-	int 		stry;
-	int 		strz;
+	int			rotx;
+	int			roty;
+	int			rotz;
+	int			strx;
+	int			stry;
+	int			strz;
 	int			rad;
 	int			r;
 	int			g;
@@ -159,22 +159,22 @@ typedef struct		s_coef
 	int			pos_z;
 	int			cartoon;
 	int			wtf;
-	double 		reflec;
+	double		reflec;
 	int			negatif;
-	int 		sepia;
+	int			sepia;
 	int			bnw;
 	int			sat;
 	int			lum;
-	int 		pn;
+	int			pn;
 	void		*mlx;
 	void		*win;
 	void		*img;
 	char		*data;
-	int 		menu_state;
-	int 		id_swap;
-	int 		status;
+	int			menu_state;
+	int			id_swap;
+	int			status;
 	int			is_on_button;
-	int 		shape;
+	int			shape;
 	char		axe;
 }					t_coef;
 
@@ -186,10 +186,10 @@ typedef struct		s_luz
 
 typedef struct		s_inter
 {
-	t_vec3 pos;
-	t_vec3 norm;
-	int id;
-	double t;
+	t_vec3	pos;
+	t_vec3	norm;
+	int		id;
+	double	t;
 }					t_inter;
 
 typedef struct		s_rect
@@ -211,7 +211,7 @@ typedef struct		s_damier
 	double			px;
 	double			py;
 	double			pz;
-} 					t_damier;
+}					t_damier;
 
 typedef struct		s_buton
 {
@@ -234,16 +234,16 @@ typedef struct		s_scrol
 
 typedef struct		s_control
 {
-	int 		aliasing;
-	int 		antial;
+	int			aliasing;
+	int			antial;
 	int			av;
 	t_coef		*coef;
 	t_ray		*r;
 	t_luz		*l;
-	int 		nb_luz;
+	int			nb_luz;
 	t_obj		*obj;
-	int 		nb_obj;
-	int 		obj_i;
+	int			nb_obj;
+	int			obj_i;
 	int			au;
 	int			ad;
 	int			al;
@@ -270,147 +270,164 @@ typedef struct		s_thread
 }					t_thread;
 
 typedef	void	(*gen_obj)(t_quadric*, t_attr);
-
-//main.c
+/*
+** main.c
+*/
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
 void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c);
 int					quit(void);
-
-//init.c
+/*
+** init.c
+*/
 t_obj				*init_obj(int nb_obj);
 void				init_coef(t_control *l);
 void				init_w(t_control *l);
 t_vec3				vec3(double x, double y, double z);
 t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
-
-//rt.c
+/*
+** rt.c
+*/
 void				rt(t_thread *l);
 t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
-t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l);
+t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
+					t_control *l);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
-
-//ope_vec.c
+/*
+** ope_vec.c
+*/
 t_vec3				normalize(t_vec3 v);
 t_vec3				sub_vec3(t_vec3 a, t_vec3 b);
 t_vec3				add_vec3(t_vec3 a, t_vec3 b);
 t_vec3				k_vec3(double k, t_vec3 b);
 t_vec3				ope_divv1(t_vec3 b, double a);
-
-//ope_vec2.c
+/*
+** ope_vec2.c
+*/
 t_vec3				rotate_cam(t_vec3 d, double x, double y, double z);
 t_vec3				rot_cam_x(t_vec3 d, double x);
 t_vec3				rot_cam_y(t_vec3 d, double y);
 t_vec3				rot_cam_z(t_vec3 d, double z);
-
-//aliasing.c
+/*
+** aliasing.c
+*/
 t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
 void				init_x_y(double *x, double *y, int i);
 t_vec3				aliasing(t_control *l, t_ray ray);
-
-//quadric.c
+/*
+** quadric.c
+*/
 gen_obj				*init_gen(void);
 t_vec3				get_normal(t_quadric q, t_vec3 p);
 t_attr				gen_attr(int color, double radius, char axe, int type);
-void				translation(t_quadric* q, t_vec3 v);
+void				translation(t_quadric *q, t_vec3 v);
 void				stretch(t_quadric *q, t_vec3 v);
-
-//surface.c
+/*
+** surface.c
+*/
 void				gen_sphere(t_quadric *q, t_attr attr);
 void				gen_cylinder(t_quadric *q, t_attr attr);
 void				gen_plane(t_quadric *q, t_attr attr);
 void				gen_cone(t_quadric *q, t_attr attr);
-t_obj				gen_surface(int id, t_attr attr, t_vec3 coord, t_vec3 rot, t_vec3 str);
-
-//rotation.c
+t_obj				gen_surface(int id, t_attr attr, t_vec3 coord, t_vec3 rot, \
+					t_vec3 str);
+/*
+** rotation.c
+*/
 void				rot_x(t_quadric *q, double n);
 void				rot_y(t_quadric *q, double n);
 void				rot_z(t_quadric *q, double n);
-
-//filtre.c
+/*
+** filtre.c
+*/
 void				carton(t_vec3 *color);
 void				cartoon(t_vec3 *color);
 void				sepia(t_vec3 *color);
 void				negatif(t_vec3 *color);
 void				black_n_white(t_vec3 *color);
-
-//multithread.c
+/*
+** multithread.c
+*/
 void				multithread(t_control *l);
-
-//utils.c
+/*
+** utils.c
+*/
 void				ft_putfloat(float d, double eps);
 void				ftoa(float n, char *res, int p);
-
-//key_pr.c
+/*
+** key_pr.c
+*/
 int					main_loop(t_control *e);
 int					key_p(int k, t_control *e);
 int					key_r(int k, t_control *e);
-
-//keyhook.c
+/*
+** keyhook.c
+*/
 int					ft_keyhook(int key, t_control *e);
 int					ft_key_camtrans(t_control *e);
 int					ft_key_camrot(t_control *e);
 int					ft_key_aa(t_control *e);
-
-//mlx.c
+/*
+** mlx.c
+*/
 void				put_pixel_circle(t_img i, t_circle c, int x, int y);
 void				mlx_circle(t_circle c, t_coef *coef);
 void				mlx_rect(t_rect rect, t_coef *coef);
 void				mlx_scroll_bar(t_scrol s, t_coef *coef);
-
-//autres.c
+/*
+** autres.c
+*/
 void				borne(t_vec3 *color);
 void				init_mouv(t_control *l);
 double				getnorm2(t_vec3 p);
 double				dot(t_vec3 p, t_vec3 b);
 t_vec3				moy_point(t_vec3 *moy, int antial);
 void				gen_quadric(t_quadric *q);
-
-//menu_hook.c
+/*
+** menu_hook.c
+*/
 int					add_mouse_hook(int k, int x, int y, t_control *l);
-void	menu_hook_type(int k, int x, int y, t_control *l);
-void	menu_hook_rad(int k, int x, int y, t_control *l);
-void	menu_hook_axe(int k, int x, int y, t_control *l);
-void	menu_hook_r(int k, int x, int y, t_control *l);
-void	menu_hook_g(int k, int x, int y, t_control *l);
-void	menu_hook_b(int k, int x, int y, t_control *l);
-void	menu_hook_posx(int k, int x, int y, t_control *l);
-void	menu_hook_posy(int k, int x, int y, t_control *l);
-void	menu_hook_posz(int k, int x, int y, t_control *l);
-void	menu_hook_rotx(int k, int x, int y, t_control *l);
-void	menu_hook_roty(int k, int x, int y, t_control *l);
-void	menu_hook_rotz(int k, int x, int y, t_control *l);
-void	menu_hook_strx(int k, int x, int y, t_control *l);
-void	menu_hook_stry(int k, int x, int y, t_control *l);
-void	menu_hook_strz(int k, int x, int y, t_control *l);
-int		menu_hook_update(int k, t_control *l);
-int		menu_hook_add(int k, t_control *l);
-int		menu_hook_cancel(int k, t_control *l);
-int		add_mouse_hook(int k, int x, int y, t_control *l);
+void				menu_hook_type(int k, int x, int y, t_control *l);
+void				menu_hook_rad(int k, int x, int y, t_control *l);
+void				menu_hook_axe(int k, int x, int y, t_control *l);
+void				menu_hook_r(int k, int x, int y, t_control *l);
+void				menu_hook_g(int k, int x, int y, t_control *l);
+void				menu_hook_b(int k, int x, int y, t_control *l);
+void				menu_hook_posx(int k, int x, int y, t_control *l);
+void				menu_hook_posy(int k, int x, int y, t_control *l);
+void				menu_hook_posz(int k, int x, int y, t_control *l);
+void				menu_hook_rotx(int k, int x, int y, t_control *l);
+void				menu_hook_roty(int k, int x, int y, t_control *l);
+void				menu_hook_rotz(int k, int x, int y, t_control *l);
+void				menu_hook_strx(int k, int x, int y, t_control *l);
+void				menu_hook_stry(int k, int x, int y, t_control *l);
+void				menu_hook_strz(int k, int x, int y, t_control *l);
+int					menu_hook_update(int k, t_control *l);
+int					menu_hook_add(int k, t_control *l);
+int					menu_hook_cancel(int k, t_control *l);
+int					add_mouse_hook(int k, int x, int y, t_control *l);
 
-void	trace_info(t_control *e);
-void	trace_info_0(t_control *c);
-void	trace_info_1(t_control *c);
-void	trace_info_2(t_control *c);
-void	trace_info_3(t_control *l, int status);
-void	export_file(t_control *t);
-void	hook_mac_rename(t_control *l, int k);
-void	hook_mac_rename2(t_control *l, int k);
-void	hook_mac_rename3(t_control *l, int k);
-int		rt_search(int x, int y, t_control *l);
-int		hook_rename(int k, t_control *l);
-void	rename_win(t_control *l);
-void	fill_menu(t_coef *t, void *win);
-void	ft_logo(t_coef *t);
-int		mouse_hook(int k, int x, int y, t_control *l);
-int		main_mouse_hook(int k, int x, int y, t_control *l);
-int		main_mouse_hook_not(int x, int y, t_control *l);
-void	ft_loadbar(t_coef *t, int n);
-void	menu_add(t_control *l, char *str, int status);
+void				trace_info(t_control *e);
+void				trace_info_0(t_control *c);
+void				trace_info_1(t_control *c);
+void				trace_info_2(t_control *c);
+void				trace_info_3(t_control *l, int status);
+void				export_file(t_control *t);
+void				hook_mac_rename(t_control *l, int k);
+void				hook_mac_rename2(t_control *l, int k);
+void				hook_mac_rename3(t_control *l, int k);
+int					rt_search(int x, int y, t_control *l);
+int					hook_rename(int k, t_control *l);
+void				rename_win(t_control *l);
+void				fill_menu(t_coef *t, void *win);
+void				ft_logo(t_coef *t);
+int					mouse_hook(int k, int x, int y, t_control *l);
+int					main_mouse_hook(int k, int x, int y, t_control *l);
+int					main_mouse_hook_not(int x, int y, t_control *l);
+void				ft_loadbar(t_coef *t, int n);
+void				menu_add(t_control *l, char *str, int status);
 
-t_vec3	damier(t_control *l, t_inter inter);
-void	init_dam(t_control *l, t_inter inter, t_damier *a);
-
-
+t_vec3				damier(t_control *l, t_inter inter);
+void				init_dam(t_control *l, t_inter inter, t_damier *a);
 
 #endif
