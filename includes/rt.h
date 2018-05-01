@@ -53,6 +53,12 @@ typedef struct		s_ray
 	t_vec3	dir;
 }					t_ray;
 
+typedef struct 		s_pxl
+{
+	int		x;
+	int		y;
+}					t_pxl;
+
 typedef	struct		s_quadric
 {
 	double		a;
@@ -295,7 +301,7 @@ typedef	void	(*gen_obj)(t_quadric*, t_attr);
 */
 void				init_struct(t_coef *scoef);
 void				new_image(t_coef *scoef);
-void				put_pixel(t_img s, int x, int y, t_vec3 color, t_coef *c);
+void				put_pixel(t_img s, t_pxl p, t_vec3 color, t_coef *c);
 int					quit(void);
 /*
 ** init.c
@@ -313,6 +319,7 @@ t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
 t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
 					t_control *l);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
+t_pxl				init_pxl(int x, int y);
 /*
 ** ope_vec.c
 */
