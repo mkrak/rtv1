@@ -101,3 +101,9 @@ void				filtre(t_coef *c, t_vec3 *color)
 	if (c->sepia)
 		sepia(color);
 }
+
+void		increment(t_pxl *p)
+{
+	p->x++;
+	p->y = 0;
+}
