@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:46:17 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 16:46:25 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:11:17 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,17 @@ void	obj_realloc(t_control *l)
 	}
 	l->coef->cur = l->nb_obj - 1;
 	free(swap);
+}
+
+t_obj		*get_obj(t_obj **start, size_t n)
+{
+	t_obj	*obj;
+
+	obj = *start;
+	while (n > 0)
+	{
+		obj = obj->next;
+		n--;
+	}
+	return (obj);
 }

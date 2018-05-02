@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:06:37 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 14:06:39 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:39:59 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	trace_info_3_1(t_control *l)
 	l->coef->rotx = (int)l->obj[l->coef->cur].attr.rot.x;
 	l->coef->roty = (int)l->obj[l->coef->cur].attr.rot.y;
 	l->coef->rotz = (int)l->obj[l->coef->cur].attr.rot.z;
-	l->coef->strx = (int)l->obj[l->coef->cur].attr.str.x * 100;
-	l->coef->stry = (int)l->obj[l->coef->cur].attr.str.y * 100;
-	l->coef->strz = (int)l->obj[l->coef->cur].attr.str.z * 100;
+	l->coef->strx = (int)l->obj[l->coef->cur].attr.scale.x * 100;
+	l->coef->stry = (int)l->obj[l->coef->cur].attr.scale.y * 100;
+	l->coef->strz = (int)l->obj[l->coef->cur].attr.scale.z * 100;
 	l->coef->rad = (int)l->obj[l->coef->cur].attr.radius;
 	l->coef->r = l->coef->color.c[0];
 	l->coef->g = l->coef->color.c[1];

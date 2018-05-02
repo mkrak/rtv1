@@ -6,12 +6,12 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/25 23:37:24 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:41:02 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
-
+/*
 t_obj		*init_obj(int nb_obj)
 {
 	int		c;
@@ -21,20 +21,20 @@ t_obj		*init_obj(int nb_obj)
 	c = 0x333333;
 	h = 0.75;
 	obj = (t_obj*)malloc(sizeof(t_obj) * nb_obj);
-	obj[0] = gen_surface(0, gen_attr(0x00ff7f, 12, 0, 0), vec3(0, 0, -30), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[1] = gen_surface(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, -25, 0), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[2] = gen_surface(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, 25, 0), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[3] = gen_surface(1, gen_attr(0xffffff, 0, 'x', 0), vec3(50, 0, 0), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[4] = gen_surface(1, gen_attr(0xffffff, 0, 'x', 0), vec3(-50, 0, 0), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[5] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, -75), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[6] = gen_surface(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, 75), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[7] = gen_surface(2, gen_attr(0x7fff00, 5, 'x', 2), vec3(0, 0, -30), vec3(0, 45, 0), vec3(1, 1, 1));
-	obj[8] = gen_surface(2, gen_attr(0xff007f, 6, 'y', 2), vec3(0, 0, -30), vec3(0, 0, 0), vec3(1, 1, 1));
-	obj[9] = gen_surface(3, gen_attr(0x7f0000, 25, 'y', 1), \
+	obj[0] = init_object(0, gen_attr(0x00ff7f, 12, 0, 0), vec3(0, 0, -30), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[1] = init_object(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, -25, 0), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[2] = init_object(1, gen_attr(0xffffff, 0, 'y', 0), vec3(0, 25, 0), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[3] = init_object(1, gen_attr(0xffffff, 0, 'x', 0), vec3(50, 0, 0), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[4] = init_object(1, gen_attr(0xffffff, 0, 'x', 0), vec3(-50, 0, 0), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[5] = init_object(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, -75), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[6] = init_object(1, gen_attr(0xffffff, 0, 'z', 0), vec3(0, 0, 75), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[7] = init_object(2, gen_attr(0x7fff00, 5, 'x', 2), vec3(0, 0, -30), vec3(0, 45, 0), vec3(1, 1, 1));
+	obj[8] = init_object(2, gen_attr(0xff007f, 6, 'y', 2), vec3(0, 0, -30), vec3(0, 0, 0), vec3(1, 1, 1));
+	obj[9] = init_object(3, gen_attr(0x7f0000, 25, 'y', 1), \
 		vec3(-50, -25, -60), vec3(0, 0, 0), vec3(0.1, 1, 1));
 	return (obj);
 }
-
+*/
 void		init_coef(t_control *l)
 {
 	l->coef->rot_x = 0;
@@ -77,16 +77,5 @@ t_vec3		vec3(double x, double y, double z)
 	tmp.x = x;
 	tmp.y = y;
 	tmp.z = z;
-	return (tmp);
-}
-
-t_sphere	init_sphere(t_vec3 p, double ray, t_vec3 color, int type)
-{
-	t_sphere tmp;
-
-	tmp.p = vec3(p.x, p.y, p.z);
-	tmp.ray = ray;
-	tmp.color = color;
-	tmp.type = type;
 	return (tmp);
 }

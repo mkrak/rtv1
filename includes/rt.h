@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/01 14:19:30 by mkrakows         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:10:26 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,77 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/time.h>
+# include <sys/stat.h>
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <string.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+
+# define ERR_USAGE	"Invalid usage"
+# define ERR_FILE	"Invalid filename"
+# define ERR_UNKNOW	"An error has occurred"
+
+# define CST_DEFINE	"define"
+
+# define CHARS_SPACE		"\n\t "
+# define CHARS_QUOTE		"\"\'"
+# define CHARS_BLOCK		"{}"
+# define CHARS_ATTR			"abcdefghijklmnopqrstuvwxyz-"
+# define CHARS_NAME			"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define CHARS_AXE			"xyz"
+# define CHARS_COLOR		"0123456789abcdef"
+
+# define COLOR_LEN	0x6
+
+# define CHAR_DEFINE			'@'
+# define CHAR_CLASS				'.'
+# define CHAR_COLOR				'#'
+# define CHAR_OBJECT			'#'
+# define CHAR_ATTR_END			':'
+# define CHAR_ATTR_VALUE_END	';'
+# define CHAR_EOL				'\n'
+
+# define N_ATTR		0xa
+# define N_CLASS	0x4
+# define N_TT		0x8
+# define N_ST		0x3
+
+# define TT_DEF			CHAR_DEFINE
+# define TT_CLASS		CHAR_CLASS
+# define TT_NAME		CHARS_QUOTE[0]
+# define TT_OBJECT		CHAR_OBJECT
+# define TT_START_BLOCK	CHARS_BLOCK[0]
+# define TT_END_BLOCK	CHARS_BLOCK[1]
+# define TT_ATTR		CHAR_ATTR_END
+# define TT_ATTR_VALUE	CHAR_ATTR_VALUE_END
+
+# define TTE_DEF			1
+# define TTE_CLASS			(1 << 1)
+# define TTE_NAME			(1 << 2)
+# define TTE_OBJECT			(1 << 3)
+# define TTE_START_BLOCK	(1 << 4)
+# define TTE_END_BLOCK		(1 << 5)
+# define TTE_ATTR			(1 << 6)
+# define TTE_ATTR_VALUE		(1 << 7)
+
+# define OBJ_SPHERE		0
+# define OBJ_PLANE		1
+# define OBJ_CYLINDER	2
+# define OBJ_CONE		3
+
+# define ST_NORMAL			0
+# define ST_MIRROR			1
+# define ST_CHECKER_BOARD	2
+
+typedef struct		s_token
+{
+	void			*data;
+	struct s_token	*next;
+	uint8_t			type;
+}					t_token;
 
 typedef struct		s_vec3
 {
@@ -76,25 +142,38 @@ typedef	struct		s_quadric
 
 typedef	struct		s_attr
 {
-	int			id;
-	t_vec3		pos;
-	double		radius;
-	char		axe;
-	double		kd;
-	double		ks;
-	int			color;
-	int			type;
-	t_vec3		albedo;
-	t_vec3		rot;
-	t_vec3		str;
+	char			axe;
+	uint8_t			type;
+	uint8_t			id;
+	uint32_t 		color;
+	double			kd;
+	double			ks;
+	double			radius;
+	t_vec3			pos;
+	t_vec3			rot;
+	t_vec3			scale;
+	t_vec3			albedo;
 }					t_attr;
 
 typedef	struct		s_obj
 {
-	t_attr		attr;
-	t_quadric	q;
-
+	t_attr			attr;
+	t_quadric		q;
+	struct s_obj	*next;
 }					t_obj;
+
+typedef struct		s_class
+{
+	void			(*init_quadric)(t_quadric *q, t_attr attr);
+	char			*name;
+}					t_class;
+
+typedef struct		s_set_attr
+{
+	void			(*set_attr)(char *attr_value, void *attr_dst);
+	uint16_t		struct_offset;
+	char			*attr;
+}					t_set_attr;
 
 typedef union		u_col
 {
@@ -295,7 +374,95 @@ typedef struct		s_thread
 	int				n;
 }					t_thread;
 
-typedef	void	(*gen_obj)(t_quadric*, t_attr);
+void				init_sphere(t_quadric *q, t_attr attr);
+void				init_cylinder(t_quadric *q, t_attr attr);
+void				init_plane(t_quadric *q, t_attr attr);
+void				init_cone(t_quadric *q, t_attr attr);
+
+void				set_vec_attr(char *attr_value, void *attr_dst);
+void				set_double_attr(char *attr_value, void *attr_dst);
+void				set_color_attr(char *attr_value, void *attr_dst);
+void				set_surface_attr(char *attr_value, void *attr_dst);
+void				set_char_attr(char *attr_value, void *attr_dst);
+
+static const t_class	g_class[N_CLASS] = {
+	{
+		.init_quadric = init_sphere,
+		.name = "sphere"
+	}, {
+		.init_quadric = init_plane,
+		.name = "plane"
+	}, {
+		.init_quadric = init_cylinder,
+		.name = "cylinder"
+	}, {
+		.init_quadric = init_cone,
+		.name = "cone"
+	}
+};
+
+static const t_set_attr	g_set_attr[N_ATTR] = {
+	{
+		.set_attr = set_double_attr,
+		.attr = "x",
+		.struct_offset = 32
+	}, {
+		.set_attr = set_double_attr,
+		.attr = "y",
+		.struct_offset = 40
+	}, {
+		.set_attr = set_double_attr,
+		.attr = "z",
+		.struct_offset = 48
+	}, {
+		.set_attr = set_double_attr,
+		.attr = "radius",
+		.struct_offset = 24
+	}, {
+		.set_attr = set_color_attr,
+		.attr = "color",
+		.struct_offset = 4
+	}, {
+		.set_attr = set_surface_attr,
+		.attr = "surface",
+		.struct_offset = 1
+	}, {
+		.set_attr = set_char_attr,
+		.attr = "axe",
+		.struct_offset = 0
+	}, {
+		.set_attr = set_vec_attr,
+		.attr = "rot",
+		.struct_offset = 56
+	}, {
+		.set_attr = set_vec_attr,
+		.attr = "scale",
+		.struct_offset = 80
+	}, {
+		.set_attr = set_vec_attr,
+		.attr = "pos",
+		.struct_offset = 32
+	}
+};
+
+static const char		*g_surface[N_ST] = {
+	"normal",
+	"mirror",
+	"checkerboard"
+};
+
+static const int		g_tt[N_TT][2] = {
+	{TT_DEF, TTE_DEF},
+	{TT_CLASS, TTE_CLASS},
+	{TT_NAME, TTE_NAME},
+	{TT_OBJECT, TTE_OBJECT},
+	{TT_START_BLOCK, TTE_START_BLOCK},
+	{TT_END_BLOCK, TTE_END_BLOCK},
+	{TT_ATTR, TTE_ATTR},
+	{TT_ATTR_VALUE, TTE_ATTR_VALUE}
+};
+
+//typedef	void	(*gen_obj)(t_quadric*, t_attr);
 /*
 ** main.c
 */
@@ -310,7 +477,7 @@ t_obj				*init_obj(int nb_obj);
 void				init_coef(t_control *l);
 void				init_w(t_control *l);
 t_vec3				vec3(double x, double y, double z);
-t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
+//t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 /*
 ** rt.c
 */
@@ -345,26 +512,24 @@ t_vec3				aliasing(t_control *l, t_ray ray);
 /*
 ** quadric.c
 */
-gen_obj				*init_gen(void);
+//gen_obj				*init_gen(void);
+void				init_quadric(t_quadric *q);
 t_vec3				get_normal(t_quadric q, t_vec3 p);
-t_attr				gen_attr(int color, double radius, char axe, int type);
-void				translation(t_quadric *q, t_vec3 v);
-void				stretch(t_quadric *q, t_vec3 v);
+void				gen_attr(t_obj *obj);
+void				translate(t_quadric *q, t_vec3 v);
+void				scale(t_quadric *q, t_vec3 v);
 /*
 ** surface.c
 */
-void				gen_sphere(t_quadric *q, t_attr attr);
-void				gen_cylinder(t_quadric *q, t_attr attr);
-void				gen_plane(t_quadric *q, t_attr attr);
-void				gen_cone(t_quadric *q, t_attr attr);
-t_obj				gen_surface(int id, t_attr attr, t_vec3 coord, t_vec3 rot, \
-					t_vec3 str);
+void				init_object(t_obj *obj, uint32_t id);
+
 /*
 ** rotation.c
 */
 void				rot_x(t_quadric *q, double n);
 void				rot_y(t_quadric *q, double n);
 void				rot_z(t_quadric *q, double n);
+void				rotate(t_quadric *q, t_vec3 rot);
 /*
 ** filtre.c
 */
@@ -487,5 +652,10 @@ void				menu_add(t_control *l, char *str, int status);
 
 t_vec3				damier(t_control *l, t_inter inter);
 void				init_dam(t_control *l, t_inter inter, t_damier *a);
+
+void				exit_error(const char *err);
+void				*get_file(const char *filename);
+t_obj				*handle_scene(char *file);
+t_obj				*get_obj(t_obj **start, size_t n);
 
 #endif

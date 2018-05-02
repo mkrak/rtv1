@@ -6,19 +6,26 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/03 14:33:29 by cballest          #+#    #+#             */
-/*   Updated: 2018/04/03 15:02:03 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:11:34 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
-
+/*
 int		menu_hook_update(int k, t_control *l)
 {
-	l->obj[l->coef->cur] = gen_surface(l->coef->shape,\
-	gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type),\
-	vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx,\
-	l->coef->roty, l->coef->rotz),\
-	vec3(l->coef->strx / 100, l->coef->stry / 100, l->coef->strz / 100));
+	t_attr	*attr;
+
+	attr = &l->obj[l->coef->cur].attr;
+	attr->id = l->coef->shape;
+	attr->radius = l->coef->rad;
+	attr->color = l->coef->color.color;
+	attr->axe = l->coef->axe;
+	attr->type = l->coef->type;
+	attr->pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
+	attr->rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
+	attr->scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
+	l->obj[l->coef->cur] = gen_attr(l->obj[l->coef->cur]);
 	multithread(l);
 	return (k);
 }
@@ -49,7 +56,7 @@ int		menu_hook_cancel(int k, t_control *l)
 	multithread(l);
 	return (k);
 }
-
+*/
 int		add_mouse_hook(int k, int x, int y, t_control *l)
 {
 	if (y >= 150 && y <= 175)
@@ -68,11 +75,11 @@ int		add_mouse_hook(int k, int x, int y, t_control *l)
 		menu_hook_posy(k, x, y, l);
 	else if (y >= 90 && y <= 115)
 		menu_hook_posz(k, x, y, l);
-	else if (k == 1 && (x >= 0 && x <= 75) && (y >= 410 && y <= 750))
-		menu_hook_update(k, l);
-	else if (k == 1 && (x >= 75 && x <= 150) && (y >= 410 && y <= 750))
-		return (menu_hook_add(k, l));
-	else if (k == 1 && (x >= 150 && x <= 250) && (y >= 410 && y <= 750))
-		return (menu_hook_cancel(k, l));
+//	else if (k == 1 && (x >= 0 && x <= 75) && (y >= 410 && y <= 750))
+//		menu_hook_update(k, l);
+//	else if (k == 1 && (x >= 75 && x <= 150) && (y >= 410 && y <= 750))
+//		return (menu_hook_add(k, l));
+//	else if (k == 1 && (x >= 150 && x <= 250) && (y >= 410 && y <= 750))
+//		return (menu_hook_cancel(k, l));
 	return (k);
 }

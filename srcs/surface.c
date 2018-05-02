@@ -6,13 +6,13 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:11 by lgautier          #+#    #+#             */
-/*   Updated: 2018/04/30 19:18:13 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:32:16 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void		gen_sphere(t_quadric *q, t_attr attr)
+void		init_sphere(t_quadric *q, t_attr attr)
 {
 	q->a = 1 / pow(attr.radius, 2);
 	q->b = 1 / pow(attr.radius, 2);
@@ -20,7 +20,7 @@ void		gen_sphere(t_quadric *q, t_attr attr)
 	q->j = -1;
 }
 
-void		gen_cylinder(t_quadric *q, t_attr attr)
+void		init_cylinder(t_quadric *q, t_attr attr)
 {
 	(attr.axe == 'y' || attr.axe == 'z') ? (q->a = 1 / pow(attr.radius, 2)) : (q->a = 0);
 	(attr.axe == 'x' || attr.axe == 'z') ? (q->b = 1 / pow(attr.radius, 2)) : (q->b = 0);
@@ -28,7 +28,7 @@ void		gen_cylinder(t_quadric *q, t_attr attr)
 	q->j = -1;
 }
 
-void		gen_plane(t_quadric *q, t_attr attr)
+void		init_plane(t_quadric *q, t_attr attr)
 {
 	(attr.axe == 'x') ? (q->a = 1) : (q->a = 0);
 	(attr.axe == 'y') ? (q->b = 1) : (q->b = 0);
@@ -36,7 +36,7 @@ void		gen_plane(t_quadric *q, t_attr attr)
 	q->j = -1;
 }
 
-void		gen_cone(t_quadric *q, t_attr attr)
+void		init_cone(t_quadric *q, t_attr attr)
 {
 	(attr.axe == 'y' || attr.axe == 'z') ? (q->a = 1 / pow(attr.radius, 2)) : (q->a = - 1 / pow(attr.radius, 2));
 	(attr.axe == 'x' || attr.axe == 'z') ? (q->b = 1 / pow(attr.radius, 2)) : (q->b = - 1 / pow(attr.radius, 2));
@@ -44,23 +44,16 @@ void		gen_cone(t_quadric *q, t_attr attr)
 	q->j = -1;
 }
 
-t_obj	gen_surface(int id, t_attr attr, t_vec3 coord, t_vec3 rot, t_vec3 str)
+void		init_object(t_obj *obj, uint32_t id)
 {
-	t_obj		obj;
-	gen_obj		*generate;
-
-	generate = init_gen();
-	obj.attr = attr;	
-	obj.attr.id = id;
-	obj.attr.pos = coord;
-	obj.attr.rot = rot;
-	obj.attr.str = str;
-	generate[obj.attr.id](&obj.q, obj.attr);
-	gen_quadric(&obj.q);
-	stretch(&obj.q, str);
-	rot_x(&obj.q, obj.attr.rot.x);
-	rot_y(&obj.q, obj.attr.rot.y);
-	rot_z(&obj.q, obj.attr.rot.z);
-	translation(&obj.q, obj.attr.pos);
-	return (obj);
+	obj->attr.id = id;
+	obj->attr.pos = vec3(0, 0, 0);
+	obj->attr.kd = 0.8;
+	obj->attr.ks = 0.8;
+	obj->attr.radius = 1;
+	obj->attr.type = ST_NORMAL;
+	obj->attr.axe = 'y';
+	obj->attr.color = 0xf70000;
+	obj->attr.rot = vec3(0, 0, 0);
+	obj->attr.scale = vec3(1, 1, 1);
 }

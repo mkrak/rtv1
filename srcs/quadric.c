@@ -6,21 +6,20 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:04 by lgautier          #+#    #+#             */
-/*   Updated: 2018/04/30 19:18:06 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 18:40:27 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-gen_obj	*init_gen(void)
+void		init_quadric(t_quadric *q)
 {
-	static gen_obj	generate[4];
-
-	generate[0] = gen_sphere;
-	generate[1] = gen_plane;
-	generate[2] = gen_cylinder;
-	generate[3] = gen_cone;
-	return (generate);
+	q->d = 0;
+	q->e = 0;
+	q->f = 0;
+	q->g = 0;
+	q->h = 0;
+	q->i = 0;
 }
 
 t_vec3		get_normal(t_quadric q, t_vec3 p)
@@ -33,21 +32,17 @@ t_vec3		get_normal(t_quadric q, t_vec3 p)
 	return (normal);
 }
 
-t_attr	gen_attr(int color, double radius, char axe, int type)
+void	gen_attr(t_obj *obj)
 {
-	t_attr	attr;
-
-	attr.kd = 0.8;
-	attr.ks = 0.8;
-	attr.axe = axe;
-	attr.radius = radius;
-	attr.color = color;
-	attr.type = type;
-	attr.albedo = vec3((color & 0xff) / 255., (color >> 8 & 0xff) / 255., (color >> 16 & 0xff) / 255.);
-	return (attr);
+	init_quadric(&(obj->q));
+	g_class[obj->attr.id].init_quadric(&(obj->q), obj->attr);
+	obj->attr.albedo = vec3((obj->attr.color & 0xff) / 255., (obj->attr.color >> 8 & 0xff) / 255., (obj->attr.color >> 16 & 0xff) / 255.);
+	scale(&(obj->q), obj->attr.scale);
+	rotate(&(obj->q), obj->attr.rot);
+	translate(&(obj->q), obj->attr.pos);
 }
 
-void		translation(t_quadric *q, t_vec3 v)
+void		translate(t_quadric *q, t_vec3 v)
 {
 	q->j = q->a * pow(v.x, 2) + q->b * pow(v.y, 2) + q->c * pow(v.z, 2) + q->d * v.y * v.z + q->e * v.x * v.z + q->f * v.x * v.y + q->g * v.x + q->h * v.y + q->i * v.z + q->j;
 	q->i = - 2 * q->c * v.z - q->d * v.y - q->e * v.x + q->i;
@@ -55,7 +50,7 @@ void		translation(t_quadric *q, t_vec3 v)
 	q->g = - 2 * q->a * v.x - q->e * v.z - q->f * v.y + q->g;
 }
 
-void		stretch(t_quadric *q, t_vec3 v)
+void		scale(t_quadric *q, t_vec3 v)
 {
 	q->a = q->a / (v.x * v.x);
 	q->b = q->b / (v.y * v.y);
@@ -66,4 +61,11 @@ void		stretch(t_quadric *q, t_vec3 v)
 	q->g = q->g / v.x;
 	q->h = q->h / v.y;
 	q->i = q->i / v.z;
+}
+
+void		rotate(t_quadric *q, t_vec3 rot)
+{
+	rot_x(q, rot.x);
+	rot_y(q, rot.y);
+	rot_z(q, rot.z);
 }

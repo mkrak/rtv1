@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 17:06:32 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 17:06:40 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/02 19:13:32 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	main_mouse_hook_10(int k, int x, int y, t_control *l)
 			obj_realloc(l);
 		}
 		ft_putnbr(l->coef->cur);
-		menu_hook_add(k, l);
+//		menu_hook_add(k, l);
 		if (l->coef->status)
 			l->coef->cur = l->coef->id_swap;
 		l->coef->menu_state = 0;
@@ -31,7 +31,7 @@ void	main_mouse_hook_10(int k, int x, int y, t_control *l)
 	if ((k == 1 && (x >= (W + 45) + 150 && x <= (W + 45) + 250)
 		&& (y >= 750 && y <= 1000)) && l->coef->menu_state == 3)
 	{
-		menu_hook_cancel(k, l);
+//		menu_hook_cancel(k, l);
 		l->coef->menu_state = 0;
 		if (l->coef->status)
 			l->coef->cur = l->coef->id_swap;
@@ -61,9 +61,9 @@ void	main_mouse_hook_9(int k, int x, int y, t_control *l)
 		menu_hook_axe(k, x, y, l);
 		trace_info_3(l, 1);
 	}
-	if ((k == 1 && (x >= (W + 45) + 0 && x <= (W + 45) + 75)
-		&& (y >= 750 && y <= 1000)) && l->coef->menu_state == 3)
-		menu_hook_update(k, l);
+//	if ((k == 1 && (x >= (W + 45) + 0 && x <= (W + 45) + 75)
+//		&& (y >= 750 && y <= 1000)) && l->coef->menu_state == 3)
+//		menu_hook_update(k, l);
 }
 
 void	main_mouse_hook_8(int k, int x, int y, t_control *l)

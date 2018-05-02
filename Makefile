@@ -44,7 +44,8 @@ SRCS_LIST	=	rt.c \
 				trace_info_0.c \
 				trace_info_1.c \
 				trace_info_2.c \
-				trace_info_3.c
+				trace_info_3.c \
+				parser.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
