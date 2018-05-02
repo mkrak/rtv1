@@ -21,11 +21,11 @@ void	trace_info_0_3(t_control *c, int *h, int col)
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
 			ft_strjoin("Pos Z (CTRL/SHIFT): ", ft_itoa(c->coef->pos_z)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 20, col, \
-			ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x)));
+		ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y)));
+		ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z)));
+		ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 25, col, \
 			"    Objets");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
