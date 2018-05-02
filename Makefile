@@ -28,6 +28,7 @@ SRCS_LIST	=	rt.c \
 				key_pr_2.c \
 				autres.c \
 				menu.c \
+				menu_2.c \
 				main_mouse_hook_0.c \
 				main_mouse_hook_1.c \
 				menu_hook.c \

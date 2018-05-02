@@ -12,6 +12,12 @@
 
 #include "../includes/rt.h"
 
+void		increment(t_pxl *p)
+{
+	p->x++;
+	p->y = 0;
+}
+
 void		rt(t_thread *l)
 {
 	t_vec3	power;
@@ -40,8 +46,7 @@ void		rt(t_thread *l)
 			power, l->l.coef);
 			p.y++;
 		}
-		p.x++;
-		p.y = 0;
+		increment(&p);
 	}
 }
 

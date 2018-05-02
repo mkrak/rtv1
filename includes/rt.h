@@ -314,6 +314,7 @@ t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 /*
 ** rt.c
 */
+void				increment(t_pxl *p);
 void				rt(t_thread *l);
 t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
 t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
