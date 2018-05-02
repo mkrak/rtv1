@@ -22,25 +22,52 @@ void		init_sphere(t_quadric *q, t_attr attr)
 
 void		init_cylinder(t_quadric *q, t_attr attr)
 {
-	(attr.axe == 'y' || attr.axe == 'z') ? (q->a = 1 / pow(attr.radius, 2)) : (q->a = 0);
-	(attr.axe == 'x' || attr.axe == 'z') ? (q->b = 1 / pow(attr.radius, 2)) : (q->b = 0);
-	(attr.axe == 'x' || attr.axe == 'y') ? (q->c = 1 / pow(attr.radius, 2)) : (q->c = 0);
+	if (attr.axe == 'y' || attr.axe == 'z')
+		(q->a = 1 / pow(attr.radius, 2));
+	else
+		(q->a = 0);
+	if (attr.axe == 'x' || attr.axe == 'z')
+		(q->b = 1 / pow(attr.radius, 2));
+	else
+		(q->b = 0);
+	if (attr.axe == 'x' || attr.axe == 'y')
+		(q->c = 1 / pow(attr.radius, 2));
+	else
+		(q->c = 0);
 	q->j = -1;
 }
 
 void		init_plane(t_quadric *q, t_attr attr)
 {
-	(attr.axe == 'x') ? (q->a = 1) : (q->a = 0);
-	(attr.axe == 'y') ? (q->b = 1) : (q->b = 0);
-	(attr.axe == 'z') ? (q->c = 1) : (q->c = 0);
+	if (attr.axe == 'y' || attr.axe == 'z')
+		(q->a = 1);
+	else
+		(q->a = 0);
+	if (attr.axe == 'x' || attr.axe == 'z')
+		(q->b = 1);
+	else
+		(q->b = 0);
+	if (attr.axe == 'x' || attr.axe == 'y')
+		(q->c = 1);
+	else
+		(q->c = 0);
 	q->j = -1;
 }
 
 void		init_cone(t_quadric *q, t_attr attr)
 {
-	(attr.axe == 'y' || attr.axe == 'z') ? (q->a = 1 / pow(attr.radius, 2)) : (q->a = - 1 / pow(attr.radius, 2));
-	(attr.axe == 'x' || attr.axe == 'z') ? (q->b = 1 / pow(attr.radius, 2)) : (q->b = - 1 / pow(attr.radius, 2));
-	(attr.axe == 'x' || attr.axe == 'y') ? (q->c = 1 / pow(attr.radius, 2)) : (q->c = - 1 / pow(attr.radius, 2));
+	if (attr.axe == 'y' || attr.axe == 'z')
+		(q->a = 1 / pow(attr.radius, 2));
+	else
+		(q->a = -1 / pow(attr.radius, 2));
+	if (attr.axe == 'x' || attr.axe == 'z')
+		(q->b = 1 / pow(attr.radius, 2));
+	else
+		(q->b = -1 / pow(attr.radius, 2));
+	if (attr.axe == 'x' || attr.axe == 'y')
+		(q->c = 1 / pow(attr.radius, 2));
+	else
+		(q->c = -1 / pow(attr.radius, 2));
 	q->j = -1;
 }
 
