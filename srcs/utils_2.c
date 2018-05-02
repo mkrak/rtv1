@@ -56,13 +56,15 @@ int		rt_search(int x, int y, t_control *l)
 		(2 * tan(fov / 2))));
 	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
 	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->pos_x);
-	while (i < l->nb_obj)
+	l->current = l->obj;
+	while (l->current)
 	{
 		inter = intersec(i, l->obj[i].q, r.origin, r.dir, l);
 		if (t.t == 0 && inter.t != 0)
 			t = inter;
 		else if (inter.t < t.t && inter.t != 0)
 			t = inter;
+		l->current = l->current->next;
 		i++;
 	}
 	if (t.t != 0)
@@ -124,4 +126,26 @@ size_t		get_n_obj(t_obj **start)
 		i++;
 	}
 	return (i);
+}
+
+void    free_object_by_id(t_obj **obj, int id)
+{
+    t_obj    *tmp;
+    t_obj    *tmp2;
+
+    if (!(tmp = *obj))
+        return ;
+    if (!id)
+    {
+        *obj = tmp->next;
+        free(tmp);
+        return ;
+    }
+    while (--id && tmp)
+        tmp = tmp->next;
+    if (!tmp || !tmp->next)
+        return ;
+    tmp2 = tmp->next;
+    tmp->next = tmp2->next;
+    free(tmp2);
 }

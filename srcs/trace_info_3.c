@@ -71,6 +71,9 @@ void	trace_info_3_2(t_control *l, void *img)
 
 void	trace_info_3_1(t_control *l)
 {
+	t_obj	*obj;
+
+	obj = get_obj(&l->obj, l->coef->cur);
 	l->coef->shape = l->obj[l->coef->cur].attr.id;
 	l->coef->color.color = (int)l->obj[l->coef->cur].attr.color;
 	l->coef->posx = (int)l->obj[l->coef->cur].attr.pos.x;

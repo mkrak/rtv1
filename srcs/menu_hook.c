@@ -32,20 +32,21 @@ int		menu_hook_update(int k, t_control *l)
 
 int		menu_hook_add(int k, t_control *l)
 {
-	t_obj	obj;
+	t_obj	*obj;
 
+	obj = get_obj(&l->obj, l->coef->cur);
 	l->coef->color.c[0] = l->coef->r;
 	l->coef->color.c[1] = l->coef->g;
 	l->coef->color.c[2] = l->coef->b;
 
-	obj.attr.id = l->coef->shape;
-	obj.attr.radius = l->coef->rad;
-	obj.attr.color = l->coef->color.color;
-	obj.attr.axe = l->coef->axe;
-	obj.attr.type = l->coef->type;
-	obj.attr.pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
-	obj.attr.rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
-	obj.attr.scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
+	obj->attr.id = l->coef->shape;
+	obj->attr.radius = l->coef->rad;
+	obj->attr.color = l->coef->color.color;
+	obj->attr.axe = l->coef->axe;
+	obj->attr.type = l->coef->type;
+	obj->attr.pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
+	obj->attr.rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
+	obj->attr.scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
 	gen_attr(&obj);
 
 //	if (l->obj[l->coef->cur].attr.id == 0)
@@ -62,6 +63,12 @@ int		menu_hook_cancel(int k, t_control *l)
 	l->obj[l->coef->cur] = l->coef->swap;
 	l->av = l->coef->cur;
 	multithread(l);
+	return (k);
+}
+
+int		menu_hook_delete(int k, t_control *l)
+{
+	free_object_by_id(&l->obj, l->coef->cur);
 	return (k);
 }
 
