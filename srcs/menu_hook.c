@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
-/*
+
 int		menu_hook_update(int k, t_control *l)
 {
 	t_attr	*attr;
@@ -25,23 +25,31 @@ int		menu_hook_update(int k, t_control *l)
 	attr->pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
 	attr->rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
 	attr->scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
-	l->obj[l->coef->cur] = gen_attr(l->obj[l->coef->cur]);
+//	l->obj[l->coef->cur] = gen_attr(l->obj[l->coef->cur]);
 	multithread(l);
 	return (k);
 }
 
 int		menu_hook_add(int k, t_control *l)
 {
+	t_obj	obj;
+
 	l->coef->color.c[0] = l->coef->r;
 	l->coef->color.c[1] = l->coef->g;
 	l->coef->color.c[2] = l->coef->b;
-	if (l->obj[l->coef->cur].attr.id == 0)
-		l->coef->axe = 0;
-	l->obj[l->coef->cur] = gen_surface(l->coef->shape,\
-	gen_attr(l->coef->color.color, l->coef->rad, l->coef->axe, l->coef->type),\
-	vec3(l->coef->posx, l->coef->posy, l->coef->posz), vec3(l->coef->rotx,\
-	l->coef->roty, l->coef->rotz), vec3(l->coef->strx / 100,\
-	l->coef->stry / 100, l->coef->strz / 100));
+
+	obj.attr.id = l->coef->shape;
+	obj.attr.radius = l->coef->rad;
+	obj.attr.color = l->coef->color.color;
+	obj.attr.axe = l->coef->axe;
+	obj.attr.type = l->coef->type;
+	obj.attr.pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
+	obj.attr.rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
+	obj.attr.scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
+	gen_attr(&obj);
+
+//	if (l->obj[l->coef->cur].attr.id == 0)
+//		l->coef->axe = 0;
 	if (l->coef->cur > l->coef->total)
 		l->coef->total += 1;
 	l->coef->cur = l->coef->total;
@@ -56,7 +64,7 @@ int		menu_hook_cancel(int k, t_control *l)
 	multithread(l);
 	return (k);
 }
-*/
+
 int		add_mouse_hook(int k, int x, int y, t_control *l)
 {
 	if (y >= 150 && y <= 175)
