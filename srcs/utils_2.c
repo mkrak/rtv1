@@ -52,9 +52,10 @@ int		rt_search(int x, int y, t_control *l)
 	fov = 60 * M_PI / 180;
 	i = 0;
 	t.t = 0;
-	r.dir = normalize(vec3(x - W / 2, -(y - H / 2), -W / (2 * tan(fov / 2))));
+	r.dir = normalize(vec3((x - W / 2 + 0.25), -(y - H / 2 + 0.25), -W / \
+		(2 * tan(fov / 2))));
 	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
-	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->rot_x);
+	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->pos_x);
 	while (i < l->nb_obj)
 	{
 		inter = intersec(i, l->obj[i].q, r.origin, r.dir, l);
