@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:54:08 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/02 18:52:52 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 21:02:49 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,18 @@ int					quit(void)
 int					main(int ac, char **av)
 {
 	char		*file;
+	t_obj		*pd;
 	t_control	lll;
 
 	if (ac != 2)
 		exit_error(ERR_USAGE);
 	if (!(file = get_file(av[1])))
 		exit_error(ERR_FILE);
-	lll.nb_obj = ft_atoi(av[1]);
 	lll.nb_luz = 1;
 	lll.coef = (t_coef*)malloc(sizeof(t_coef));
 	lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz);
 	lll.obj = handle_scene(file);
+	lll.nb_obj = get_n_obj(&(lll.obj));
 	init_struct(lll.coef);
 	ft_logo(lll.coef);
 	new_image(lll.coef);

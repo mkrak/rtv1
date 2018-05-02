@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:46:17 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/02 20:11:17 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 20:48:29 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,30 @@ void	obj_realloc(t_control *l)
 
 t_obj		*get_obj(t_obj **start, size_t n)
 {
+	int		i;
 	t_obj	*obj;
 
+	i = 0;
 	obj = *start;
-	while (n > 0)
+	while (i < n)
 	{
 		obj = obj->next;
 		n--;
 	}
 	return (obj);
+}
+
+size_t		get_n_obj(t_obj **start)
+{
+	size_t	i;
+	t_obj	*obj;
+
+	i = 0;
+	obj = *start;
+	while (obj->next)
+	{
+		obj = obj->next;
+		i++;
+	}
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 18:41:02 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 21:06:23 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void		init_coef(t_control *l)
 	l->coef->rot_x = 0;
 	l->coef->rot_y = 0;
 	l->coef->rot_z = 0;
-	l->coef->pos_x = 70;
-	l->coef->pos_y = 0;
-	l->coef->pos_z = 0;
+	l->coef->pos_x = 0;
+	l->coef->pos_y = 10;
+	l->coef->pos_z = 50;
 	l->coef->cartoon = 0;
 	l->coef->wtf = 0;
 	l->coef->negatif = 0;

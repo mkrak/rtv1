@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 20:10:26 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 21:13:15 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,6 +327,7 @@ typedef struct		s_control
 	t_luz		*l;
 	int			nb_luz;
 	t_obj		*obj;
+	t_obj		*current;
 	int			nb_obj;
 	int			obj_i;
 	int			au;
@@ -657,5 +658,6 @@ void				exit_error(const char *err);
 void				*get_file(const char *filename);
 t_obj				*handle_scene(char *file);
 t_obj				*get_obj(t_obj **start, size_t n);
+size_t				get_n_obj(t_obj **start);
 
 #endif

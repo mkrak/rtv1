@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/25 22:40:50 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/02 21:15:53 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 	t.t = 0;
 	if (nb_ite == 0)
 		return (vec3(0, 0, 0));
-	while (i < l->nb_obj)
+	l->current = l->obj;
+	while (l->current)
 	{
-		inter = intersec(i, l->obj[i].q, ray.origin, ray.dir, l);
+		inter = intersec(i, l->current->q, ray.origin, ray.dir, l);
 		if ((inter.t != 0 && t.t == 0) || (inter.t < t.t && inter.t != 0))
 			t = inter;
+		l->current = l->current->next;
 		i++;
 	}
 	if (t.t != 0)
@@ -153,12 +155,14 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
 	ombre.t = 0;
 	ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
 	ray.dir = normalize(sub_vec3(l->l[l->obj_i].p, t.pos));
-	while (i < l->nb_obj)
+	l->current = l->obj;
+	while (l->current)
 	{
-		inter = intersec(i, l->obj[i].q, ray.origin, ray.dir, l);
+		inter = intersec(i, l->current->q, ray.origin, ray.dir, l);
 		if ((ombre.t == 0 && inter.t != 0)\
 		|| (inter.t < ombre.t && inter.t != 0))
 			ombre = inter;
+		l->current = l->current->next;
 		i++;
 	}
 	dist_l2 = getnorm2(sub_vec3(l->l[l->obj_i].p, t.pos));
