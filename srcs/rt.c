@@ -26,6 +26,7 @@ void		rt(t_thread *l)
 	{
 		while (p.y < W)
 		{
+			i = 0;
 			while (i < l->l.antial && (p.y % (int)fmax(l->l.aliasing, 1) == 0))
 			{
 				ray = anti_alias(p.x, p.y, ray, i, l->l.coef);
@@ -33,9 +34,8 @@ void		rt(t_thread *l)
 				i++;
 			}
 			power = moy_point(moy, l->l.antial);
-			put_pixel(l->i, init_pxl(p.x - (l->n * (H / 8)), p.y),\
+			put_pixel(l->i, init_pxl(p.x - (l->n * (H / 8)), ++p.y),\
 			power, l->l.coef);
-			p.y++;
 		}
 		increment(&p);
 	}
