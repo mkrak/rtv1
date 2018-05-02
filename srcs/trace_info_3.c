@@ -74,23 +74,23 @@ void	trace_info_3_1(t_control *l)
 	t_obj	*obj;
 
 	obj = get_obj(&l->obj, l->coef->cur);
-	l->coef->shape = l->obj[l->coef->cur].attr.id;
-	l->coef->color.color = (int)l->obj[l->coef->cur].attr.color;
-	l->coef->posx = (int)l->obj[l->coef->cur].attr.pos.x;
-	l->coef->posy = (int)l->obj[l->coef->cur].attr.pos.y;
-	l->coef->posz = (int)l->obj[l->coef->cur].attr.pos.z;
-	l->coef->rotx = (int)l->obj[l->coef->cur].attr.rot.x;
-	l->coef->roty = (int)l->obj[l->coef->cur].attr.rot.y;
-	l->coef->rotz = (int)l->obj[l->coef->cur].attr.rot.z;
-	l->coef->strx = (int)l->obj[l->coef->cur].attr.scale.x * 100;
-	l->coef->stry = (int)l->obj[l->coef->cur].attr.scale.y * 100;
-	l->coef->strz = (int)l->obj[l->coef->cur].attr.scale.z * 100;
-	l->coef->rad = (int)l->obj[l->coef->cur].attr.radius;
+	l->coef->shape = obj->attr.id;
+	l->coef->color.color = (int)obj->attr.color;
+	l->coef->posx = (int)obj->attr.pos.x;
+	l->coef->posy = (int)obj->attr.pos.y;
+	l->coef->posz = (int)obj->attr.pos.z;
+	l->coef->rotx = (int)obj->attr.rot.x;
+	l->coef->roty = (int)obj->attr.rot.y;
+	l->coef->rotz = (int)obj->attr.rot.z;
+	l->coef->strx = (int)obj->attr.scale.x;// * 100;
+	l->coef->stry = (int)obj->attr.scale.y;// * 100;
+	l->coef->strz = (int)obj->attr.scale.z;// * 100;
+	l->coef->rad = (int)obj->attr.radius;
 	l->coef->r = l->coef->color.c[0];
 	l->coef->g = l->coef->color.c[1];
 	l->coef->b = l->coef->color.c[2];
-	l->coef->type = (int)l->obj[l->coef->cur].attr.type;
-	l->coef->axe = l->obj[l->coef->cur].attr.axe;
+	l->coef->type = (int)obj->attr.type;
+	l->coef->axe = obj->attr.axe;
 }
 
 void	trace_info_3_0(t_control *l)

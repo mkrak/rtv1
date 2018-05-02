@@ -1,20 +1,8 @@
-@define .sphere "s0"
-@define .sphere "s1"
-@define .sphere "s2"
 @define .plane "p0"
+@define .sphere "s0"
 
 #s0 {
 	radius: 20;
-}
-
-#s1 {
-	radius: 20;
-	pos: -25, 0, 25;
-}
-
-#s2 {
-	radius: 20;
-	pos: 25, 0, 50;
 }
 
 #p0 {

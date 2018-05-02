@@ -77,6 +77,7 @@ int					main(int ac, char **av)
 	lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz);
 	lll.obj = handle_scene(file);
 	lll.nb_obj = get_n_obj(&(lll.obj));
+	lll.nb_obj = 2;
 	init_struct(lll.coef);
 	ft_logo(lll.coef);
 	new_image(lll.coef);

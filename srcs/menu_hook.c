@@ -34,33 +34,50 @@ int		menu_hook_add(int k, t_control *l)
 {
 	t_obj	*obj;
 
-	obj = get_obj(&l->obj, l->coef->cur);
-	l->coef->color.c[0] = l->coef->r;
-	l->coef->color.c[1] = l->coef->g;
-	l->coef->color.c[2] = l->coef->b;
+	if (l->coef->status)
+		obj = get_obj(&l->obj, l->coef->cur);
+	else
+	{
+		if (l->coef->shape == 0)
+			add_object(&l->obj, "sphere");
+		if (l->coef->shape == 1)
+			add_object(&l->obj, "plane");
+		if (l->coef->shape == 2)
+			add_object(&l->obj, "cylinder");
+		if (l->coef->shape == 3)
+			add_object(&l->obj, "cone");
+		//l->nb_obj++;
+		obj = get_obj(&l->obj, l->nb_obj - 1);
+	}
+		l->coef->color.c[0] = l->coef->r;
+		l->coef->color.c[1] = l->coef->g;
+		l->coef->color.c[2] = l->coef->b;
 
-	obj->attr.id = l->coef->shape;
-	obj->attr.radius = l->coef->rad;
-	obj->attr.color = l->coef->color.color;
-	obj->attr.axe = l->coef->axe;
-	obj->attr.type = l->coef->type;
-	obj->attr.pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
-	obj->attr.rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
-	obj->attr.scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
-	gen_attr(&obj);
+		obj->attr.id = l->coef->shape;
+		obj->attr.radius = l->coef->rad;
+		obj->attr.color = l->coef->color.color;
+		obj->attr.axe = l->coef->axe;
+		obj->attr.type = l->coef->type;
+		obj->attr.pos = vec3(l->coef->posx, l->coef->posy, l->coef->posz);
+		obj->attr.rot = vec3(l->coef->rotx, l->coef->roty, l->coef->rotz);
+		obj->attr.scale = vec3(l->coef->strx, l->coef->stry, l->coef->strz);
+	gen_attr(obj);
 
 //	if (l->obj[l->coef->cur].attr.id == 0)
 //		l->coef->axe = 0;
 	if (l->coef->cur > l->coef->total)
-		l->coef->total += 1;
-	l->coef->cur = l->coef->total;
+		l->nb_obj += 1;
+	l->coef->cur = l->nb_obj;
 	multithread(l);
 	return (k);
 }
 
 int		menu_hook_cancel(int k, t_control *l)
 {
-	l->obj[l->coef->cur] = l->coef->swap;
+	t_obj	*obj;
+
+	obj = get_obj(&l->obj, l->coef->cur);
+	obj = l->coef->swap;
 	l->av = l->coef->cur;
 	multithread(l);
 	return (k);
@@ -90,11 +107,11 @@ int		add_mouse_hook(int k, int x, int y, t_control *l)
 		menu_hook_posy(k, x, y, l);
 	else if (y >= 90 && y <= 115)
 		menu_hook_posz(k, x, y, l);
-//	else if (k == 1 && (x >= 0 && x <= 75) && (y >= 410 && y <= 750))
-//		menu_hook_update(k, l);
-//	else if (k == 1 && (x >= 75 && x <= 150) && (y >= 410 && y <= 750))
-//		return (menu_hook_add(k, l));
-//	else if (k == 1 && (x >= 150 && x <= 250) && (y >= 410 && y <= 750))
-//		return (menu_hook_cancel(k, l));
+	else if (k == 1 && (x >= 0 && x <= 75) && (y >= 410 && y <= 750))
+		menu_hook_update(k, l);
+	else if (k == 1 && (x >= 75 && x <= 150) && (y >= 410 && y <= 750))
+		return (menu_hook_add(k, l));
+	else if (k == 1 && (x >= 150 && x <= 250) && (y >= 410 && y <= 750))
+		return (menu_hook_cancel(k, l));
 	return (k);
 }

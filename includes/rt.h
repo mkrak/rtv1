@@ -213,7 +213,7 @@ typedef struct		s_coef
 {
 	int			time;
 	int			prev_time;
-	t_obj		swap;
+	t_obj		*swap;
 	t_img		*load;
 	t_col		color;
 	char		*name;
@@ -659,5 +659,6 @@ void				*get_file(const char *filename);
 t_obj				*handle_scene(char *file);
 t_obj				*get_obj(t_obj **start, size_t n);
 size_t				get_n_obj(t_obj **start);
+t_obj				*add_object(t_obj **obj, char *obj_class);
 
 #endif

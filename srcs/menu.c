@@ -74,7 +74,7 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 		l->coef->status = 1;
 		l->coef->menu_state = 3;
 		id = rt_search(x, y, l);
-		l->coef->swap = l->obj[id];
+		l->coef->swap = get_obj(&l->obj, id);
 		l->coef->id_swap = l->coef->cur;
 		l->coef->cur = id;
 		trace_info_3(l, 2);
