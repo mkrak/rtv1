@@ -26,9 +26,7 @@ void		rt(t_thread *l)
 	t_ray	ray;
 	int		i;
 
-	p.x = l->n * (H / 8);
-	p.y = 0;
-	i = 0;
+	p = init_pxl(l->n * (H / 8), 0);
 	moy = (t_vec3*)malloc(sizeof(t_vec3) * l->l.antial);
 	while (p.x < (l->n + 1) * (H / 8) + 1)
 	{
@@ -40,7 +38,6 @@ void		rt(t_thread *l)
 				moy[i] = aliasing(&l->l, ray);
 				i++;
 			}
-			i = 0;
 			power = moy_point(moy, l->l.antial);
 			put_pixel(l->i, init_pxl(p.x - (l->n * (H / 8)), p.y),\
 			power, l->l.coef);
