@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*     rt.c                                             :+:      :+:    :+:   */
+/*   autres.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/13 18:02:30 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/27 17:12:48 by cballest         ###   ########.fr       */
+/*   Created: 2018/05/03 18:55:01 by clanier           #+#    #+#             */
+/*   Updated: 2018/05/03 18:55:44 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-void				borne(t_vec3 *color)
+void	borne(t_vec3 *color)
 {
 	color->x = fmin(255, fmax(0, pow(color->x, 1 / 2.2)));
 	color->y = fmin(255, fmax(0, pow(color->y, 1 / 2.2)));
 	color->z = fmin(255, fmax(0, pow(color->z, 1 / 2.2)));
 }
 
-void		init_mouv(t_control *l)
+void	init_mouv(t_control *l)
 {
 	l->roll = 0;
 	l->rolr = 0;
@@ -38,17 +38,17 @@ void		init_mouv(t_control *l)
 	l->kaa = 0;
 }
 
-double		getnorm2(t_vec3 p)
+double	getnorm2(t_vec3 p)
 {
 	return (p.x * p.x + p.y * p.y + p.z * p.z);
 }
 
-double		dot(t_vec3 p, t_vec3 b)
+double	dot(t_vec3 p, t_vec3 b)
 {
 	return (p.x * b.x + p.y * b.y + p.z * b.z);
 }
 
-t_vec3		moy_point(t_vec3 *moy, int antial)
+t_vec3	moy_point(t_vec3 *moy, int antial)
 {
 	t_vec3 ret;
 
@@ -77,7 +77,7 @@ void	gen_quadric(t_quadric *q)
 	q->i = 0.0;
 }
 
-int				check_arg(int ac, char **av)
+int		check_arg(int ac, char **av)
 {
 	if (ac != 2 && av)
 	{
@@ -88,7 +88,7 @@ int				check_arg(int ac, char **av)
 		return (1);
 }
 
-void				filtre(t_coef *c, t_vec3 *color)
+void	filtre(t_coef *c, t_vec3 *color)
 {
 	if (!c->wtf)
 		borne(color);
@@ -102,7 +102,7 @@ void				filtre(t_coef *c, t_vec3 *color)
 		sepia(color);
 }
 
-void		increment(t_pxl *p)
+void	increment(t_pxl *p)
 {
 	p->x++;
 	p->y = 0;

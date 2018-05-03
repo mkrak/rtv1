@@ -30,8 +30,6 @@ SRCS_LIST	=	rt.c \
 				menu.c \
 				menu_2.c \
 				main_mouse_hook_0.c \
-				main_mouse_hook_1.c \
-				menu_hook.c \
 				menu_hook_1.c \
 				menu_hook_2.c \
 				menu_hook_3.c \

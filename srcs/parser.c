@@ -6,7 +6,7 @@
 /*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:28:01 by clanier           #+#    #+#             */
-/*   Updated: 2018/05/03 12:16:29 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:19:43 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,7 +312,7 @@ void	set_double_attr(char *attr_value, void *attr_dst)
 			neg = 0;
 	n = ft_atoi(attr_value);
 	n = neg ? -n : n;
-	while  (ft_strchr("0123456789", *attr_value))
+	while (ft_strchr("0123456789", *attr_value))
 		attr_value++;
 	if (*attr_value == '.' && *(++attr_value) >= '0' && *attr_value <= '9')
 	{
@@ -328,10 +328,12 @@ void	set_double_attr(char *attr_value, void *attr_dst)
 void	set_vec_attr(char *attr_value, void *attr_dst)
 {
 	set_double_attr(attr_value, &(((t_vec3*)attr_dst)->x));
-	set_double_attr((size_t)(attr_value = ft_strchr(attr_value, ',') + 1) > 1 ? attr_value : "0", &(((t_vec3*)attr_dst)->y));
+	set_double_attr((size_t)(attr_value = ft_strchr(attr_value, ',') + 1) > 1
+	? attr_value : "0", &(((t_vec3*)attr_dst)->y));
 	if ((size_t)attr_value == 1)
 		attr_value = NULL;
-	set_double_attr((size_t)(attr_value = ft_strchr(attr_value, ',') + 1) > 1 ? attr_value : "0", &(((t_vec3*)attr_dst)->z));
+	set_double_attr((size_t)(attr_value = ft_strchr(attr_value, ',') + 1) > 1
+	? attr_value : "0", &(((t_vec3*)attr_dst)->z));
 }
 
 void	set_color_attr(char *attr_value, void *attr_dst)
@@ -393,7 +395,8 @@ void	set_attr(t_obj *obj, char *attr, char *attr_value)
 	{
 		if (!ft_strcmp(g_set_attr[i].attr, attr))
 		{
-			g_set_attr[i].set_attr(attr_value, (void*)obj + g_set_attr[i].struct_offset);
+			g_set_attr[i].set_attr(attr_value,
+			(void*)obj + g_set_attr[i].struct_offset);
 			break ;
 		}
 		i++;
@@ -435,14 +438,12 @@ t_obj	*add_object(t_obj **obj, char *obj_class)
 	return (tmp->next = new_object(obj_class));
 }
 
-int		create_scene(t_obj **obj, t_token *token, char *obj_class, char *obj_name)
+void	get_attr_from_token(t_token *token,
+		char *obj_class, char *obj_name, t_obj *new)
 {
-	t_obj	*new;
 	bool	attr;
 
 	attr = false;
-	if (!(new = add_object(obj, obj_class)))
-		return (-1);
 	while (token)
 	{
 		if (token->type == TTE_DEF)
@@ -463,6 +464,16 @@ int		create_scene(t_obj **obj, t_token *token, char *obj_class, char *obj_name)
 		}
 		token = token->next;
 	}
+}
+
+int		create_scene(t_obj **obj, t_token *token,
+		char *obj_class, char *obj_name)
+{
+	t_obj	*new;
+
+	if (!(new = add_object(obj, obj_class)))
+		return (-1);
+	get_attr_from_token(token, obj_class, obj_name, new);
 	gen_attr(new);
 	return (0);
 }
@@ -476,7 +487,8 @@ int		handle_token(t_obj **obj, t_token *token)
 	{
 		if (tmp->type == TTE_DEF)
 		{
-			if (create_scene(obj, token, tmp->next->data, tmp->next->next->data))
+			if (create_scene(obj, token,
+			tmp->next->data, tmp->next->next->data))
 				return (-1);
 			tmp = tmp->next->next;
 		}
@@ -532,7 +544,7 @@ t_obj	*handle_scene(char *file)
 	if (check_token(token))
 	{
 		printf("\033[31;1m[RT] \033[0mInvalid scene\n");
-		return NULL;
+		return (NULL);
 	}
 	if (!handle_token(&obj, token))
 	{

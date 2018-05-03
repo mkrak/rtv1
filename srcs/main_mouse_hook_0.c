@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 17:06:18 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 13:24:13 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 18:56:26 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,4 @@ void	main_mouse_hook_1(int k, int x, int y, t_control *l)
 		l->coef->menu_state = 1;
 		trace_info(l);
 	}
-	// if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 400 && y <= 435))
-	// 	&& l && l->coef->menu_state == 0)
-	// {
-	// 	l->coef->menu_state = 2;
-	// 	trace_info(l);
-	// }
 }

@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:47:33 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 13:24:38 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:01:39 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,5 @@ int		main_mouse_hook(int k, int x, int y, t_control *l)
 	main_mouse_hook_2(k, x, y, l);
 	main_mouse_hook_3(k, x, y, l);
 	main_mouse_hook_4(k, x, y, l);
-	main_mouse_hook_6(k, x, y, l);
-	main_mouse_hook_7(k, x, y, l);
-	main_mouse_hook_8(k, x, y, l);
-	main_mouse_hook_9(k, x, y, l);
-	main_mouse_hook_10(k, x, y, l);
 	return (k);
 }
