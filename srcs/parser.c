@@ -6,7 +6,7 @@
 /*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:28:01 by clanier           #+#    #+#             */
-/*   Updated: 2018/05/03 19:19:43 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 19:55:57 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,6 +549,7 @@ t_obj	*handle_scene(char *file)
 	if (!handle_token(&obj, token))
 	{
 		free_token(token);
+		dump_obj(obj);
 		return (obj);
 	}
 	else

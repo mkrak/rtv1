@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 19:38:17 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:51:17 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,6 +581,8 @@ void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 /*
 ** autres.c
 */
+t_vec3				albed(int color);
+t_vec3				mult_vec3(t_vec3 a, t_vec3 b);
 void				borne(t_vec3 *color);
 void				init_mouv(t_control *l);
 double				getnorm2(t_vec3 p);
