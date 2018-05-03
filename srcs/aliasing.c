@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/04/25 21:45:40 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:19:52 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 	init_x_y(&x, &y, i);
 	ray.dir = normalize(vec3((py - W / 2 + x), (px - H / 2 + y), -W / \
 		(2 * tan(fov / 2))));
-	ray.dir = rotate_cam(ray.dir, t->rot_y, t->rot_x, t->rot_z);
-	ray.origin = vec3(t->pos_y, t->pos_z, t->pos_x);
+	ray.dir = rotate_cam(ray.dir, t->rot_x, t->rot_y, t->rot_z);
+	ray.origin = vec3(t->pos_x, t->pos_y, t->pos_z);
 	return (ray);
 }
 

@@ -6,7 +6,7 @@
 /*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:28:01 by clanier           #+#    #+#             */
-/*   Updated: 2018/05/02 19:20:42 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:16:29 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void	*get_quote_token(char *file, t_token **token)
 void	*get_attr_token(char *file, t_token **token)
 {
 	char	end[2];
- 
+
 	--file;
 	*file = CHAR_ATTR_END;
 	file = get_token(file, file, 1, token);
@@ -640,7 +640,7 @@ t_obj	*handle_scene(char *file)
 	}
 	if (!handle_token(&obj, token))
 	{
-		dump_obj(obj);
+//		dump_obj(obj);
 		free_token(token);
 		return (obj);
 	}

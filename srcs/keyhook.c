@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:02:52 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 14:05:37 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:24:40 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int		ft_key_camrot(t_control *e)
 	else if (e->rolr)
 		e->coef->rot_z -= 5;
 	else if (e->rotr)
-		e->coef->rot_x -= 5;
-	else if (e->rotl)
-		e->coef->rot_x += 5;
-	else if (e->rotu)
-		e->coef->rot_y += 5;
-	else if (e->rotd)
 		e->coef->rot_y -= 5;
+	else if (e->rotl)
+		e->coef->rot_y += 5;
+	else if (e->rotu)
+		e->coef->rot_x += 5;
+	else if (e->rotd)
+		e->coef->rot_x -= 5;
 	else
 		return (0);
 	return (1);
@@ -70,17 +70,17 @@ int		ft_key_camrot(t_control *e)
 int		ft_key_camtrans(t_control *e)
 {
 	if (e->au)
-		e->coef->pos_x -= 1;
-	if (e->ad)
-		e->coef->pos_x += 1;
-	if (e->ctrl)
 		e->coef->pos_z -= 1;
-	if (e->shif)
+	if (e->ad)
 		e->coef->pos_z += 1;
-	if (e->al)
+	if (e->ctrl)
 		e->coef->pos_y -= 1;
-	if (e->ar)
+	if (e->shif)
 		e->coef->pos_y += 1;
+	if (e->al)
+		e->coef->pos_x -= 1;
+	if (e->ar)
+		e->coef->pos_x += 1;
 	if (!e->au && !e->ad && !e->ctrl && !e->shif && !e->al && !e->ar)
 		return (0);
 	return (1);

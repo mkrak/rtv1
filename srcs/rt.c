@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 21:15:53 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:53:25 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray, t_obj *light)
 	}
 	if (t.t != 0)
 	{
-		if (OBJ.attr.type == 1)
+		if (get_obj(&l->obj, t.id)->attr.type == 1)
 		{
 			ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
 			ray.dir = sub_vec3(ray.dir, k_vec3(dot(t.norm, ray.dir) * 2,\
@@ -91,7 +91,7 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray, t_obj *light)
 				fmax((15 / l->coef->reflec), 1)));
 			}
 		}
-		else if (OBJ.attr.type == OBJ_CYLINDER)
+		else if (get_obj(&l->obj, t.id)->attr.type == ST_CHECKER_BOARD)
 			power = damier(l, t);
 		else
 			power = ombre(ray, l, t, light);
@@ -109,12 +109,8 @@ t_inter		intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l)
 	double	t1;
 	double	t2;
 
-	a = (q.a * pow(dir.x, 2)) + (q.b * pow(dir.y, 2)) + (q.c * pow(dir.z, 2))\
-		+ (q.d * dir.y * dir.z) + (q.e * dir.x * dir.z) + (q.f * dir.x * dir.y);
-	b = 2 * (q.a * eye.x * dir.x + q.b * eye.y * dir.y + q.c * eye.z * dir.z)\
-		+ q.d * (eye.y * dir.z + eye.z * dir.y) + q.e * (eye.x * dir.z + eye.z\
-		* dir.x) + q.f * (eye.x * dir.y + eye.y * dir.x) + q.g * dir.x + q.h\
-		* dir.y + q.i * dir.z;
+	a = (q.a * pow(dir.x, 2)) + (q.b * pow(dir.y, 2)) + (q.c * pow(dir.z, 2)) + (q.d * dir.y * dir.z) + (q.e * dir.x * dir.z) + (q.f * dir.x * dir.y);
+	b = 2 * (q.a * eye.x * dir.x + q.b * eye.y * dir.y + q.c * eye.z * dir.z) + q.d * (eye.y * dir.z + eye.z * dir.y) + q.e * (eye.x * dir.z + eye.z * dir.x) + q.f * (eye.x * dir.y + eye.y * dir.x) + q.g * dir.x + q.h * dir.y + q.i * dir.z;
 	c = q.a * pow(eye.x, 2) + q.b * pow(eye.y, 2) + q.c * pow(eye.z, 2) + q.d\
 		* eye.y * eye.z + q.e * eye.x * eye.z + q.f * eye.x * eye.y + q.g\
 		* eye.x + q.h * eye.y + q.i * eye.z + q.j;
