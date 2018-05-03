@@ -72,9 +72,6 @@ void	trace_info_0_1(t_control *c)
 	bouton = mlx_xpm_file_to_image(c->coef->mlx, \
 			"ressources/img/menu_0/add_filter_norm.XPM", &width, &height);
 	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 360);
-	bouton = mlx_xpm_file_to_image(c->coef->mlx, \
-			"ressources/img/menu_0/add_obj_norm.XPM", &width, &height);
-	mlx_put_image_to_window(c->coef->mlx, c->coef->win, bouton, W + 45, 400);
 }
 
 void	trace_info_0_0(t_control *c)

@@ -12,14 +12,6 @@
 
 #include "../includes/rt.h"
 
-void	hook_not_5(t_control *l, void *img, int *w, int *h)
-{
-	img = mlx_xpm_file_to_image(l->coef->mlx, \
-		"ressources/img/menu_0/add_obj_hover.XPM", w, h);
-	mlx_put_image_to_window(l->coef->mlx, l->coef->win, img, W + 45, 400);
-	l->coef->is_on_button = 1;
-}
-
 void	hook_not_4(t_control *l, void *img, int *w, int *h)
 {
 	t_img	bl;
