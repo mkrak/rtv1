@@ -12,7 +12,7 @@
 
 #include "../includes/rt.h"
 
-t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
+t_ray				anti_alias(t_pxl p, t_ray ray, int i, t_coef *t)
 {
 	double x;
 	double y;
@@ -20,7 +20,7 @@ t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t)
 
 	fov = 60 * M_PI / 180;
 	init_x_y(&x, &y, i);
-	ray.dir = normalize(vec3((py - W / 2 + x), (px - H / 2 + y), -W / \
+	ray.dir = normalize(vec3((p.y - W / 2 + x), (p.x - H / 2 + y), -W / \
 		(2 * tan(fov / 2))));
 	ray.dir = rotate_cam(ray.dir, t->rot_x, t->rot_y, t->rot_z);
 	ray.origin = vec3(t->pos_x, t->pos_y, t->pos_z);
@@ -54,7 +54,7 @@ void				init_x_y(double *x, double *y, int i)
 t_vec3				aliasing(t_control *l, t_ray ray)
 {
 	t_obj		*light;
-	t_vec3	power;
+	t_vec3		power;
 
 	power = vec3(0, 0, 0);
 	l->obj_i = 0;
