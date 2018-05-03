@@ -16,6 +16,7 @@ SRCS_LIST	=	rt.c \
 				ope_vec2.c \
 				keyhook.c \
 				main.c \
+				main_func.c \
 				aliasing.c \
 				export.c \
 				export_2.c \

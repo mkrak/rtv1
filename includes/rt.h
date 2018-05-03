@@ -734,6 +734,11 @@ void				key_p_3(int k, t_control *e);
 void				key_p_4(int k, t_control *e);
 int					key_p(int k, t_control *e);
 /*
+** main_func.c
+*/
+void				hooks(t_control lll);
+int					main_mallocs(t_control *lll, int ac, char *file, char **av);
+/*
 ** parser.c
 */
 void				exit_error(const char *err);
