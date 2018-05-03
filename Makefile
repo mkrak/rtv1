@@ -52,7 +52,8 @@ trace_info_2.c \
 trace_info_3.c \
 utils.c \
 utils_2.c \
-autres_2.c
+autres_2.c \
+check_ressources.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))

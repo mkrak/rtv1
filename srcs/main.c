@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:54:08 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 22:01:00 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 23:24:44 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int					main(int ac, char **av)
 	t_control	lll;
 
 	file = NULL;
+	check_ressources();
 	if (main_mallocs(&lll, ac, file, av))
 		return (EXIT_FAILURE);
 	get_n_obj(&(lll.obj), &(lll.nb_obj), &(lll.nb_luz));

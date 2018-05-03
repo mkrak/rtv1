@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 22:35:22 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 23:25:24 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -776,5 +776,7 @@ int					create_scene(t_obj **obj, t_token *token, \
 int					handle_token(t_obj **obj, t_token *token);
 void				free_object(t_obj *obj);
 t_obj				*handle_scene(char *file);
+
+void				check_ressources();
 
 #endif
