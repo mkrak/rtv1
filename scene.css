@@ -1,12 +1,24 @@
-@define .plane "p0"
 @define .light "l0"
+@define .cylinder "c0"
 @define .sphere "s0"
+@define .cone "pd" 
 
 #s0 {
+	x: -50;
 	color: #f70000;
+	scale: 1,0.5,1;
 	radius: 20;
 }
 
-#p0 {
+#c0 {
+	radius: 15;
+	rot: 45,45,0;
 	color: #00ffff;
+}
+
+#pd {
+	z: 20;
+	rot: 0,0,45;
+	scale: 1,2,1;
+	color: #00f700;
 }

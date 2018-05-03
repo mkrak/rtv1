@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 19:10:15 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 20:29:34 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 22:28:23 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_error(const char *err)
 {
 	printf("\033[31;1m[RT] \033[0m%s\n", err);
-	exit(EXIT_FAILURE);
+	exit(-1);
 }
 
 void	hooks(t_control lll)
@@ -36,18 +36,19 @@ int		main_mallocs(t_control *lll, int ac, char *file, char **av)
 	if (!(file = get_file(av[1])))
 		exit_error(ERR_FILE);
 	if (!(lll->coef = (t_coef*)malloc(sizeof(t_coef))))
-		return (EXIT_FAILURE);
+		return (-1);
 	if (!(lll->l = (t_luz*)malloc(sizeof(t_luz) * lll->nb_luz)))
 	{
 		free(lll->coef);
-		return (EXIT_FAILURE);
+		return (-1);
 	}
 	if (!(lll->obj = handle_scene(file)))
 	{
+		free(file);
 		free(lll->l);
 		free(lll->coef);
-		return (EXIT_FAILURE);
+		return (-1);
 	}
-	else
-		return (1);
+	free(file);
+	return (0);
 }

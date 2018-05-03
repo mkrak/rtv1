@@ -6,59 +6,70 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:06:24 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 14:06:28 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 22:27:01 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
+char	*init_mlx_str(char *buf, char *s1, char *s2)
+{
+	ft_strcpy(buf, s1);
+	ft_strcat(buf, s2);
+	free(s2);
+	return (buf);
+}
+
 void	trace_info_0_3(t_control *c, int *h, int col)
 {
+	char	buf[40];
+
+	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col,
+	init_mlx_str(buf, "Pos X      (AL/AR): ", ft_itoa(c->coef->pos_x)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos X      (AL/AR): ", ft_itoa(c->coef->pos_x)));
+	init_mlx_str(buf, "Pos Y (CTRL/SHIFT): ", ft_itoa(c->coef->pos_y)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos Y (CTRL/SHIFT): ", ft_itoa(c->coef->pos_y)));
-	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos Z      (AU/AD): ", ft_itoa(c->coef->pos_z)));
+	init_mlx_str(buf, "Pos Z      (AU/AD): ", ft_itoa(c->coef->pos_z)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 20, col, \
-		ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x % 360)));
+init_mlx_str(buf, "Rot X        (A/D): ", ft_itoa(c->coef->rot_x % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-		ft_strjoin("Rot Y        (W/S): ", ft_itoa(c->coef->rot_y % 360)));
+init_mlx_str(buf, "Rot Y        (W/S): ", ft_itoa(c->coef->rot_y % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-		ft_strjoin("Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z % 360)));
+init_mlx_str(buf, "Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 25, col, \
 			"    Objets");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Spheres           : ", ft_itoa(c->nb_obj)));
+	init_mlx_str(buf, "Spheres           : ", ft_itoa(c->nb_obj)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Lumieres          : ", ft_itoa(c->nb_luz)));
+	init_mlx_str(buf, "Lumieres          : ", ft_itoa(c->nb_luz)));
 }
 
 void	trace_info_0_2(t_control *c, int *h, int col)
 {
 	float	f;
 	char	s[255];
+	char	buf[40];
 
 	f = (float)(c->coef->time - c->coef->prev_time) / 1000000;
 	ftoa(f, s, 4);
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 25, col, \
 			"    Scene");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Width             : ", ft_itoa(W)));
+	init_mlx_str(buf, "Width             : ", ft_itoa(W)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Height            : ", ft_itoa(H)));
+	init_mlx_str(buf, "Height            : ", ft_itoa(H)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Aliasing     (+/-): ", ft_itoa(c->aliasing)));
+	init_mlx_str(buf, "Aliasing     (+/-): ", ft_itoa(c->aliasing)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Anti-aliasing  (P): ", ft_itoa(c->antial)));
+	init_mlx_str(buf, "Anti-aliasing  (P): ", ft_itoa(c->antial)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Cartoon        (C): ", ft_itoa(c->coef->cartoon)));
+	init_mlx_str(buf, "Cartoon        (C): ", ft_itoa(c->coef->cartoon)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Negatif        (N): ", ft_itoa(c->coef->negatif)));
+	init_mlx_str(buf, "Negatif        (N): ", ft_itoa(c->coef->negatif)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("WTF            (X): ", ft_itoa(c->coef->wtf)));
+	init_mlx_str(buf, "WTF            (X): ", ft_itoa(c->coef->wtf)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Time (in sec)     : ", s));
+	init_mlx_str(buf, "Time (in sec)     : ", ft_strdup(s)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 25, col, \
 			"    Camera");
 }

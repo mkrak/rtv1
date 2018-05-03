@@ -6,7 +6,7 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:11 by lgautier          #+#    #+#             */
-/*   Updated: 2018/05/03 19:57:36 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 21:46:40 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_cone(t_quadric *q, t_attr attr)
 		(q->b = -1 / pow(attr.radius, 2));
 	(attr.axe == 'x' || attr.axe == 'y') ? (q->c = 1 / pow(attr.radius, 2)) :\
 		(q->c = -1 / pow(attr.radius, 2));
-	q->j = -1;
+	q->j = 0;
 }
 
 void	init_object(t_obj *obj, uint32_t id)

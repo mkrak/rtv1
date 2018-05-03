@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/02 15:54:08 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 19:09:42 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 22:01:00 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int					main(int ac, char **av)
 	t_control	lll;
 
 	file = NULL;
-	if (main_mallocs(&lll, ac, file, av) != 1)
+	if (main_mallocs(&lll, ac, file, av))
 		return (EXIT_FAILURE);
 	get_n_obj(&(lll.obj), &(lll.nb_obj), &(lll.nb_luz));
 	init_struct(lll.coef);
