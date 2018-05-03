@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 21:13:15 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:38:17 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -703,7 +703,6 @@ void				fill_menu(t_coef *t, void *win);
 t_obj				*get_obj(t_obj **start, size_t n);
 t_obj				*get_light_by_id(t_obj *obj, size_t n);
 void				get_n_obj(t_obj **start, int *nb_obj, int *nb_luz);
-void				free_object_by_id(t_obj **obj, int id);
 /*
 ** main_mouse_hook_0.c
 */

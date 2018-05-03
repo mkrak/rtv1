@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:46:17 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 19:26:04 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 19:37:52 by cballest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,4 @@ void	get_n_obj(t_obj **start, int *nb_obj, int *nb_luz)
 			(*nb_obj)++;
 		obj = obj->next;
 	}
-}
-
-void	free_object_by_id(t_obj **obj, int id)
-{
-	t_obj	*tmp;
-	t_obj	*tmp2;
-
-	if (!(tmp = *obj))
-		return ;
-	if (!id)
-	{
-		*obj = tmp->next;
-		free(tmp);
-		return ;
-	}
-	while (--id && tmp)
-		tmp = tmp->next;
-	if (!tmp || !tmp->next)
-		return ;
-	tmp2 = tmp->next;
-	tmp->next = tmp2->next;
-	free(tmp2);
 }
