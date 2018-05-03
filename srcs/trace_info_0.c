@@ -15,11 +15,11 @@
 void	trace_info_0_3(t_control *c, int *h, int col)
 {
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos X      (AU/AD): ", ft_itoa(c->coef->pos_x)));
+			ft_strjoin("Pos X      (AL/AR): ", ft_itoa(c->coef->pos_x)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos Y      (AL/AR): ", ft_itoa(c->coef->pos_y)));
+			ft_strjoin("Pos Y (CTRL/SHIFT): ", ft_itoa(c->coef->pos_y)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
-			ft_strjoin("Pos Z (CTRL/SHIFT): ", ft_itoa(c->coef->pos_z)));
+			ft_strjoin("Pos Z      (AU/AD): ", ft_itoa(c->coef->pos_z)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 20, col, \
 		ft_strjoin("Rot X        (A/D): ", ft_itoa(c->coef->rot_x % 360)));
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \
