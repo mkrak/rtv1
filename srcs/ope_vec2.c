@@ -12,6 +12,11 @@
 
 #include "../includes/rt.h"
 
+t_vec3		mult_vec3(t_vec3 a, t_vec3 b)
+{
+	return (vec3(a.x * b.x, a.y * b.y, a.z * b.z));
+}
+
 t_vec3		rotate_cam(t_vec3 d, double x, double y, double z)
 {
 	t_vec3 tmp;

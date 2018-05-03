@@ -12,6 +12,16 @@
 
 #include "rt.h"
 
+t_vec3	albed(int color)
+{
+	t_vec3	albedo;
+
+	albedo.x = (color >> 16 & 0xff) / 255.;
+	albedo.y = (color >> 8 & 0xff) / 255.;
+	albedo.z = (color & 0xff) / 255.;
+	return (albedo);
+}
+
 void	gen_quadric(t_quadric *q)
 {
 	q->d = 0.0;
