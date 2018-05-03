@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 16:58:25 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:48:54 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,12 +148,16 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t, t_obj *light)
 	t_inter	ombre;
 	t_inter	inter;
 	t_vec3	power;
+	t_vec3	to_eye;
+	t_vec3	reflected;
+	double	ldotnormal;
 	double	dist_l2;
 
 	i = 0;
 	ombre.t = 0;
 	ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
 	ray.dir = normalize(sub_vec3(light->attr.pos, t.pos));
+	to_eye = normalize(sub_vec3(t.pos, vec3(l->coef->posx, l->coef->posy, l->coef->posz)));
 	l->current = l->obj;
 	while (l->current)
 	{
@@ -168,11 +172,12 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t, t_obj *light)
 		l->current = l->current->next;
 		i++;
 	}
+	ldotnormal = fmax(0, dot(ray.dir, t.norm));
+	reflected = sub_vec3(k_vec3(2 * ldotnormal, t.norm), ray.dir);
 	dist_l2 = getnorm2(sub_vec3(light->attr.pos, t.pos));
 	if (ombre.t != 0 && ombre.t * ombre.t < dist_l2)
 		power = vec3(0, 0, 0);
 	else
-		power = k_vec3(light->attr.radius * fmax(0, dot(ray.dir, t.norm))\
-		/ dist_l2, get_obj(&l->obj, t.id)->attr.albedo);
+		power = k_vec3(light->attr.radius * get_obj(&l->obj, t.id)->attr.kd * ldotnormal / dist_l2, mult_vec3(albed(light->attr.color), get_obj(&l->obj, t.id)->attr.albedo));
 	return (power);
 }
