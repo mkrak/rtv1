@@ -65,19 +65,26 @@ int					quit(void)
 int					main(int ac, char **av)
 {
 	char		*file;
-	t_obj		*pd;
 	t_control	lll;
 
 	if (ac != 2)
 		exit_error(ERR_USAGE);
 	if (!(file = get_file(av[1])))
 		exit_error(ERR_FILE);
-	lll.nb_luz = 1;
-	lll.coef = (t_coef*)malloc(sizeof(t_coef));
-	lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz);
-	lll.obj = handle_scene(file);
-	lll.nb_obj = get_n_obj(&(lll.obj));
-	lll.nb_obj = 2;
+	if (!(lll.coef = (t_coef*)malloc(sizeof(t_coef))))
+		return (EXIT_FAILURE);
+	if (!(lll.l = (t_luz*)malloc(sizeof(t_luz) * lll.nb_luz)))
+	{
+		free(lll.coef);
+		return (EXIT_FAILURE);
+	}
+	if (!(lll.obj = handle_scene(file)))
+	{
+		free(lll.l);
+		free(lll.coef);
+		return (EXIT_FAILURE);
+	}
+	get_n_obj(&(lll.obj), &(lll.nb_obj), &(lll.nb_luz));
 	init_struct(lll.coef);
 	ft_logo(lll.coef);
 	new_image(lll.coef);
@@ -85,11 +92,15 @@ int					main(int ac, char **av)
 	mlx_hook(lll.coef->win, 6, (1L << 6), main_mouse_hook_not, &lll);
 	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
 	init_mouv(&lll);
+	lll.coef->menu_state = 0;
 	trace_info(&lll);
 	mlx_hook(lll.coef->win, 2, (1L << 0), &key_p, &lll);
 	mlx_hook(lll.coef->win, 3, (1L << 1), &key_r, &lll);
 	mlx_hook(lll.coef->win, 17, 0L, &quit, lll.coef);
 	mlx_loop_hook(lll.coef->mlx, main_loop, &lll);
 	mlx_loop(lll.coef->mlx);
+	free(lll.coef);
+	free(lll.l);
+	free_object(lll.obj);
 	return (0);
 }

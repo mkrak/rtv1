@@ -41,91 +41,101 @@ void	fill_menu(t_coef *t, void *win)
 	mlx_put_image_to_window(t->mlx, win, img, 125 - w / 2, 15 + 85 * 3);
 }
 
-int		rt_search(int x, int y, t_control *l)
-{
-	double	fov;
-	int		i;
-	t_inter	t;
-	t_inter	inter;
-	t_ray	r;
+// int		rt_search(int x, int y, t_control *l)
+// {
+// 	double	fov;
+// 	int		i;
+// 	t_inter	t;
+// 	t_inter	inter;
+// 	t_ray	r;
 
-	fov = 60 * M_PI / 180;
-	i = 0;
-	t.t = 0;
-	r.dir = normalize(vec3((x - W / 2 + 0.25), -(y - H / 2 + 0.25), -W / \
-		(2 * tan(fov / 2))));
-	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
-	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->pos_x);
-	l->current = l->obj;
-	while (l->current)
-	{
-		inter = intersec(i, l->obj[i].q, r.origin, r.dir, l);
-		if (t.t == 0 && inter.t != 0)
-			t = inter;
-		else if (inter.t < t.t && inter.t != 0)
-			t = inter;
-		l->current = l->current->next;
-		i++;
-	}
-	if (t.t != 0)
-		return (t.id);
-	return (-1);
-}
+// 	fov = 60 * M_PI / 180;
+// 	i = 0;
+// 	t.t = 0;
+// 	r.dir = normalize(vec3((x - W / 2 + 0.25), -(y - H / 2 + 0.25), -W / \
+// 		(2 * tan(fov / 2))));
+// 	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
+// 	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->pos_x);
+// 	l->current = l->obj;
+// 	while (l->current)
+// 	{
+// 		inter = intersec(i, l->obj[i].q, r.origin, r.dir, l);
+// 		if (t.t == 0 && inter.t != 0)
+// 			t = inter;
+// 		else if (inter.t < t.t && inter.t != 0)
+// 			t = inter;
+// 		l->current = l->current->next;
+// 		i++;
+// 	}
+// 	if (t.t != 0)
+// 		return (t.id);
+// 	return (-1);
+// }
 
-void	obj_realloc(t_control *l)
-{
-	t_obj	*swap;
-	int		i;
+// void	obj_realloc(t_control *l)
+// {
+// 	t_obj	*swap;
+// 	int		i;
 
-	i = 0;
-	l->coef->total++;
-	swap = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
-	while (i < l->nb_obj)
-	{
-		swap[i] = l->obj[i];
-		i++;
-	}
-	i = 0;
-	free(l->obj);
-	l->nb_obj++;
-	l->obj = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
-	while (i < l->nb_obj - 1)
-	{
-		l->obj[i] = swap[i];
-		i++;
-	}
-	l->coef->cur = l->nb_obj - 1;
-	free(swap);
-}
+// 	i = 0;
+// 	l->coef->total++;
+// 	swap = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
+// 	while (i < l->nb_obj)
+// 	{
+// 		swap[i] = l->obj[i];
+// 		i++;
+// 	}
+// 	i = 0;
+// 	free(l->obj);
+// 	l->nb_obj++;
+// 	l->obj = (t_obj*)malloc(sizeof(t_obj) * l->nb_obj);
+// 	while (i < l->nb_obj - 1)
+// 	{
+// 		l->obj[i] = swap[i];
+// 		i++;
+// 	}
+// 	l->coef->cur = l->nb_obj - 1;
+// 	free(swap);
+// }
 
 t_obj		*get_obj(t_obj **start, size_t n)
 {
-	int		i;
 	t_obj	*obj;
 
-	i = 0;
 	obj = *start;
-	while (i < n)
-	{
+	while (n-- > 0)
 		obj = obj->next;
-		n--;
-	}
 	return (obj);
 }
 
-size_t		get_n_obj(t_obj **start)
+t_obj		*get_light_by_id(t_obj *obj, size_t n)
 {
-	size_t	i;
+	while (obj)
+	{
+		if (obj->attr.id == OBJ_LIGHT && n-- <= 0)
+			return (obj);
+		obj = obj->next;
+	}
+	return (NULL);
+}
+
+void		get_n_obj(t_obj **start, int *nb_obj, int *nb_luz)
+{
 	t_obj	*obj;
 
-	i = 0;
+	if (nb_obj)
+		*nb_obj = 0;
+	if (nb_luz)
+		*nb_luz = 0;
 	obj = *start;
-	while (obj->next)
+	while (obj)
 	{
+		if (nb_luz && obj->attr.id == OBJ_LIGHT)
+			(*nb_luz)++;
+		else if (nb_obj)
+			(*nb_obj)++;
 		obj = obj->next;
-		i++;
 	}
-	return (i);
 }
 
 void    free_object_by_id(t_obj **obj, int id)

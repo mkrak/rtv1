@@ -18,7 +18,7 @@ void	main_mouse_hook_10(int k, int x, int y, t_control *l)
 		&& (y >= 750 && y <= 1000)) && l->coef->menu_state == 3)
 	{
 		if (!l->coef->status)
-			l->coef->cur = get_n_obj(&l->obj);
+			get_n_obj(&l->obj, &(l->coef->cur), NULL);
 		ft_putnbr(l->coef->cur);
 		menu_hook_add(k, l);
 		if (l->coef->status)

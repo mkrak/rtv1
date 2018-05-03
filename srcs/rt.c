@@ -50,7 +50,7 @@ t_pxl		init_pxl(int x, int y)
 	return (p);
 }
 
-t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
+t_vec3		get_color(t_control *l, int nb_ite, t_ray ray, t_obj *light)
 {
 	int		i;
 	t_inter	t;
@@ -65,6 +65,11 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 	l->current = l->obj;
 	while (l->current)
 	{
+		if (l->current->attr.id == OBJ_LIGHT && ++i)
+		{
+			l->current = l->current->next;
+			continue ;
+		}
 		inter = intersec(i, l->current->q, ray.origin, ray.dir, l);
 		if ((inter.t != 0 && t.t == 0) || (inter.t < t.t && inter.t != 0))
 			t = inter;
@@ -78,20 +83,18 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 			ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
 			ray.dir = sub_vec3(ray.dir, k_vec3(dot(t.norm, ray.dir) * 2,\
 			t.norm));
-			power = get_color(l, nb_ite - 1, ray);
+			power = get_color(l, nb_ite - 1, ray, light);
 			power = ope_divv1(power, l->coef->reflec);
 			if (l->coef->reflec != 1)
 			{
-				power = add_vec3(power, ope_divv1(ombre(ray, l, t),\
+				power = add_vec3(power, ope_divv1(ombre(ray, l, t, light),\
 				fmax((15 / l->coef->reflec), 1)));
 			}
 		}
-		else if (OBJ.attr.type == 2)
-		{
+		else if (OBJ.attr.type == OBJ_CYLINDER)
 			power = damier(l, t);
-		}
 		else
-			power = ombre(ray, l, t);
+			power = ombre(ray, l, t, light);
 	}
 	return (power);
 }
@@ -143,7 +146,7 @@ t_inter		intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l)
 	return (ret);
 }
 
-t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
+t_vec3		ombre(t_ray ray, t_control *l, t_inter t, t_obj *light)
 {
 	int		i;
 	t_inter	ombre;
@@ -154,22 +157,26 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t)
 	i = 0;
 	ombre.t = 0;
 	ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
-	ray.dir = normalize(sub_vec3(l->l[l->obj_i].p, t.pos));
+	ray.dir = normalize(sub_vec3(light->attr.pos, t.pos));
 	l->current = l->obj;
 	while (l->current)
 	{
+		if (l->current->attr.id == OBJ_LIGHT && ++i)
+		{
+			l->current = l->current->next;
+			continue ;
+		}
 		inter = intersec(i, l->current->q, ray.origin, ray.dir, l);
-		if ((ombre.t == 0 && inter.t != 0)\
-		|| (inter.t < ombre.t && inter.t != 0))
+		if ((!ombre.t && inter.t) || (inter.t < ombre.t && inter.t))
 			ombre = inter;
 		l->current = l->current->next;
 		i++;
 	}
-	dist_l2 = getnorm2(sub_vec3(l->l[l->obj_i].p, t.pos));
+	dist_l2 = getnorm2(sub_vec3(light->attr.pos, t.pos));
 	if (ombre.t != 0 && ombre.t * ombre.t < dist_l2)
 		power = vec3(0, 0, 0);
 	else
-		power = k_vec3(l->l[l->obj_i].power * fmax(0, dot(ray.dir, t.norm))\
+		power = k_vec3(light->attr.radius * fmax(0, dot(ray.dir, t.norm))\
 		/ dist_l2, OBJ.attr.albedo);
 	return (power);
 }

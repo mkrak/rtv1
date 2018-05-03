@@ -59,12 +59,6 @@ void		init_coef(t_control *l)
 void		init_w(t_control *l)
 {
 	init_coef(l);
-	l->l[0].p = vec3(0, 20, 70);
-	l->l[0].power = 156660000;
-//	l->l[1].p = vec3(30, 0, 25);
-//	l->l[1].power = 36666000;
-//	l->l[2].p = vec3(-30, 0, 25);
-//	l->l[2].power = 36666000;
 	l->aliasing = 4;
 	l->antial = 1;
 	multithread(l);

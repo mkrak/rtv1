@@ -35,7 +35,8 @@ t_vec3		get_normal(t_quadric q, t_vec3 p)
 void	gen_attr(t_obj *obj)
 {
 	init_quadric(&(obj->q));
-	g_class[obj->attr.id].init_quadric(&(obj->q), obj->attr);
+	if (g_class[obj->attr.id].init_quadric)
+		g_class[obj->attr.id].init_quadric(&(obj->q), obj->attr);
 	obj->attr.albedo = vec3((obj->attr.color & 0xff) / 255., (obj->attr.color >> 8 & 0xff) / 255., (obj->attr.color >> 16 & 0xff) / 255.);
 	scale(&(obj->q), obj->attr.scale);
 	rotate(&(obj->q), obj->attr.rot);

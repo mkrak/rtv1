@@ -600,8 +600,8 @@ void	free_object(t_obj *obj)
 		free(tmp);
 	}
 }
-/*
-void	rt(t_obj *obj)
+
+void	dump_obj(t_obj *obj)
 {
 	while (obj)
 	{
@@ -623,7 +623,7 @@ void	rt(t_obj *obj)
 			printf("\n------------------------------\n\n");
 	}
 }
-*/
+
 t_obj	*handle_scene(char *file)
 {
 	t_token	*token;
@@ -639,21 +639,25 @@ t_obj	*handle_scene(char *file)
 		return NULL;
 	}
 	if (!handle_token(&obj, token))
+	{
+		dump_obj(obj);
+		free_token(token);
 		return (obj);
+	}
 	else
 		printf("\033[31;1m[RT] \033[0mAn error has occurred\n");
-//	free_object(obj);
-//	free_token(token);
+	free_token(token);
+	return (NULL);
 }
-/*
-int	main(int ac, char **av)
-{
-	char	*file;
 
-	if (ac != 2)
-		exit_error(ERR_USAGE);
-	if (!(file = get_file(av[1])))
-		exit_error(ERR_FILE);
-	handle_scene(file);
-	free(file);
-}*/
+// int	main(int ac, char **av)
+// {
+// 	char	*file;
+
+// 	if (ac != 2)
+// 		exit_error(ERR_USAGE);
+// 	if (!(file = get_file(av[1])))
+// 		exit_error(ERR_FILE);
+// 	handle_scene(file);
+// 	free(file);
+// }

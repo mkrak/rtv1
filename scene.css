@@ -1,10 +1,11 @@
 @define .plane "p0"
+@define .light "l0"
 @define .sphere "s0"
 
 #s0 {
 	radius: 20;
 }
 
-#p0 {
-	color: #00f7f7;
+#p0 #s0 {
+	color: #00ffff;
 }

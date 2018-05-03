@@ -128,10 +128,10 @@ void	main_mouse_hook_1(int k, int x, int y, t_control *l)
 		l->coef->menu_state = 1;
 		trace_info(l);
 	}
-	if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 400 && y <= 435))
-		&& l && l->coef->menu_state == 0)
-	{
-		l->coef->menu_state = 2;
-		trace_info(l);
-	}
+	// if ((k == 1 && (x >= W + 45 && x <= W + 320) && (y >= 400 && y <= 435))
+	// 	&& l && l->coef->menu_state == 0)
+	// {
+	// 	l->coef->menu_state = 2;
+	// 	trace_info(l);
+	// }
 }

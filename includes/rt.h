@@ -68,7 +68,7 @@
 # define CHAR_EOL				'\n'
 
 # define N_ATTR		0xa
-# define N_CLASS	0x4
+# define N_CLASS	0x5
 # define N_TT		0x8
 # define N_ST		0x3
 
@@ -94,6 +94,7 @@
 # define OBJ_PLANE		1
 # define OBJ_CYLINDER	2
 # define OBJ_CONE		3
+# define OBJ_LIGHT		4
 
 # define ST_NORMAL			0
 # define ST_MIRROR			1
@@ -399,6 +400,9 @@ static const t_class	g_class[N_CLASS] = {
 	}, {
 		.init_quadric = init_cone,
 		.name = "cone"
+	}, {
+		.init_quadric = NULL,
+		.name = "light"
 	}
 };
 
@@ -484,10 +488,10 @@ t_vec3				vec3(double x, double y, double z);
 */
 void				increment(t_pxl *p);
 void				rt(t_thread *l);
-t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
+t_vec3				get_color(t_control *l, int nb_ite, t_ray ray, t_obj *light);
 t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
 					t_control *l);
-t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
+t_vec3				ombre(t_ray ray, t_control *l, t_inter t, t_obj *light);
 t_pxl				init_pxl(int x, int y);
 /*
 ** ope_vec.c
@@ -658,7 +662,8 @@ void				exit_error(const char *err);
 void				*get_file(const char *filename);
 t_obj				*handle_scene(char *file);
 t_obj				*get_obj(t_obj **start, size_t n);
-size_t				get_n_obj(t_obj **start);
+t_obj				*get_light_by_id(t_obj *obj, size_t n);
+void				get_n_obj(t_obj **start, int *nb_obj, int *nb_luz);
 t_obj				*add_object(t_obj **obj, char *obj_class);
 
 #endif

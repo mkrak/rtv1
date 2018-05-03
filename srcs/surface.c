@@ -47,10 +47,10 @@ void        init_cone(t_quadric *q, t_attr attr)
 void        init_object(t_obj *obj, uint32_t id)
 {
     obj->attr.id = id;
-    obj->attr.pos = vec3(0, 0, 0);
+    obj->attr.pos = id == OBJ_LIGHT ? vec3(0, 20, 70) : vec3(0, 0, 0);
     obj->attr.kd = 0.8;
     obj->attr.ks = 0.8;
-    obj->attr.radius = 1;
+    obj->attr.radius = id == OBJ_LIGHT ? 156660000 : 1;
     obj->attr.type = ST_NORMAL;
     obj->attr.axe = 'y';
     obj->attr.color = 0xf70000;
