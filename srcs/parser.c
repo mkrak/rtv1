@@ -17,63 +17,6 @@ void	exit_error(const char *err)
 	printf("\033[31;1m[RT] \033[0m%s\n", err);
 	exit(EXIT_FAILURE);
 }
-/*
-int		ft_atoi(const char *str)
-{
-	int i;
-	int n;
-	int neg;
-
-	n = 0;
-	neg = 0;
-	i = 0;
-	if (!str)
-		return (0);
-	while ((str[i] == '\n') || (str[i] == '\t') || (str[i] == '\v') ||
-			(str[i] == ' ') || (str[i] == '\f') || (str[i] == '\r'))
-		i++;
-	if (str[i] == '-')
-		neg = 1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
-	{
-		n *= 10;
-		n += (int)str[i] - '0';
-		i++;
-	}
-	return (neg == 1 ? -n : n);
-}
-
-void	ft_bzero(void *s1, unsigned n)
-{
-	char *s = s1;
-
-	while (!n--)
-		*s++ = 0;
-}
-
-void	*ft_memcpy(void *dst, const void *src, uint64_t n)
-{
-	char *d;
-	const char *s;
-
-	d = dst;
-	s = src;
-	while (n--)
-		*d++ = *s++;
-	return (dst);
-}
-
-uint64_t	ft_strlen(const char *str)
-{
-	const char *s;
-
-	s = str;
-	while (*s)
-		++s;
-	return (s - str);
-}*/
 
 void	*strjou1(void *dst, const void *src, uint64_t n)
 {
@@ -103,61 +46,7 @@ void	*strjou1(void *dst, const void *src, uint64_t n)
 	tmp[n + len] = 0;
 	return (dst);
 }
-/*
-void	*ft_strdup(const char *s)
-{
-	uint64_t	len;
-	void		*new;
 
-	len = ft_strlen(s) + 1;
-	if (!(new = malloc(len)))
-		return (NULL);
-	return (ft_memcpy(new, s, len));
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (s && *s != (char)c)
-		if (*s++ == '\0')
-			return (NULL);
-	return ((char*)s);
-}
-
-void	*ft_memchr(const void *s, uint8_t c, uint64_t n)
-{
-	const uint8_t *p;
-
-	p = s;
-	if (n)
-		while (n--)
-			if (*p++ == c)
-				return ((void *)(p - 1));
-	return (NULL);
-}
-
-int		ft_strncmp(const char *s1, const char *s2, uint64_t n)
-{
-	while (n > 0)
-	{
-		if (*s1 != *s2)
-			return ((*(uint8_t*)s1 < *(uint8_t*)s2) ? -1 : 1);
-		else if (!*s1)
-			return (0);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (0);
-}
-
-int		ft_strcmp(const char *s1, const char *s2)
-{
-    while (*s1 == *(s2++))
-		if (!(*(s1++)))
-		    return (0);
-	return ((*(uint8_t*)s1 < *(uint8_t*)s2) ? -1 : 1);
-}
-*/
 void	*get_file(const char *filename)
 {
 	int32_t		fd;
@@ -344,19 +233,17 @@ int		check_data_from_type(t_token *token)
 		return (-1);
 	else if (token->type == TTE_CLASS && check_foreach_class(token->data))
 		return (-1);
-	else if (token->type == TTE_NAME && check_valid_chars(token->data, CHARS_NAME))
+	else if (token->type == TTE_NAME && check_valid_chars(token->data, \
+		CHARS_NAME))
 		return (-1);
-	else if (token->type == TTE_ATTR && check_valid_chars(token->data, CHARS_ATTR))
+	else if (token->type == TTE_ATTR && check_valid_chars(token->data, \
+		CHARS_ATTR))
 		return (-1);
 	return (0);
 }
 
-int		check_token(t_token *token)
+int		check_token_loop(t_token *token, uint8_t *expt)
 {
-	uint8_t	expt[2];
-
-	expt[0] = TTE_CLASS | TTE_DEF | TTE_OBJECT;
-	expt[1] = 0;
 	while (token)
 	{
 		if (!(expt[0] & token->type) || check_data_from_type(token))
@@ -379,6 +266,15 @@ int		check_token(t_token *token)
 		token = token->next;
 	}
 	return (expt[0] != (TTE_DEF | TTE_CLASS | TTE_OBJECT) ? -1 : 0);
+}
+
+int		check_token(t_token *token)
+{
+	uint8_t	expt[2];
+
+	expt[0] = TTE_CLASS | TTE_DEF | TTE_OBJECT;
+	expt[1] = 0;
+	return (check_token_loop(token, expt));
 }
 
 void	edit_token_types(t_token *token)
@@ -640,7 +536,6 @@ t_obj	*handle_scene(char *file)
 	}
 	if (!handle_token(&obj, token))
 	{
-//		dump_obj(obj);
 		free_token(token);
 		return (obj);
 	}
@@ -649,15 +544,3 @@ t_obj	*handle_scene(char *file)
 	free_token(token);
 	return (NULL);
 }
-
-// int	main(int ac, char **av)
-// {
-// 	char	*file;
-
-// 	if (ac != 2)
-// 		exit_error(ERR_USAGE);
-// 	if (!(file = get_file(av[1])))
-// 		exit_error(ERR_FILE);
-// 	handle_scene(file);
-// 	free(file);
-// }

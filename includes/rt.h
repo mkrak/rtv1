@@ -478,11 +478,9 @@ int					quit(void);
 /*
 ** init.c
 */
-t_obj				*init_obj(int nb_obj);
 void				init_coef(t_control *l);
 void				init_w(t_control *l);
 t_vec3				vec3(double x, double y, double z);
-//t_sphere			init_sphere(t_vec3 p, double ray, t_vec3 color, int type);
 /*
 ** rt.c
 */
@@ -517,59 +515,67 @@ t_vec3				aliasing(t_control *l, t_ray ray);
 /*
 ** quadric.c
 */
-//gen_obj				*init_gen(void);
 void				init_quadric(t_quadric *q);
+void				print_q(t_quadric q);
 t_vec3				get_normal(t_quadric q, t_vec3 p);
 void				gen_attr(t_obj *obj);
 void				translate(t_quadric *q, t_vec3 v);
 void				scale(t_quadric *q, t_vec3 v);
+void				rotate(t_quadric *q, t_vec3 rot);
 /*
 ** surface.c
 */
+void        		init_sphere(t_quadric *q, t_attr attr);
+void        		init_cylinder(t_quadric *q, t_attr attr);
+void        		init_plane(t_quadric *q, t_attr attr);
+void        		init_cone(t_quadric *q, t_attr attr);
 void				init_object(t_obj *obj, uint32_t id);
-
 /*
 ** rotation.c
 */
+void				rot_z(t_quadric *q, double n);
 void				rot_x(t_quadric *q, double n);
 void				rot_y(t_quadric *q, double n);
-void				rot_z(t_quadric *q, double n);
-void				rotate(t_quadric *q, t_vec3 rot);
 /*
 ** filtre.c
 */
-void				carton(t_vec3 *color);
 void				cartoon(t_vec3 *color);
+void				carton(t_vec3 *color);
 void				sepia(t_vec3 *color);
 void				negatif(t_vec3 *color);
 void				black_n_white(t_vec3 *color);
 /*
 ** multithread.c
 */
+void				thread_sub_1(t_thread *thread, t_control *l, int i);
+void				thread_sub_2(t_thread *thread, t_control *l);
 void				multithread(t_control *l);
 /*
 ** utils.c
 */
 void				ft_putfloat(float d, double eps);
+void				reverse(char *str, int len);
+int					inttostr(int x, char *str, int d);
 void				ftoa(float n, char *res, int p);
 /*
 ** key_pr.c
 */
 int					main_loop(t_control *e);
-int					key_p(int k, t_control *e);
+int					key_r_2(int k, t_control *e);
 int					key_r(int k, t_control *e);
 /*
 ** keyhook.c
 */
-int					ft_keyhook(int key, t_control *e);
-int					ft_key_camtrans(t_control *e);
-int					ft_key_camrot(t_control *e);
+void				trace_info(t_control *c);
 int					ft_key_aa(t_control *e);
+int					ft_key_camrot(t_control *e);
+int					ft_key_camtrans(t_control *e);
 /*
 ** mlx.c
 */
 void				put_pixel_circle(t_img i, t_circle c, int x, int y);
-void				mlx_circle(t_circle c, t_coef *coef);
+void				mlx_image_to_alpha(t_img img, int n);
+void				put_pixel_rect(t_img i, t_rect r, int x, int y);
 void				mlx_rect(t_rect rect, t_coef *coef);
 void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 /*
@@ -587,83 +593,180 @@ void				increment(t_pxl *p);
 /*
 ** menu_hook.c
 */
+int					menu_hook_update(int k, t_control *l);
+int					menu_hook_add(int k, t_control *l);
+int					menu_hook_cancel(int k, t_control *l);
+int					menu_hook_delete(int k, t_control *l);
 int					add_mouse_hook(int k, int x, int y, t_control *l);
+/*
+** menu_hook_1.c
+*/
 void				menu_hook_type(int k, int x, int y, t_control *l);
-void				menu_hook_rad(int k, int x, int y, t_control *l);
 void				menu_hook_axe(int k, int x, int y, t_control *l);
+void				menu_hook_rad(int k, int x, int y, t_control *l);
 void				menu_hook_r(int k, int x, int y, t_control *l);
 void				menu_hook_g(int k, int x, int y, t_control *l);
+/*
+** menu_hook_2.c
+*/
 void				menu_hook_b(int k, int x, int y, t_control *l);
 void				menu_hook_posx(int k, int x, int y, t_control *l);
 void				menu_hook_posy(int k, int x, int y, t_control *l);
 void				menu_hook_posz(int k, int x, int y, t_control *l);
 void				menu_hook_rotx(int k, int x, int y, t_control *l);
+/*
+** menu_hook_3.c
+*/
 void				menu_hook_roty(int k, int x, int y, t_control *l);
 void				menu_hook_rotz(int k, int x, int y, t_control *l);
 void				menu_hook_strx(int k, int x, int y, t_control *l);
 void				menu_hook_stry(int k, int x, int y, t_control *l);
 void				menu_hook_strz(int k, int x, int y, t_control *l);
-int					menu_hook_update(int k, t_control *l);
-int					menu_hook_add(int k, t_control *l);
-int					menu_hook_cancel(int k, t_control *l);
-int					add_mouse_hook(int k, int x, int y, t_control *l);
-void				obj_realloc(t_control *l);
-void				main_mouse_hook_1(int k, int x, int y, t_control *l);
-void				main_mouse_hook_2(int k, int x, int y, t_control *l);
-void				main_mouse_hook_3(int k, int x, int y, t_control *l);
-void				main_mouse_hook_4(int k, int x, int y, t_control *l);
-void				main_mouse_hook_5(int k, int x, int y, t_control *l);
-void				main_mouse_hook_6(int k, int x, int y, t_control *l);
-void				main_mouse_hook_7(int k, int x, int y, t_control *l);
-void				main_mouse_hook_8(int k, int x, int y, t_control *l);
-void				main_mouse_hook_9(int k, int x, int y, t_control *l);
-void				main_mouse_hook_10(int k, int x, int y, t_control *l);
-void				hook_not_5(t_control *l, void *img, int *w, int *h);
-void				hook_not_4(t_control *l, void *img, int *w, int *h);
-void				hook_not_3(t_control *l, void *img, int *w, int *h);
-void				hook_not_2(t_control *l, void *img, int *w, int *h);
-void				hook_not_1(t_control *l, void *img, int *w, int *h);
-void				hook_not_0(t_control *l, void *img, int *w, int *h);
-
-void				trace_info(t_control *e);
-void				trace_info_0(t_control *c);
-void				trace_info_1(t_control *c);
-void				trace_info_2(t_control *c);
-void				trace_info_3(t_control *l, int status);
-void				export_file(t_control *t);
 /*
 ** export.c
 */
-int					hook_rename(int k, t_control *l);
-void				rename_win(t_control *l);
 void				expand_name(t_control *l, char c);
 void				trunc_name(t_control *l);
 void				refresh_name(t_control *l);
+int					hook_rename(int k, t_control *l);
+void				rename_win(t_control *l);
 /*
 ** export_2.c
 */
 void				hook_mac_rename(t_control *l, int k);
 void				hook_mac_rename2(t_control *l, int k);
 void				hook_mac_rename3(t_control *l, int k);
-
-int					rt_search(int x, int y, t_control *l);
-void				fill_menu(t_coef *t, void *win);
-void				ft_logo(t_coef *t);
-int					mouse_hook(int k, int x, int y, t_control *l);
-int					main_mouse_hook(int k, int x, int y, t_control *l);
+/*
+** export_3.c
+*/
+void				export_header_init(t_export *e);
+void				export_header_write(t_export *e, int fd);
+void				export_file(t_control *l);
+/*
+** menu.c
+*/
+void				hook_not_0(t_control *l, void *img, int *w, int *h);
+int					main_mouse_hook_not_2(int x, int y, t_control *l);
 int					main_mouse_hook_not(int x, int y, t_control *l);
+int					main_mouse_hook(int k, int x, int y, t_control *l);
+/*
+** menu_2.c
+*/
+void				hook_not_5(t_control *l, void *img, int *w, int *h);
+void				hook_not_4(t_control *l, void *img, int *w, int *h);
+void				hook_not_3(t_control *l, void *img, int *w, int *h);
+void				hook_not_2(t_control *l, void *img, int *w, int *h);
+void				hook_not_1(t_control *l, void *img, int *w, int *h);
+/*
+** trace_info_0.c
+*/
+void				trace_info_0_3(t_control *c, int *h, int col);
+void				trace_info_0_2(t_control *c, int *h, int col);
+void				trace_info_0_1(t_control *c);
+void				trace_info_0_0(t_control *c);
+void				trace_info_0(t_control *c);
+/*
+** trace_info_1.c
+*/
+void				trace_info_1_2(t_img *bouton, t_control *c, int *n);
+void				trace_info_1_1(t_img *bouton, t_control *c, int *n);
+void				trace_info_1_0(t_scrol *lum, t_scrol *scroll);
+void				trace_info_1(t_control *c);
+/*
+** trace_info_2.c
+*/
+void				trace_info_2(t_control *c);
+/*
+** trace_info_3.c
+*/
+void				trace_info_3_3(t_control *l);
+void				trace_info_3_2(t_control *l, void *img);
+void				trace_info_3_1(t_control *l);
+void				trace_info_3_0(t_control *l);
+void				trace_info_3(t_control *l, int status);
+/*
+** loadbar.c
+*/
+void				fill_img(char *data, int w, int h, t_col color);
 void				ft_loadbar(t_coef *t, int n);
-void				menu_add(t_control *l, char *str, int status);
-
-t_vec3				damier(t_control *l, t_inter inter);
-void				init_dam(t_control *l, t_inter inter, t_damier *a);
-
-void				exit_error(const char *err);
-void				*get_file(const char *filename);
-t_obj				*handle_scene(char *file);
+/*
+** mlx_2.c
+*/
+void				mlx_circle_1(t_circle c, t_img img, int i, int j);
+void				mlx_circle_2(t_circle c, t_img img, int d);
+void				mlx_circle(t_circle c, t_coef *coef);
+/*
+** utils_2.c
+*/
+void				ft_logo(t_coef *t);
+void				fill_menu(t_coef *t, void *win);
 t_obj				*get_obj(t_obj **start, size_t n);
 t_obj				*get_light_by_id(t_obj *obj, size_t n);
 void				get_n_obj(t_obj **start, int *nb_obj, int *nb_luz);
+void   				free_object_by_id(t_obj **obj, int id);
+/*
+** main_mouse_hook_0.c 
+*/
+void				main_mouse_hook_5(int k, int x, int y, t_control *l);
+void				main_mouse_hook_4(int k, int x, int y, t_control *l);
+void				main_mouse_hook_3(int k, int x, int y, t_control *l);
+void				main_mouse_hook_2(int k, int x, int y, t_control *l);
+void				main_mouse_hook_1(int k, int x, int y, t_control *l);
+/*
+** main_mouse_hook_1.c 
+*/
+void				main_mouse_hook_10(int k, int x, int y, t_control *l);
+void				main_mouse_hook_9(int k, int x, int y, t_control *l);
+void				main_mouse_hook_8(int k, int x, int y, t_control *l);
+void				main_mouse_hook_7(int k, int x, int y, t_control *l);
+void				main_mouse_hook_6(int k, int x, int y, t_control *l);
+/*
+** damier.c
+*/
+void				init_dam(t_control *l, t_inter inter, t_damier *a);
+t_vec3				damier(t_control *l, t_inter inter);
+/*
+** key_pr_2.c
+*/
+void				key_p_1(int k, t_control *e);
+void				key_p_2(int k, t_control *e);
+void				key_p_3(int k, t_control *e);
+void				key_p_4(int k, t_control *e);
+int					key_p(int k, t_control *e);
+/*
+** parser.c
+*/
+void				exit_error(const char *err);
+void				*strjou1(void *dst, const void *src, uint64_t n);
+void				*get_file(const char *filename);
+void				free_token(t_token *token);
+t_token				*new_token(void *data, char type);
+void				add_token(t_token **token, void *data, char type);
+void				*get_token(char *file, char *end, uint8_t len, t_token **token);
+void				*get_basic_token(char *file, t_token **token);
+void				*get_quote_token(char *file, t_token **token);
+void				*get_attr_token(char *file, t_token **token);
+void				*get_block_token(char *file, t_token **token);
+void				tokenize_scene(char *file, t_token **token);
+void				dump_token(t_token *token);
+int					check_foreach_class(char *data);
+int					check_valid_chars(char *data, const char *valid);
+int					check_data_from_type(t_token *token);
+int					check_token_loop(t_token *token, uint8_t *expt);
+int					check_token(t_token *token);
+void				edit_token_types(t_token *token);
+void				set_double_attr(char *attr_value, void *attr_dst);
+void				set_vec_attr(char *attr_value, void *attr_dst);
+void				set_color_attr(char *attr_value, void *attr_dst);
+void				set_surface_attr(char *attr_value, void *attr_dst);
+void				set_char_attr(char *attr_value, void *attr_dst);
+void				set_attr(t_obj *obj, char *attr, char *attr_value);
+t_obj				*new_object(char *obj_class);
 t_obj				*add_object(t_obj **obj, char *obj_class);
+int					create_scene(t_obj **obj, t_token *token, char *obj_class, char *obj_name);
+int					handle_token(t_obj **obj, t_token *token);
+void				free_object(t_obj *obj);
+void				dump_obj(t_obj *obj);
+t_obj				*handle_scene(char *file);
 
 #endif
