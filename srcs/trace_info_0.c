@@ -6,23 +6,15 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:06:24 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 22:27:01 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 22:35:38 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-char	*init_mlx_str(char *buf, char *s1, char *s2)
-{
-	ft_strcpy(buf, s1);
-	ft_strcat(buf, s2);
-	free(s2);
-	return (buf);
-}
-
 void	trace_info_0_3(t_control *c, int *h, int col)
 {
-	char	buf[40];
+	char	buf[255];
 
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col,
 	init_mlx_str(buf, "Pos X      (AL/AR): ", ft_itoa(c->coef->pos_x)));
@@ -46,12 +38,10 @@ init_mlx_str(buf, "Rot Z        (Q/E): ", ft_itoa(c->coef->rot_z % 360)));
 
 void	trace_info_0_2(t_control *c, int *h, int col)
 {
-	float	f;
 	char	s[255];
-	char	buf[40];
+	char	buf[255];
 
-	f = (float)(c->coef->time - c->coef->prev_time) / 1000000;
-	ftoa(f, s, 4);
+	ftoa((float)(c->coef->time - c->coef->prev_time) / 1000000, s, 4);
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 25, col, \
 			"    Scene");
 	mlx_string_put(c->coef->mlx, c->coef->win, W + 50, *h += 15, col, \

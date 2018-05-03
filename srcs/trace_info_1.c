@@ -6,11 +6,19 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:06:29 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 14:06:32 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 22:34:56 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+
+char	*init_mlx_str(char *buf, char *s1, char *s2)
+{
+	ft_strcpy(buf, s1);
+	ft_strcat(buf, s2);
+	free(s2);
+	return (buf);
+}
 
 void	trace_info_1_2(t_img *bouton, t_control *c, int *n)
 {

@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 21:13:29 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 22:35:22 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -669,6 +669,7 @@ void				trace_info_0(t_control *c);
 /*
 ** trace_info_1.c
 */
+char				*init_mlx_str(char *buf, char *s1, char *s2);
 void				trace_info_1_2(t_img *bouton, t_control *c, int *n);
 void				trace_info_1_1(t_img *bouton, t_control *c, int *n);
 void				trace_info_1_0(t_scrol *lum, t_scrol *scroll);
