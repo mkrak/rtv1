@@ -6,7 +6,7 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:04 by lgautier          #+#    #+#             */
-/*   Updated: 2018/05/03 13:23:35 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 17:00:57 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	gen_attr(t_obj *obj)
 	init_quadric(&(obj->q));
 	if (g_class[obj->attr.id].init_quadric)
 		g_class[obj->attr.id].init_quadric(&(obj->q), obj->attr);
-	obj->attr.albedo = vec3((obj->attr.color & 0xff) / 255., (obj->attr.color >> 8 & 0xff) / 255., (obj->attr.color >> 16 & 0xff) / 255.);
+	obj->attr.albedo = vec3((obj->attr.color >> 16 & 0xff) / 255., (obj->attr.color >> 8 & 0xff) / 255., (obj->attr.color & 0xff) / 255.);
 	scale(&(obj->q), obj->attr.scale);
 	rotate(&(obj->q), obj->attr.rot);
 	translate(&(obj->q), obj->attr.pos);

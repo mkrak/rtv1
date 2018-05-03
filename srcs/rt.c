@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 12:53:25 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 16:58:25 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,6 @@ t_vec3		ombre(t_ray ray, t_control *l, t_inter t, t_obj *light)
 		power = vec3(0, 0, 0);
 	else
 		power = k_vec3(light->attr.radius * fmax(0, dot(ray.dir, t.norm))\
-		/ dist_l2, OBJ.attr.albedo);
+		/ dist_l2, get_obj(&l->obj, t.id)->attr.albedo);
 	return (power);
 }

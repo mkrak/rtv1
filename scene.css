@@ -3,9 +3,10 @@
 @define .sphere "s0"
 
 #s0 {
+	color: #f70000;
 	radius: 20;
 }
 
-#p0 #s0 {
+#p0 {
 	color: #00ffff;
 }
