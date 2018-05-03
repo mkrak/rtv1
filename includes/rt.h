@@ -6,7 +6,11 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/05/03 21:13:29 by clanier          ###   ########.fr       */
+=======
+/*   Updated: 2018/05/03 19:51:17 by lgautier         ###   ########.fr       */
+>>>>>>> e03ddac2f6dc25897b5fc3676b58d1f89fc65327
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -580,6 +584,8 @@ void				mlx_scroll_bar(t_scrol s, t_coef *coef);
 /*
 ** autres.c
 */
+t_vec3				albed(int color);
+t_vec3				mult_vec3(t_vec3 a, t_vec3 b);
 void				borne(t_vec3 *color);
 void				init_mouv(t_control *l);
 double				getnorm2(t_vec3 p);
@@ -702,7 +708,6 @@ void				fill_menu(t_coef *t, void *win);
 t_obj				*get_obj(t_obj **start, size_t n);
 t_obj				*get_light_by_id(t_obj *obj, size_t n);
 void				get_n_obj(t_obj **start, int *nb_obj, int *nb_luz);
-void				free_object_by_id(t_obj **obj, int id);
 /*
 ** main_mouse_hook_0.c
 */

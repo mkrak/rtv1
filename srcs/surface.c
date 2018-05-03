@@ -6,7 +6,7 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:11 by lgautier          #+#    #+#             */
-/*   Updated: 2018/05/03 19:26:38 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:57:36 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	init_object(t_obj *obj, uint32_t id)
 	obj->attr.radius = id == OBJ_LIGHT ? 156660000 : 1;
 	obj->attr.type = ST_NORMAL;
 	obj->attr.axe = 'y';
-	obj->attr.color = 0xf70000;
+	obj->attr.color = id == OBJ_LIGHT ? 0xffffff : 0xf70000;
 	obj->attr.rot = vec3(0, 0, 0);
 	obj->attr.scale = vec3(1, 1, 1);
 }

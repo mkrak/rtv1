@@ -78,8 +78,8 @@ void	key_p_3(int k, t_control *e)
 		e->shif = 1;
 	if ((!OS && k == K_W) || (OS && k == K_Z))
 	{
-		usleep(100000);
-		rename_win(e);
+		e->coef->name = ft_strdup("export/export.bmp");
+		export_file(e);
 	}
 	if (k == K_C)
 	{

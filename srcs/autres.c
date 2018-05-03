@@ -6,11 +6,30 @@
 /*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 18:55:01 by clanier           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/05/03 20:28:19 by clanier          ###   ########.fr       */
+=======
+/*   Updated: 2018/05/03 19:53:46 by lgautier         ###   ########.fr       */
+>>>>>>> e03ddac2f6dc25897b5fc3676b58d1f89fc65327
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
+
+t_vec3		mult_vec3(t_vec3 a, t_vec3 b)
+{
+	return (vec3(a.x * b.x, a.y * b.y, a.z * b.z));
+}
+
+t_vec3		albed(int color)
+{
+	t_vec3	albedo;
+
+	albedo.x = (color >> 16 & 0xff) / 255.;
+	albedo.y = (color >> 8 & 0xff) / 255.;
+	albedo.z = (color & 0xff) / 255.;
+	return (albedo);
+}
 
 void	borne(t_vec3 *color)
 {

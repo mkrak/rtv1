@@ -6,7 +6,11 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/05/03 21:20:38 by clanier          ###   ########.fr       */
+=======
+/*   Updated: 2018/05/03 19:48:54 by lgautier         ###   ########.fr       */
+>>>>>>> e03ddac2f6dc25897b5fc3676b58d1f89fc65327
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +87,25 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 	int		i;
 	t_inter	t;
 	t_inter	inter;
+<<<<<<< HEAD
 
 	i = 0;
 	t.t = 0;
 	if (nb_ite == 0)
 		return (vec3(0, 0, 0));
+=======
+	t_vec3	power;
+	t_vec3	to_eye;
+	t_vec3	reflected;
+	double	ldotnormal;
+	double	dist_l2;
+
+	i = 0;
+	ombre.t = 0;
+	ray.origin = add_vec3(t.pos, k_vec3(0.001, t.norm));
+	ray.dir = normalize(sub_vec3(light->attr.pos, t.pos));
+	to_eye = normalize(sub_vec3(t.pos, vec3(l->coef->posx, l->coef->posy, l->coef->posz)));
+>>>>>>> e03ddac2f6dc25897b5fc3676b58d1f89fc65327
 	l->current = l->obj;
 	while (l->current)
 	{
@@ -103,5 +121,16 @@ t_vec3		get_color(t_control *l, int nb_ite, t_ray ray)
 		l->current = l->current->next;
 		i++;
 	}
+<<<<<<< HEAD
 	return (get_color_inter(l, nb_ite, t, ray));
+=======
+	ldotnormal = fmax(0, dot(ray.dir, t.norm));
+	reflected = sub_vec3(k_vec3(2 * ldotnormal, t.norm), ray.dir);
+	dist_l2 = getnorm2(sub_vec3(light->attr.pos, t.pos));
+	if (ombre.t != 0 && ombre.t * ombre.t < dist_l2)
+		power = vec3(0, 0, 0);
+	else
+		power = k_vec3(light->attr.radius * get_obj(&l->obj, t.id)->attr.kd * ldotnormal / dist_l2, mult_vec3(albed(light->attr.color), get_obj(&l->obj, t.id)->attr.albedo));
+	return (power);
+>>>>>>> e03ddac2f6dc25897b5fc3676b58d1f89fc65327
 }
