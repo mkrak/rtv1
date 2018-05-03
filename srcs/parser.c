@@ -6,7 +6,7 @@
 /*   By: clanier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:28:01 by clanier           #+#    #+#             */
-/*   Updated: 2018/05/02 19:20:42 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:16:29 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -600,8 +600,8 @@ void	free_object(t_obj *obj)
 		free(tmp);
 	}
 }
-/*
-void	rt(t_obj *obj)
+
+void	rt2(t_obj *obj)
 {
 	while (obj)
 	{
@@ -623,7 +623,7 @@ void	rt(t_obj *obj)
 			printf("\n------------------------------\n\n");
 	}
 }
-*/
+
 t_obj	*handle_scene(char *file)
 {
 	t_token	*token;
@@ -642,8 +642,8 @@ t_obj	*handle_scene(char *file)
 		return (obj);
 	else
 		printf("\033[31;1m[RT] \033[0mAn error has occurred\n");
-//	free_object(obj);
-//	free_token(token);
+	free_object(obj);
+	free_token(token);
 }
 /*
 int	main(int ac, char **av)

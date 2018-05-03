@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:46:17 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/02 20:48:29 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 12:21:05 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int		rt_search(int x, int y, t_control *l)
 	t.t = 0;
 	r.dir = normalize(vec3((x - W / 2 + 0.25), -(y - H / 2 + 0.25), -W / \
 		(2 * tan(fov / 2))));
-	r.dir = rotate_cam(r.dir, l->coef->rot_y, l->coef->rot_x, l->coef->rot_z);
-	r.origin = vec3(l->coef->pos_y, l->coef->pos_z, l->coef->pos_x);
+	r.dir = rotate_cam(r.dir, l->coef->rot_x, l->coef->rot_y, l->coef->rot_z);
+	r.origin = vec3(l->coef->pos_x, l->coef->pos_y, l->coef->pos_z);
 	l->current = l->obj;
 	while (l->current)
 	{

@@ -1,10 +1,13 @@
-@define .plane "p0"
 @define .sphere "s0"
+@define .cylinder "s1"
 
 #s0 {
 	radius: 20;
 }
 
-#p0 {
-	color: #00f7f7;
+#s1 {
+	pos: 20,20,-20
+	rot: 45,45,45
+	radius: 15;
+	color: #00f7f7
 }

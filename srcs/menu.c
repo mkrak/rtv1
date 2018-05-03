@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 16:47:33 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/01 16:47:34 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 13:24:38 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ int		main_mouse_hook_not(int x, int y, t_control *l)
 
 int		main_mouse_hook(int k, int x, int y, t_control *l)
 {
-	int		id;
+//	int		id;
 
-	if (k == 1 && ((x >= 0 && x <= W) && (y >= 0 && y <= H)) && l)
-	{
-		l->coef->status = 1;
-		l->coef->menu_state = 3;
-		id = rt_search(x, y, l);
-		l->coef->swap = get_obj(&l->obj, id);
-		l->coef->id_swap = l->coef->cur;
-		l->coef->cur = id;
-		trace_info_3(l, 2);
-	}
+//	if (k == 1 && ((x >= 0 && x <= W) && (y >= 0 && y <= H)) && l)
+//	{
+//		l->coef->status = 1;
+//		l->coef->menu_state = 3;
+//		id = rt_search(x, y, l);
+//		l->coef->swap = get_obj(&l->obj, id);
+//		l->coef->id_swap = l->coef->cur;
+//		l->coef->cur = id;
+//		trace_info_3(l, 2);
+//	}
 	main_mouse_hook_1(k, x, y, l);
 	main_mouse_hook_2(k, x, y, l);
 	main_mouse_hook_3(k, x, y, l);

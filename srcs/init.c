@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 21:06:23 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 13:03:24 by lgautier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void		init_coef(t_control *l)
 	l->coef->rot_y = 0;
 	l->coef->rot_z = 0;
 	l->coef->pos_x = 0;
-	l->coef->pos_y = 10;
-	l->coef->pos_z = 50;
+	l->coef->pos_y = 50;
+	l->coef->pos_z = 100;
 	l->coef->cartoon = 0;
 	l->coef->wtf = 0;
 	l->coef->negatif = 0;
@@ -59,8 +59,8 @@ void		init_coef(t_control *l)
 void		init_w(t_control *l)
 {
 	init_coef(l);
-	l->l[0].p = vec3(0, 20, 70);
-	l->l[0].power = 156660000;
+	l->l[0].p = vec3(0, 500, 100);
+	l->l[0].power = 15666000000;
 //	l->l[1].p = vec3(30, 0, 25);
 //	l->l[1].power = 36666000;
 //	l->l[2].p = vec3(-30, 0, 25);
