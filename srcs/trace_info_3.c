@@ -6,7 +6,7 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:06:37 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/02 18:39:59 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 19:24:00 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	trace_info_3_1(t_control *l)
 	l->coef->rotx = (int)obj->attr.rot.x;
 	l->coef->roty = (int)obj->attr.rot.y;
 	l->coef->rotz = (int)obj->attr.rot.z;
-	l->coef->strx = (int)obj->attr.scale.x;// * 100;
-	l->coef->stry = (int)obj->attr.scale.y;// * 100;
-	l->coef->strz = (int)obj->attr.scale.z;// * 100;
+	l->coef->strx = (int)obj->attr.scale.x;
+	l->coef->stry = (int)obj->attr.scale.y;
+	l->coef->strz = (int)obj->attr.scale.z;
 	l->coef->rad = (int)obj->attr.radius;
 	l->coef->r = l->coef->color.c[0];
 	l->coef->g = l->coef->color.c[1];
