@@ -27,8 +27,9 @@ void	expand_name(t_control *l, char c)
 		swap = malloc(sizeof(char) * (ft_strlen(l->coef->name) + 1));
 		swap = ft_strdup(l->coef->name);
 		swap[ft_strlen(l->coef->name)] = '\0';
+		free(l->coef->name);
 		l->coef->name = malloc(sizeof(char) * (ft_strlen(l->coef->name) + 2));
-		l->coef->name = ft_strdup(swap);
+		l->coef->name = ft_strcpy(l->coef->name, swap);
 		l->coef->name[ft_strlen(swap)] = c;
 		l->coef->name[ft_strlen(swap) + 1] = '\0';
 		free(swap);
