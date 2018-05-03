@@ -64,4 +64,5 @@ void	mlx_circle(t_circle c, t_coef *coef)
 	mlx_circle_2(c, img, d);
 	mlx_put_image_to_window(coef->mlx, coef->win, img.img, \
 		c.x - c.r, c.y - c.r);
+	mlx_destroy_image(coef->mlx, img.img);
 }

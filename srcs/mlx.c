@@ -76,6 +76,7 @@ void	mlx_rect(t_rect rect, t_coef *coef)
 		y++;
 	}
 	mlx_put_image_to_window(coef->mlx, coef->win, img.img, rect.x, rect.y);
+	mlx_destroy_image(coef->mlx, img.img);
 }
 
 void	mlx_scroll_bar(t_scrol s, t_coef *coef)
