@@ -509,7 +509,7 @@ t_vec3				rot_cam_z(t_vec3 d, double z);
 /*
 ** aliasing.c
 */
-t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
+t_ray				anti_alias(t_pxl p, t_ray ray, int i, t_coef *t);
 void				init_x_y(double *x, double *y, int i);
 t_vec3				aliasing(t_control *l, t_ray ray);
 /*

@@ -29,7 +29,7 @@ void		rt(t_thread *l)
 			i = 0;
 			while (i < l->l.antial && (p.y % (int)fmax(l->l.aliasing, 1) == 0))
 			{
-				ray = anti_alias(p.x, p.y, ray, i, l->l.coef);
+				ray = anti_alias(p, ray, i, l->l.coef);
 				moy[i] = aliasing(&l->l, ray);
 				i++;
 			}
