@@ -6,21 +6,11 @@
 /*   By: lgautier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 19:18:04 by lgautier          #+#    #+#             */
-/*   Updated: 2018/05/03 19:06:43 by clanier          ###   ########.fr       */
+/*   Updated: 2018/05/03 20:26:41 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-void	init_quadric(t_quadric *q)
-{
-	q->d = 0;
-	q->e = 0;
-	q->f = 0;
-	q->g = 0;
-	q->h = 0;
-	q->i = 0;
-}
 
 t_vec3	get_normal(t_quadric q, t_vec3 p)
 {

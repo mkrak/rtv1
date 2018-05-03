@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:40:56 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/02 21:13:15 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 21:13:29 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,7 @@ typedef struct		s_control
 	int			nb_luz;
 	t_obj		*obj;
 	t_obj		*current;
+	t_obj		*light;
 	int			nb_obj;
 	int			obj_i;
 	int			au;
@@ -485,11 +486,9 @@ t_vec3				vec3(double x, double y, double z);
 */
 void				increment(t_pxl *p);
 void				rt(t_thread *l);
-t_vec3				get_color(t_control *l, int nb_ite, t_ray ray, \
-					t_obj *light);
-t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
-					t_control *l);
-t_vec3				ombre(t_ray ray, t_control *l, t_inter t, t_obj *light);
+t_vec3				get_color(t_control *l, int nb_ite, t_ray ray);
+t_inter				intersec(t_quadric q, t_vec3 eye, t_vec3 dir, t_control *l);
+t_vec3				ombre(t_ray ray, t_control *l, t_inter t);
 t_pxl				init_pxl(int x, int y);
 /*
 ** ope_vec.c
@@ -749,12 +748,13 @@ t_token				*new_token(void *data, char type);
 void				add_token(t_token **token, void *data, char type);
 void				*get_token(char *file, char *end, uint8_t len, \
 					t_token **token);
+void				get_attr_from_token(t_token *token,
+					char *obj_class, char *obj_name, t_obj *new);
 void				*get_basic_token(char *file, t_token **token);
 void				*get_quote_token(char *file, t_token **token);
 void				*get_attr_token(char *file, t_token **token);
 void				*get_block_token(char *file, t_token **token);
 void				tokenize_scene(char *file, t_token **token);
-void				dump_token(t_token *token);
 int					check_foreach_class(char *data);
 int					check_valid_chars(char *data, const char *valid);
 int					check_data_from_type(t_token *token);
@@ -773,7 +773,6 @@ int					create_scene(t_obj **obj, t_token *token, \
 					char *obj_class, char *obj_name);
 int					handle_token(t_obj **obj, t_token *token);
 void				free_object(t_obj *obj);
-void				dump_obj(t_obj *obj);
 t_obj				*handle_scene(char *file);
 
 #endif

@@ -6,13 +6,19 @@
 /*   By: cballest <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/03 19:10:15 by cballest          #+#    #+#             */
-/*   Updated: 2018/05/03 19:10:26 by cballest         ###   ########.fr       */
+/*   Updated: 2018/05/03 20:29:34 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-void				hooks(t_control lll)
+void	exit_error(const char *err)
+{
+	printf("\033[31;1m[RT] \033[0m%s\n", err);
+	exit(EXIT_FAILURE);
+}
+
+void	hooks(t_control lll)
 {
 	mlx_hook(lll.coef->win, 6, (1L << 6), main_mouse_hook_not, &lll);
 	mlx_mouse_hook(lll.coef->win, main_mouse_hook, &lll);
@@ -23,7 +29,7 @@ void				hooks(t_control lll)
 	mlx_loop(lll.coef->mlx);
 }
 
-int					main_mallocs(t_control *lll, int ac, char *file, char **av)
+int		main_mallocs(t_control *lll, int ac, char *file, char **av)
 {
 	if (ac != 2)
 		exit_error(ERR_USAGE);

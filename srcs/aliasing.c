@@ -6,7 +6,7 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 12:19:52 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 20:45:26 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,15 @@ void				init_x_y(double *x, double *y, int i)
 
 t_vec3				aliasing(t_control *l, t_ray ray)
 {
-	t_obj		*light;
 	t_vec3		power;
 
 	power = vec3(0, 0, 0);
 	l->obj_i = 0;
 	while (l->obj_i < l->nb_luz)
 	{
-		if (!(light = get_light_by_id(l->obj, l->obj_i)) && ++l->obj_i)
+		if (!(l->light = get_light_by_id(l->obj, l->obj_i)) && ++l->obj_i)
 			continue ;
-		power = add_vec3(power, get_color(l, 5, ray, light));
+		power = add_vec3(power, get_color(l, 5, ray));
 		l->obj_i++;
 	}
 	return (power);

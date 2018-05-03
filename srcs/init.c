@@ -6,13 +6,23 @@
 /*   By: mkrakows <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 16:31:47 by mkrakows          #+#    #+#             */
-/*   Updated: 2018/05/03 13:03:24 by lgautier         ###   ########.fr       */
+/*   Updated: 2018/05/03 20:29:56 by clanier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/rt.h"
 
-void		init_coef(t_control *l)
+void	init_quadric(t_quadric *q)
+{
+	q->d = 0;
+	q->e = 0;
+	q->f = 0;
+	q->g = 0;
+	q->h = 0;
+	q->i = 0;
+}
+
+void	init_coef(t_control *l)
 {
 	l->coef->rot_x = 0;
 	l->coef->rot_y = 0;
@@ -33,7 +43,7 @@ void		init_coef(t_control *l)
 	l->coef->total = l->nb_obj;
 }
 
-void		init_w(t_control *l)
+void	init_w(t_control *l)
 {
 	init_coef(l);
 	l->aliasing = 4;
@@ -41,7 +51,7 @@ void		init_w(t_control *l)
 	multithread(l);
 }
 
-t_vec3		vec3(double x, double y, double z)
+t_vec3	vec3(double x, double y, double z)
 {
 	t_vec3 tmp;
 

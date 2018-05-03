@@ -9,42 +9,50 @@ CFLAGS		=	-Wall -Wextra -g
 LIBFT_DIR	=	libft/
 MLX_DIR		=	minilibx_macos/
 SRCS_DIR	=	srcs/
-SRCS_LIST	=	rt.c \
-				init.c \
-				damier.c \
-				ope_vec.c \
-				ope_vec2.c \
-				keyhook.c \
-				main.c \
-				main_func.c \
-				aliasing.c \
-				export.c \
-				export_2.c \
-				export_3.c \
-				loadbar.c \
-				multithread.c \
-				utils.c \
-				utils_2.c \
-				key_pr.c \
-				key_pr_2.c \
-				autres.c \
-				menu.c \
-				menu_2.c \
-				main_mouse_hook_0.c \
-				menu_hook_1.c \
-				menu_hook_2.c \
-				menu_hook_3.c \
-				mlx.c \
-				mlx_2.c \
-				filtre.c \
-				surface.c \
-				quadric.c \
-				rotation.c \
-				trace_info_0.c \
-				trace_info_1.c \
-				trace_info_2.c \
-				trace_info_3.c \
-				parser.c
+SRCS_LIST	=	 aliasing.c \
+autres.c \
+check_token.c \
+damier.c \
+export.c \
+export_2.c \
+export_3.c \
+filtre.c \
+get_token.c \
+handle_obj.c \
+handle_scene.c \
+handle_token.c \
+init.c \
+key_pr.c \
+key_pr_2.c \
+keyhook.c \
+loadbar.c \
+main.c \
+main_func.c \
+main_mouse_hook_0.c \
+menu.c \
+menu_2.c \
+menu_hook_1.c \
+menu_hook_2.c \
+menu_hook_3.c \
+mlx.c \
+mlx_2.c \
+multithread.c \
+ope_vec.c \
+ope_vec2.c \
+quadric.c \
+rotation.c \
+rt.c \
+intersec.c \
+set_attr.c \
+set_attr_funcs.c \
+surface.c \
+trace_info_0.c \
+trace_info_1.c \
+trace_info_2.c \
+trace_info_3.c \
+utils.c \
+utils_2.c \
+autres_2.c
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS_DIR	=	objs/
 OBJS_LIST	=	$(patsubst %.c, %.o, $(SRCS_LIST))
