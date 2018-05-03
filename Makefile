@@ -4,7 +4,7 @@ SHEL		=	/bin/bash
 OS			=	$(shell uname -s)
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -g
+CFLAGS		=	-Wall -Wextra -Werror
 
 LIBFT_DIR	=	libft/
 MLX_DIR		=	minilibx_macos/
