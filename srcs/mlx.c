@@ -57,11 +57,11 @@ void	mlx_rect(t_rect rect, t_coef *coef)
 
 	img.img = mlx_new_image(coef->mlx, rect.w, rect.h);
 	img.data = mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.end);
-	y = 0;
-	while (y <= rect.h)
+	y = -1;
+	while (++y <= rect.h)
 	{
-		x = 0;
-		while (x <= rect.w)
+		x = -1;
+		while (++x <= rect.w)
 		{
 			if ((x >= 0 && x <= rect.border) ||
 				(x <= rect.w && x >= rect.w - rect.border))
@@ -71,11 +71,10 @@ void	mlx_rect(t_rect rect, t_coef *coef)
 				put_pixel_rect(img, rect, y, x);
 			if (rect.type == 1)
 				put_pixel_rect(img, rect, y, x);
-			x++;
 		}
-		y++;
 	}
 	mlx_put_image_to_window(coef->mlx, coef->win, img.img, rect.x, rect.y);
+	mlx_destroy_image(coef->mlx, img.img);
 }
 
 void	mlx_scroll_bar(t_scrol s, t_coef *coef)
