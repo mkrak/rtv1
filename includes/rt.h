@@ -120,7 +120,7 @@ typedef struct		s_ray
 	t_vec3	dir;
 }					t_ray;
 
-typedef struct 		s_pxl
+typedef struct		s_pxl
 {
 	int		x;
 	int		y;
@@ -146,7 +146,7 @@ typedef	struct		s_attr
 	char			axe;
 	uint8_t			type;
 	uint8_t			id;
-	uint32_t 		color;
+	uint32_t		color;
 	double			kd;
 	double			ks;
 	double			radius;
@@ -467,7 +467,6 @@ static const int		g_tt[N_TT][2] = {
 	{TT_ATTR_VALUE, TTE_ATTR_VALUE}
 };
 
-//typedef	void	(*gen_obj)(t_quadric*, t_attr);
 /*
 ** main.c
 */
@@ -486,7 +485,8 @@ t_vec3				vec3(double x, double y, double z);
 */
 void				increment(t_pxl *p);
 void				rt(t_thread *l);
-t_vec3				get_color(t_control *l, int nb_ite, t_ray ray, t_obj *light);
+t_vec3				get_color(t_control *l, int nb_ite, t_ray ray, \
+					t_obj *light);
 t_inter				intersec(int i, t_quadric q, t_vec3 eye, t_vec3 dir, \
 					t_control *l);
 t_vec3				ombre(t_ray ray, t_control *l, t_inter t, t_obj *light);
@@ -509,7 +509,7 @@ t_vec3				rot_cam_z(t_vec3 d, double z);
 /*
 ** aliasing.c
 */
-t_ray				anti_alias(int px, int py, t_ray ray, int i, t_coef *t);
+t_ray				anti_alias(t_pxl p, t_ray ray, int i, t_coef *t);
 void				init_x_y(double *x, double *y, int i);
 t_vec3				aliasing(t_control *l, t_ray ray);
 /*
@@ -525,10 +525,10 @@ void				rotate(t_quadric *q, t_vec3 rot);
 /*
 ** surface.c
 */
-void        		init_sphere(t_quadric *q, t_attr attr);
-void        		init_cylinder(t_quadric *q, t_attr attr);
-void        		init_plane(t_quadric *q, t_attr attr);
-void        		init_cone(t_quadric *q, t_attr attr);
+void				init_sphere(t_quadric *q, t_attr attr);
+void				init_cylinder(t_quadric *q, t_attr attr);
+void				init_plane(t_quadric *q, t_attr attr);
+void				init_cone(t_quadric *q, t_attr attr);
 void				init_object(t_obj *obj, uint32_t id);
 /*
 ** rotation.c
@@ -703,9 +703,9 @@ void				fill_menu(t_coef *t, void *win);
 t_obj				*get_obj(t_obj **start, size_t n);
 t_obj				*get_light_by_id(t_obj *obj, size_t n);
 void				get_n_obj(t_obj **start, int *nb_obj, int *nb_luz);
-void   				free_object_by_id(t_obj **obj, int id);
+void				free_object_by_id(t_obj **obj, int id);
 /*
-** main_mouse_hook_0.c 
+** main_mouse_hook_0.c
 */
 void				main_mouse_hook_5(int k, int x, int y, t_control *l);
 void				main_mouse_hook_4(int k, int x, int y, t_control *l);
@@ -713,7 +713,7 @@ void				main_mouse_hook_3(int k, int x, int y, t_control *l);
 void				main_mouse_hook_2(int k, int x, int y, t_control *l);
 void				main_mouse_hook_1(int k, int x, int y, t_control *l);
 /*
-** main_mouse_hook_1.c 
+** main_mouse_hook_1.c
 */
 void				main_mouse_hook_10(int k, int x, int y, t_control *l);
 void				main_mouse_hook_9(int k, int x, int y, t_control *l);
@@ -734,6 +734,11 @@ void				key_p_3(int k, t_control *e);
 void				key_p_4(int k, t_control *e);
 int					key_p(int k, t_control *e);
 /*
+** main_func.c
+*/
+void				hooks(t_control lll);
+int					main_mallocs(t_control *lll, int ac, char *file, char **av);
+/*
 ** parser.c
 */
 void				exit_error(const char *err);
@@ -742,7 +747,8 @@ void				*get_file(const char *filename);
 void				free_token(t_token *token);
 t_token				*new_token(void *data, char type);
 void				add_token(t_token **token, void *data, char type);
-void				*get_token(char *file, char *end, uint8_t len, t_token **token);
+void				*get_token(char *file, char *end, uint8_t len, \
+					t_token **token);
 void				*get_basic_token(char *file, t_token **token);
 void				*get_quote_token(char *file, t_token **token);
 void				*get_attr_token(char *file, t_token **token);
@@ -763,7 +769,8 @@ void				set_char_attr(char *attr_value, void *attr_dst);
 void				set_attr(t_obj *obj, char *attr, char *attr_value);
 t_obj				*new_object(char *obj_class);
 t_obj				*add_object(t_obj **obj, char *obj_class);
-int					create_scene(t_obj **obj, t_token *token, char *obj_class, char *obj_name);
+int					create_scene(t_obj **obj, t_token *token, \
+					char *obj_class, char *obj_name);
 int					handle_token(t_obj **obj, t_token *token);
 void				free_object(t_obj *obj);
 void				dump_obj(t_obj *obj);
